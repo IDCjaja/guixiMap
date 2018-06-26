@@ -1,0 +1,46 @@
+<template>
+  <div class="filter-body">
+    <div class="filter-select">
+      <span class="filter-select-title">分类</span>
+      <el-select v-model="category" multiple placeholder="请选择">
+        <el-option
+          v-for="(item,index) in categories"
+          :key="index"
+          :label="item.name"
+          :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="filter-list-wrapper">
+      <ul>
+        <li
+          v-for="item in categoryList"
+          :key="item.value">
+          <span class="filter-category-icon">
+            <svg height="20px" width="20px"><use xlink:href="#chooseIcon1" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
+          </span>
+          <span class="filter-tag-title">{{ item.name }}</span>
+          <span>{{ item.number }}个</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      category: ''
+    }
+  },
+  props: {
+    categories: Array,
+    categoryList: Array
+  }
+}
+</script>
+
+<style>
+
+</style>
