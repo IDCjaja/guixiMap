@@ -1,7 +1,7 @@
 <template>
   <div class="search-dropdown" v-if="searchDropdownShow">
     <ul v-if="searchResult">
-      <li v-for="(item,index) in searchResultList" :key="index">
+      <li v-for="(item,index) in searchResultList" :key="index" v-on:click="triggerSetCenter(item.id)">
         <i class="el-icon-search"></i>
         <span>{{item.name}}</span>
         <small>{{item.address}}</small>
@@ -20,6 +20,12 @@ export default {
     searchDropdownShow: Boolean,
     searchResult: Boolean,
     searchResultList: Array
+  },
+  methods: {
+    triggerSetCenter(id) {
+      this.$emit('triggerSetCenter',id)
+      alert(id)
+    }
   }
 }
 </script>
