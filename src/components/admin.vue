@@ -34,7 +34,7 @@
     </div>
     <div class="filter-wrapper" :class="{filterShow: filterShow}">
       <div class="filter-icon" @click="filterOpen" :class="{display: !filterShow, hidden: filterShow}">
-        <i class="el-icon-info"></i><span>筛选</span>
+        <img src="http://p1ctmsz1g.bkt.clouddn.com/filter.jpg" class="filter-icon-info"/><span>筛选</span>
       </div>
       <div class="filter-content" :class="{display: filterShow, hidden: !filterShow}">
         <filter-category :categories="categories" :category-list="categoryList"></filter-category>
@@ -82,7 +82,8 @@ export default {
       searchResult: false,
       events: {
         click() {
-          self.filterShow = false
+          self.filterShow = false;
+          self.searchDropdownShow =false
         }
       },
       zoom: 16,
@@ -329,15 +330,11 @@ export default {
       marker.setMap(o);
     },
     setCenterLngLat(centerMarkerId) {
-      console.log(this.center)
-      debugger
-      this.markerList.forEach(marker => {
-        if (marker.id = centerMarkerId) {
-          this.center = [marker.longitude,marker.latitude]
-          console.log(this.center)
+      this.markerList.forEach( item => {
+        if ( centerMarkerId === item.id ) {
+          this.center = [item.longitude,item.latitude]
         }
       })
-
     }
   }
 }
