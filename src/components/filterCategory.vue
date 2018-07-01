@@ -5,6 +5,7 @@
       <el-select v-model="category" multiple placeholder="请选择">
         <el-option
           v-for="(item,index) in categories"
+          v-if="!item.defaultCategory"
           :key="index"
           :label="item.name"
           :value="item.value">
@@ -17,7 +18,7 @@
           v-for="item in categoryList"
           :key="item.value">
           <span class="filter-category-icon">
-            <svg height="20px" width="20px"><use xlink:href="#chooseIcon1" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
+            <svg height="20px" width="20px"><use :xlink:href="'#chooseIcon'+item.categoryId" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
           </span>
           <span class="filter-tag-title">{{ item.name }}</span>
           <span>{{ item.number }}个</span>

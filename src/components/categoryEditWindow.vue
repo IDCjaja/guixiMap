@@ -25,37 +25,37 @@
           <i class="el-icon-arrow-down" v-on:click="editCategoryHidden"></i>
         </span>
       </div>
-      <div class="edit-icon-wrapper">
+      <div class="edit-icon-content">
         <el-input placeholder="请输入内容"></el-input>
         <div class="edit-icon-list">
           <div class="svg-box">
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" name="category_select" />
-              <svg class="radio-button_inner" height="30px" width="30px">
+              <svg class="radio-button_inner" height="20px" width="20px">
                 <use xlink:href="#chooseIcon1" fill="#73B724" stroke="#73B724"></use>
               </svg>
             </label>
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" name="category_select" />
-              <svg class="radio-button_inner" height="30px" width="30px">
+              <svg class="radio-button_inner" height="20px" width="20px">
                 <use xlink:href="#chooseIcon2" fill="#73B724" stroke="#73B724"></use>
               </svg>
             </label>
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" name="category_select" />
-              <svg class="radio-button_inner" height="30px" width="30px">
+              <svg class="radio-button_inner" height="20px" width="20px">
                 <use xlink:href="#chooseIcon3" fill="#73B724" stroke="#73B724"></use>
               </svg>
             </label>
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" name="category_select" />
-              <svg class="radio-button_inner" height="30px" width="30px">
+              <svg class="radio-button_inner" height="20px" width="20px">
                 <use xlink:href="#chooseIcon4" fill="#73B724" stroke="#73B724"></use>
               </svg>
             </label>
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" name="category_select" />
-              <svg class="radio-button_inner" height="30px" width="30px">
+              <svg class="radio-button_inner" height="20px" width="20px">
                 <use xlink:href="#chooseIcon5" fill="#73B724" stroke="#73B724"></use>
               </svg>
             </label>

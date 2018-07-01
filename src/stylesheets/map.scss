@@ -31,6 +31,9 @@ $dashed: 1px dashed #ccc;
     }
   }
 }
+.amap-info-content {
+  padding: 0 !important;
+}
 .search-wrapper {
   position: absolute;
   top: 20px;
@@ -257,18 +260,17 @@ $dashed: 1px dashed #ccc;
   }
 }
 .window-edit {
-  width: 270px;
+  width: 240px;
   background: #fff;
   .color-wrapper {
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-bottom: $dashed;
     .color-title {
       text-align: left;
       padding: 5px 0;
       font-size: 14px;
-      font-weight: bold;
       @include flex-space-between;
-      span {
+      i.el-icon-circle-plus-outline {
         font-size: 16px;
         cursor: pointer;
       }
@@ -306,7 +308,7 @@ $dashed: 1px dashed #ccc;
             position: relative;
             display: inline-flex;
             flex: 1;
-            margin: 5px;
+            margin: 5px 0;
             cursor: pointer;
             input.radio-button_orig-readio {
               position: absolute;
@@ -323,14 +325,14 @@ $dashed: 1px dashed #ccc;
             span.color-bar-item {
               flex-grow: 0;
               flex-shrink: 0;
-              flex-basis: 210px;
-              height: 24px;
+              flex-basis: 180px;
+              height: 30px;
               display: inline-block;
-              border-radius: 12px;
+              border-radius: 15px;
               color: #fff;
               padding: 0 10px;
               line-height: 24px;
-              font-size: 14px;
+              font-size: 12px;
               font-weight: bold;
               z-index: 5;
               transition: flex-basis .3s;
@@ -338,7 +340,7 @@ $dashed: 1px dashed #ccc;
               justify-content: space-between;
               align-items: center;
               &.active {
-                flex-basis: 158px;
+                flex-basis: 128px;
               }
               i.el-icon-check {
                 line-height: 30px;
@@ -367,8 +369,14 @@ $dashed: 1px dashed #ccc;
           }
         } 
       }
+      .el-input {
+        margin-top: 10px;
+        .el-input__inner {
+          height: 30px;
+        }
+      }
       .radio-group {
-        padding: 10px 0;
+        padding: 15px 0;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -403,7 +411,7 @@ $dashed: 1px dashed #ccc;
             }
           }
           span.radio-button_inner {
-            width: 50px;
+            width: 42px;
             height: 30px;
             text-align: center;
             border-radius: 5px;
@@ -421,8 +429,11 @@ $dashed: 1px dashed #ccc;
     padding: 10px 0;
     border-bottom: $dashed;
     .icon-title {
-      padding: 0 15px;
+      padding: 0 20px;
       @include flex-space-between;
+      span {
+        font-size: 14px;
+      }
       .el-icon-circle-plus-outline {
         cursor: pointer;
         &.active {
@@ -474,6 +485,7 @@ $dashed: 1px dashed #ccc;
         }
         span {
           flex: auto;
+          font-size: 12px;
           cursor: pointer;
         }
         .el-icon-edit {
@@ -489,9 +501,13 @@ $dashed: 1px dashed #ccc;
         }
       }
     }
-    .edit-icon-wrapper {
+    .edit-icon-content {
+      padding: 0 20px;
       .el-input {
-        margin-top: 5px;
+        margin: 10px 0;
+        .el-input__inner {
+          height: 30px;
+        }
       }
       .edit-icon-list {
         .svg-box {
@@ -520,7 +536,7 @@ $dashed: 1px dashed #ccc;
     }
   }
   .window-edit-footer {
-    padding: 10px 15px 0 15px;
+    padding: 10px 20px;
     cursor: pointer;
     @include flex-space-between;
     img {
@@ -530,11 +546,12 @@ $dashed: 1px dashed #ccc;
   .submit-btn-group {
     text-align: right;
     button{
-      padding: 8px 12px;
-      margin: 5px;
+      padding: 7px 6px;
+      margin: 5px 0 15px 0;
       &.orange-btn {
         background: #f07235;
         color: #fff;
+        margin-left: 10px;
         &.el-button:focus, &.el-button:hover {
           background: #f3631a;
         }

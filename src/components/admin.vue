@@ -177,38 +177,38 @@ export default {
       tagIcon: '',
       tagColor: '',
       categories: [
-        {id:1,name:'全部',value: '全部',tagId:2},
-        {id:2,name:'企业',value: '企业',tagId:3},
-        {id:3,name:'个人',value: '个人',tagId:2},
-        {id:4,name:'法人',value: '法人',tagId:4}
+        {id:1,name:'全部',value: '全部',tagId:2,defaultCategory: true},
+        {id:2,name:'企业',value: '企业',tagId:3,defaultCategory: false},
+        {id:3,name:'个人',value: '个人',tagId:2,defaultCategory: false},
+        {id:4,name:'法人',value: '法人',tagId:4,defaultCategory: false}
       ],
       tags:[
-        {id:1,color:'#808080',name:'',value: '全部', label: '全部'},
-        {id:2,color:'#ff8c00',name:'',value: '黄色', label: '黄色'},
-        {id:3,color:'#ff0000',name:'',value: '红色', label: '红色'},
-        {id:4,color:'#228B22',name:'',value: '绿色', label: '绿色'},
+        {id:1,color:'#a0a0a0',name:'',value: '全部', label: '全部'},
+        {id:2,color:'#feb902',name:'',value: '黄色', label: '黄色'},
+        {id:3,color:'#f52b1f',name:'',value: '红色', label: '红色'},
+        {id:4,color:'#73b724',name:'',value: '绿色', label: '绿色'},
       ],
       chooseTags:[
-        {id:1,color:'#808080',name:''},
-        {id:2,color:'#ff8c00',name:''},
-        {id:3,color:'#ff0000',name:''},
-        {id:4,color:'#228B22',name:''},
+        {id:1,color:'#a2a2a2',name:''},
+        {id:2,color:'#f52b1f',name:''},
+        {id:3,color:'#73b724',name:''},
+        {id:4,color:'#feb902',name:''},
         {id:5,color:'#222222',name:''},
-        {id:6,color:'#FF7F50',name:''},
-        {id:7,color:'#A52A2A',name:''},
-        {id:8,color:'#00BFFF',name:''}
+        {id:6,color:'#f07235',name:''},
+        {id:7,color:'#e72b5d',name:''},
+        {id:8,color:'#21bdd4',name:''}
       ],
       categoryList: [
-        {name: '全部', number: '2'},
-        {id:1,name: '企业', number:'1',categoryId:1},
-        {id:2,name: '个人', number: '1',tagId:2,categoryId:2},
-        {id:3,name: '法人', number: '0',tagId:3,categoryId:3}
+        {id:1,name: '全部', number: '2',categoryId:1},
+        {id:2,name: '企业', number:'1',categoryId:2},
+        {id:3,name: '个人', number: '1',tagId:2,categoryId:3},
+        {id:4,name: '法人', number: '0',tagId:3,categoryId:4}
       ],
       tagList: [
-        {id:1,name: '等待检查', color: '#ccc', number: '2',defaultColor: true},
-        {id:2,name: '不合格', color: 'red', number: '5',defaultColor: false},
-        {id:3,name: '合格', color: 'green', number: '1',defaultColor: false},
-        {id:4,name: '待整改', color: 'yellow', number: '0',defaultColor: false}
+        {id:1,name: '等待检查', color: '#a0a0a0', number: '2',defaultColor: true},
+        {id:2,name: '不合格', color: '#f52b1f', number: '5',defaultColor: false},
+        {id:3,name: '合格', color: '#73b724', number: '1',defaultColor: false},
+        {id:4,name: '待整改', color: '#feb902', number: '0',defaultColor: false}
       ],
       existedCategories: [
         {iconUrl: 'http://p1ctmsz1g.bkt.clouddn.com/10.png',iconText:'默认图标'},
