@@ -5,6 +5,7 @@ import VueAMap from 'vue-amap'
 import App from './App'
 import router from './router'
 import './stylesheets/index.scss'
+import './stylesheets/mobileMap.scss'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 

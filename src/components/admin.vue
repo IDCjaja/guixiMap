@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <header-nav></header-nav>
     <el-amap
       vid="amapDemo"
       :amap-manager="amapManager"
@@ -25,7 +26,7 @@
       </el-amap-info-window>
     </el-amap>
     <div class="search-wrapper">
-      <el-input class="search-input" placeholder="" suffix-icon="el-icon-search" @change="handleInput"></el-input>
+      <el-input class="search-input" placeholder="" :value="searchInputValue" suffix-icon="el-icon-search" @change="handleInput" @keyup.enter.native="keyCode"></el-input>
       <search-dropdown
         :search-dropdown-show="searchDropdownShow" 
         :search-result="searchResult"
@@ -52,6 +53,7 @@
 <script>
 import { AMapManager } from 'vue-amap'
 import Vue from 'vue'
+import headerNav from './headerNav'
 import searchDropdown from './searchDropdown'
 import filterCategory from './filterCategory'
 import filterTag from './filterTag'
@@ -64,6 +66,7 @@ let amapManager = new AMapManager();
 export default {
   name: 'admin',
   components: {
+    headerNav,
     searchDropdown,
     filterCategory,
     filterTag,
@@ -76,6 +79,7 @@ export default {
     return {
       amapManager,
       count: 1,
+      searchInputValue:'',
       filterShow: false,
       informationShow: false,
       searchDropdownShow: false,
@@ -86,7 +90,7 @@ export default {
           self.searchDropdownShow =false
         }
       },
-      zoom: 16,
+      zoom: 15,
       center: [104.109191,30.671637],
       window: {
         position: [104.109191,30.671637],
@@ -307,7 +311,21 @@ export default {
       this.informationShow = false
     },
     handleInput(event) {
+      this.searchInputValue = event;
       if(event !== ""){
+        this.searchDropdownShow = true;
+        if(this.searchResultList.length) {
+          this.searchResult = true
+        } else {
+          this.searchResult = false
+        }
+      } else {
+        this.searchDropdownShow = false
+      }
+    },
+    keyCode() {
+      if(this.searchInputValue !== ""){
+        debugger
         this.searchDropdownShow = true;
         if(this.searchResultList.length) {
           this.searchResult = true
@@ -332,7 +350,8 @@ export default {
     setCenterLngLat(centerMarkerId) {
       this.markerList.forEach( item => {
         if ( centerMarkerId === item.id ) {
-          this.center = [item.longitude,item.latitude]
+          this.center = [item.longitude,item.latitude];
+          this.zoom = 18
         }
       })
     }
