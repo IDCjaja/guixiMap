@@ -1,3 +1,5 @@
+@import './select.scss';
+
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -7,6 +9,12 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.display {
+  display: block;
+}
+.hidden {
+  display: none;
 }
 .mobile-map {
   position: absolute;
@@ -25,7 +33,7 @@
       border-radius: 4px;
       .el-input__inner {
         height: 55px;
-        font-size: 18px;
+        font-size: 16px;
         padding-left: 40px;
       }
       .el-input__prefix {
@@ -37,9 +45,16 @@
     }
   }
   .mobile-filter-content {
+    width: 50px;
+    height: 50px;
     position: absolute;
-    bottom: 40px;
+    bottom: 100px;
     right: 20px;
+    transition: all .5s;
+    &.filterCollapse {
+      width: 300px;
+      height: 520px;
+    }
     .filter-icon-collapse {
       width: 50px;
       height: 50px;
@@ -47,6 +62,9 @@
       background: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,.3);
       @include flex-center;
+      &.hidden {
+        display: none;
+      }
       .el-icon-setting {
         font-size: 30px;
       }
@@ -133,6 +151,38 @@
             }
           }
         }
+      }
+    }
+  }
+  .message-footer {
+    width: 96%;
+    padding: 5px 0;
+    margin: 0 2%;
+    position: absolute;
+    bottom: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    @include flex-center;
+    .message-content {
+      flex: auto;
+      .title {
+        font-size: 16px;
+        text-align: left;
+        padding-left: 10px;
+      }
+      .address {
+        font-size: 14px;
+        color: #6e6a6a;
+        text-align: left;
+        padding-left: 10px;
+      }
+    }
+    .message-more {
+      width: 40px;
+      span {
+        font-size: 24px;
+        font-weight: bold;
       }
     }
   }

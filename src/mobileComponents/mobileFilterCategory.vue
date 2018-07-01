@@ -23,6 +23,11 @@
 <script>
 export default {
   name: 'mobileFilterCategory',
+  data() {
+    return {
+      category: ''
+    }
+  },
   props: {
     categoryList: Array
   }
