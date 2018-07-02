@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import admin from '@/components/admin'
 import adminMobile from '@/pages/adminMobile'
 import select from '@/pages/select'
+import mobileInformation from '@/pages/mobileInformation'
+import search from '@/pages/search'
 
 Vue.use(Router)
 
@@ -24,9 +26,14 @@ export default new Router({
       component: select
     },
     {
-      path: '/mobile/information',
-      name: 'information',
-      component: information
+      path: '/mobile/mobileInformation',
+      name: 'mobileInformation',
+      component: mobileInformation
+    },
+    {
+      path: '/mobile/search',
+      name: 'search',
+      component: search
     }
   ]
 })
