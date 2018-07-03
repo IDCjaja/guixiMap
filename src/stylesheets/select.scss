@@ -1,16 +1,18 @@
 .select-container {
-  background: #f8f6f6;
+  background: #f4f4f4;
   position: absolute;
   width: 100%;
   height: 100%;
   .select-content {
     background: #fff;
-    padding-top: 10px; 
-    margin-top: 10px;
+    padding-top: 19px; 
+    margin: 10px 2% 0 2%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
     .select-title {
       text-align: left;
-      border-left: 4px solid orange;
-      padding-left: 10px;
+      border-left: 5px solid orange;
+      padding-left: 9px;
       font-size: 14px;
       line-height: 1;
     }
@@ -21,7 +23,7 @@
           display: flex;
           margin-left: 0;
           align-items: center;
-          padding: 5px 20px;
+          padding: 5px 15px 12px 15px;
           line-height: 30px;
           .el-checkbox__input {
             &.is-checked .el-checkbox__inner {
@@ -38,9 +40,9 @@
             align-items: center;
             color: #222222;
             .prefix-span {
-              width: 30px;
-              height: 30px;
-              line-height: 30px;
+              width: 20px;
+              height: 20px;
+              line-height: 20px;
               display: inline-block;
               .color-block {
                 width: 10px;
@@ -56,7 +58,29 @@
               padding-left: 10px;
               color: #222222;
             }
+            .select-number {
+              width: 80px;
+            }
           }
+        }
+      }
+    }
+  }
+  .footer-btn-group {
+    width: 94%;
+    height: 60px;
+    padding: 0 3%;
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    line-height: 60px;
+    .el-button {
+      padding: 14px 18%;
+      &.orange-btn {
+        background: orange;
+        border-color: orange;
+        span {
+          color: #fff;
         }
       }
     }

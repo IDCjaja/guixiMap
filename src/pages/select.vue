@@ -6,7 +6,7 @@
         <el-checkbox-group v-model="checkedCategories">
           <el-checkbox label="category1">
             <div class="prefix-span">
-              <svg height="25px" width="25px">
+              <svg height="16px" width="16px">
                 <use xlink:href="#chooseIcon1" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
               </svg>
             </div>
@@ -15,7 +15,7 @@
           </el-checkbox>
           <el-checkbox label="category2">
             <div class="prefix-span">
-              <svg height="25px" width="25px">
+              <svg height="16px" width="16px">
                 <use xlink:href="#chooseIcon2" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
               </svg>
             </div>
@@ -24,7 +24,7 @@
           </el-checkbox>
           <el-checkbox label="category3">
             <div class="prefix-span">
-              <svg height="25px" width="25px">
+              <svg height="16px" width="16px">
                 <use xlink:href="#chooseIcon3" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
               </svg>
             </div>
@@ -33,7 +33,7 @@
           </el-checkbox>
           <el-checkbox label="category4">
             <div class="prefix-span">
-              <svg height="25px" width="25px">
+              <svg height="16px" width="16px">
                 <use xlink:href="#chooseIcon3" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
               </svg>
             </div>
@@ -77,6 +77,10 @@
           </el-checkbox>
         </el-checkbox-group>
       </div>
+    </div>
+    <div class="footer-btn-group">
+      <el-button round class="orange-btn" @click="confirmSelect">确认</el-button>
+      <el-button round @click="cancelSelect">取消</el-button>
     </div>
   </div>
 </template>

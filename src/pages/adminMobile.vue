@@ -8,7 +8,10 @@
       >
     </el-amap>
     <div class="mobile-search-content">
-      <el-input class="mobile-search-input" placeholder="搜索" prefix-icon="el-icon-search"></el-input>
+      <el-input class="mobile-search-input"
+      placeholder="搜索"
+      prefix-icon="el-icon-search"
+      v-on:click="toSearch"></el-input>
     </div>
     <div class="mobile-filter-content" :class="{filterCollapse: filterCollapse}">
       <div class="filter-icon-collapse" :class="{display: !filterCollapse, hidden: filterCollapse}" v-on:click="filterOpen">
