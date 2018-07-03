@@ -1,8 +1,8 @@
 <template>
-  <div class="message-footer">
+  <div class="message-footer" @click="tellMessageFooter">
     <div class="message-content">
-      <div class="title">桂溪加油站</div>
-      <div class="address">成都市高新区天仁路159号</div>
+      <div class="title">{{ currentMarker.title }}</div>
+      <div class="address">{{ currentMarker.address }}</div>
     </div>
     <div class="message-more">
       <span class="el-icon-arrow-right"></span>
@@ -12,7 +12,15 @@
 
 <script>
 export default {
-  name: 'nameFooter'
+  name: 'nameFooter',
+  props: {
+    currentMarker: Object
+  },
+  methods: {
+    tellMessageFooter() {
+      this.$emit('get-from-message-footer')
+    }
+  }
 }
 </script>
 

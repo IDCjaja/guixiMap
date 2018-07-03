@@ -3,9 +3,9 @@
     <div class="search-navbar">
       <span class="back el-icon-arrow-left"></span>
       <el-input
+        clearable
         placeholder="搜索"
         prefix-icon="el-icon-search">
-        <i slot="suffix" class="el-input__icon el-icon-error"></i>
       </el-input>
       <el-button>搜索</el-button>
     </div>

@@ -9,7 +9,7 @@
       </div>
       <div class="color-list">
         <ul>
-        <li v-for="(tag,index) in tagList" :key="index" v-on:mouseenter="toggleOpenEdit(index)" v-on:mouseleave="toggleCloseEdit(index)">
+        <li v-for="(tag,index) in existedTag" :key="index" v-on:mouseenter="toggleOpenEdit(index)" v-on:mouseleave="toggleCloseEdit(index)">
           <div class="color-bar" v-if="!editTagShow[index]">
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio" v-on:click="changeTag(tag.id)" name="tag_select" />
@@ -62,7 +62,7 @@ export default {
     }
   },
   props: {
-    tagList: Array,
+    existedTag: Array,
     chooseTags: Array
   },
   methods: {

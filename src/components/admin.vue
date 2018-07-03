@@ -16,7 +16,7 @@
         :visible="window.visible"
         :offset=[0,-15]>
         <div class="window-edit info">
-          <tag-edit-window :tag-list="tagList" :choose-tags="chooseTags"></tag-edit-window>
+          <tag-edit-window :existed-tag="existedTag" :choose-tags="chooseTags"></tag-edit-window>
           <category-edit-window :existed-categories="existedCategories"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
             <span>桂溪和平社区</span>
@@ -209,10 +209,13 @@ export default {
         {id:4,name: '法人', number: '0',tagId:3,categoryId:4}
       ],
       tagList: [
-        {id:1,name: '等待检查', color: '#a0a0a0', number: '2',defaultColor: true},
+        {id:1,name: '默认', color: '#a0a0a0', number: '2',defaultColor: true},
         {id:2,name: '不合格', color: '#f52b1f', number: '5',defaultColor: false},
         {id:3,name: '合格', color: '#73b724', number: '1',defaultColor: false},
         {id:4,name: '待整改', color: '#feb902', number: '0',defaultColor: false}
+      ],
+      existedTag: [
+        {id:1,name: '默认', color: '#a0a0a0', number: '2',defaultColor: true},
       ],
       existedCategories: [
         {iconUrl: 'http://p1ctmsz1g.bkt.clouddn.com/10.png',iconText:'默认图标'},
@@ -244,12 +247,9 @@ export default {
     }
   },
   mounted () {
-    this.initMap();
+    this.creatMap();
   },
   methods: {
-    initMap(){
-      this.creatMap();
-    },
     creatMap() {
       this.markerList.forEach((item,index) => {
         var category;

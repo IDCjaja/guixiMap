@@ -6,12 +6,13 @@
       :events="events"
       class="map"
       >
+      <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker>
     </el-amap>
     <div class="mobile-search-content">
       <el-input class="mobile-search-input"
       placeholder="搜索"
       prefix-icon="el-icon-search"
-      v-on:click="toSearch"></el-input>
+      @focus="toSearch"></el-input>
     </div>
     <div class="mobile-filter-content" :class="{filterCollapse: filterCollapse}">
       <div class="filter-icon-collapse" :class="{display: !filterCollapse, hidden: filterCollapse}" v-on:click="filterOpen">
@@ -22,7 +23,7 @@
         <mobile-filter-tag :tag-list="tagList"></mobile-filter-tag>
       </div>
     </div>
-    <message-footer></message-footer>
+    <message-footer v-if="messageFooterShow" v-on:get-from-message-footer="toInformation" :current-marker="currentMarker"></message-footer>
   </div>
 </template>
 
@@ -43,14 +44,111 @@ export default {
   data() {
     let self = this;
     return {
-      zoom: 15,
+      zoom:20,
       center: [104.109191,30.671637],
       filterCollapse: false,
+      messageFooterShow: false,
+      selectCategories:[],
+      selectTag: [],
+      markers: [],
+      marker: {},
+      currentMarker: 0,
       events: {
         click() {
           self.filterCollapse = false
         }
       },
+      markerList: [
+        {
+          id: 1,
+          longitude: 104.106946,
+          latitude: 30.674249,
+          title: '',
+          tagId: 1
+        },
+        {
+          id: 2,
+          longitude: 104.109191,
+          latitude: 30.671637,
+          title: '伊藤洋华堂(建设路店)',
+          tagId: 2,
+          address: '二环路东二段426号阳光新生活广场'
+        },
+        {
+          id: 3,
+          longitude: 114.396345,
+          latitude: 30.9454,
+          title: '成都',
+          tagId: 3
+        },
+        {
+          id: 4,
+          longitude: 104.101876,
+          latitude: 30.668877,
+          title: '第五大道',
+          tagId: 4,
+          address: '建设路26号'
+        },
+        {
+          id: 5,
+          longitude: 121.5273285,
+          latitude: 31.21515044,
+          title: '上海',
+          tagId: 4
+        },
+        {
+          id: 6,
+          longitude: 104.108444,
+          latitude: 30.670595,
+          title: '建设路东站(公交站)',
+          tagId: 2,
+          address: '6路;14路;42路;71路;72路;社区巴士1010路'
+        },
+        {
+          id: 7,
+          longitude: 104.104973,
+          latitude: 30.670078,
+          title: '万科·钻石广场',
+          tagId: 3,
+          address: '建设路10号'
+        },
+        {
+          id: 8,
+          longitude: 104.104147,
+          latitude: 30.669054,
+          title: '高地中心',
+          tagId: 2,
+          address: '建设路9号'
+        },
+        {
+          id: 9,
+          longitude: 104.075275,
+          latitude: 30.601965,
+          title: '成都高新技术产业开发区桂溪街道办事处',
+          tagId: 4,
+          address: '天仁路176号'
+        },
+        {
+          id: 10,
+          longitude: 104.077467,
+          latitude: 30.618422,
+          title: '桂溪加油站(科华中路)',
+          tagId: 1,
+          address: '科华中路63号'
+        }
+      ],
+      categories: [
+        {id:1,name:'全部',value: '全部',tagId:2,defaultCategory: true},
+        {id:2,name:'企业',value: '企业',tagId:3,defaultCategory: false},
+        {id:3,name:'个人',value: '个人',tagId:2,defaultCategory: false},
+        {id:4,name:'法人',value: '法人',tagId:4,defaultCategory: false}
+      ],
+      tags:[
+        {id:1,color:'#a0a0a0',name:'',value: '全部', label: '全部'},
+        {id:2,color:'#feb902',name:'',value: '黄色', label: '黄色'},
+        {id:3,color:'#f52b1f',name:'',value: '红色', label: '红色'},
+        {id:4,color:'#73b724',name:'',value: '绿色', label: '绿色'},
+      ],
       categoryList: [
         {id:1,name: '全部', number: '2',categoryId:1},
         {id:2,name: '企业', number:'1',categoryId:2},
@@ -65,9 +163,74 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.selectCategories = this.$router.currentRoute.params.checkedCategories;
+    this.selectTag = this.$router.currentRoute.params.checkedTag
+    console.log(this.selectCategories,this.selectTag)
+    this.creatMap();
+  },
   methods: {
+    creatMap() {
+      this.markerList.forEach((item,index) => {
+        var category;
+        var tag;
+        this.categories.forEach(categoryItem => {
+          if(categoryItem.id == item.tagId){
+            category = categoryItem;
+            return category;
+          }
+        })
+        this.tags.forEach(tagItem => {
+          if(category.tagId == tagItem.id){
+            tag = tagItem;
+            return tag;
+          }
+        })
+        this.marker = {
+          position: [item.longitude, item.latitude],
+          offset: (-10,-24),
+          events: {
+            click: () => {
+              this.markerList.forEach(currentItem => {
+                if(currentItem.id == item.id){
+                  this.currentMarker = currentItem;
+                  this.messageFooterShow = true
+                }
+              })
+            },
+            mouseover: ()=> {
+              this.markers[index].content = '<div>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                                            '</div>'
+            },
+            mouseout: ()=> {
+              this.markers[index].content = '<div>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                                            '</div>'
+            }
+          },
+          content:'<div>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                  '</div>'
+        }
+        this.markers.push(this.marker)
+      })
+    },
     filterOpen() {
       this.filterCollapse = true;
+    },
+    toSearch() {
+      this.$router.push({
+        path: '/mobile/search'
+      })
+    },
+    toInformation() {
+      this.$router.push({
+        name: 'mobileInformation',
+        params: {
+          currentId: this.currentMarker.id
+        }
+      })
     }
   }
 }

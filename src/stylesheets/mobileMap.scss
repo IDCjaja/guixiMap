@@ -13,6 +13,13 @@
   text-overflow: ellipsis;
 }
 $font-color-main: #1b1b1b;
+
+.amap-logo {
+  display: none !important;
+}
+.amap-copyright {
+  display: none !important;
+}
 * {
   color: #1b1b1b;
 }
@@ -54,9 +61,8 @@ $font-color-main: #1b1b1b;
     width: 41px;
     height: 41px;
     position: absolute;
-    bottom: 100px;
+    bottom: 73px;
     right: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,.3);
     transition: all .5s;
     &.filterCollapse {
       width: 300px;
@@ -65,8 +71,8 @@ $font-color-main: #1b1b1b;
       overflow: auto;
     }
     .filter-icon-collapse {
-      width: 50px;
-      height: 50px;
+      width: 41px;
+      height: 41px;
       border-radius: 50%;
       background: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,.3);
@@ -173,7 +179,7 @@ $font-color-main: #1b1b1b;
     padding: 5px 0;
     margin: 0 2%;
     position: absolute;
-    bottom: 20px;
+    bottom: 8px;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,.3);

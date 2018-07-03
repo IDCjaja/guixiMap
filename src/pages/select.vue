@@ -93,6 +93,21 @@ export default {
       checkedTag: ['tag1', 'tag2']
     };
   },
+  methods: {
+    confirmSelect() {
+      alert(this.checkedCategories,this.checkedTag);
+      this.$router.push({
+        name: 'adminMobile',
+        params: {
+          checkedCategories: this.checkedCategories,
+          checkedTag:this.checkedTag
+        }
+      })
+    },
+    cancelSelect() {
+
+    }
+  }
 }
 </script>
 

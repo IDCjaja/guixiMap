@@ -1,7 +1,7 @@
 <template>
   <div class="information-container">
     <div class="back">
-      <span class="el-icon-arrow-left"></span>
+      <span class="el-icon-arrow-left" @click="back"></span>
       <label>桂溪加油站</label>
     </div>
     <div class="information-content">
@@ -91,7 +91,15 @@
 
 <script>
 export default {
-
+  name: 'mobileInformation',
+  mounted() {
+    alert(this.$router.currentRoute.params.currentId)
+  },
+  methods: {
+    back() {
+      this.$router.go(-1)
+    }
+  }
 }
 </script>
 
