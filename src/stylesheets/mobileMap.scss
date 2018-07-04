@@ -99,29 +99,22 @@ $font-color-main: #1b1b1b;
             width: 56px;
             font-size: 14px;
           }
-          .el-select {
+          .el-input {
             margin-left: 10px;
-            .el-select__tags {
-              .el-tag--info {
-                max-width: 90px;
-                @include text-overflow-show;
-              }
-            }
-            .el-input {
-              width: 176px;
-              &.is-focus {
+            width: 176px;
+            &.is-focus {
+              border-color: orange;
+              input.el-input__inner {
                 border-color: orange;
-                input.el-input__inner {
+                &:focus {
                   border-color: orange;
-                  &:focus {
-                    border-color: orange;
-                  }
                 }
               }
-              .el-input__inner {
-                color: $font-color-main;
-                padding: 0 10px;
-              }
+            }
+            .el-input__inner {
+              color: $font-color-main;
+              padding: 0 10px;
+              @include text-overflow-show;
             }
           }
           .el-input__inner:focus {

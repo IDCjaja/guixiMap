@@ -43,6 +43,7 @@
         <div class="filter-footer">
           <span class="filter-footer-title">共计</span>
           <span>个</span>
+          <button @click="add">tianjia</button>
         </div>
       </div>
     </div>

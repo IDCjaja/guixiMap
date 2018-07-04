@@ -2,7 +2,7 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">分类</span>
-      <el-select v-model="category" placeholder="请选择"></el-select>
+      <el-input v-model="selectCategoryList" placeholder="请选择" suffix-icon="el-icon-arrow-right" @focus="toSelect"></el-input>
     </div>
     <div class="filter-list-wrapper">
       <ul>
@@ -25,11 +25,23 @@ export default {
   name: 'mobileFilterCategory',
   data() {
     return {
-      category: ''
+      category: '',
+      selectCategoryList:''
     }
   },
   props: {
-    categoryList: Array
+    categoryList: Array,
+    selectCategories: Array
+  },
+  mounted() {
+    this.selectCategoryList = this.$router.currentRoute.params.checkedCategories;
+  },
+  methods: {
+    toSelect() {
+      this.$router.push({
+        name: 'select'
+      })
+    }
   }
 }
 </script>

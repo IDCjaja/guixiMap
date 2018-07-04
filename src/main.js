@@ -15,7 +15,7 @@ Vue.use(VueAMap)
 
 VueAMap.initAMapApiLoader({
   key:['d2deaa9c3fab926880606fed18cd53c9'],
-  plugin: ['AMap.MapType'],
+  plugin: ['AMap.MapType','AMap.Geolocation'],
   uiVersion: '1.0',
   v: '1.4.4'
 });

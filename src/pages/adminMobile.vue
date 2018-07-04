@@ -1,10 +1,12 @@
 <template>
   <div class="mobile-map">
-    <el-amap 
+    <el-amap
+      vid="amapDemo"
+      :amap-manager="amapManager"
       :zoom="zoom"
       :center="center"
       :events="events"
-      class="map"
+      class="map amap-demo"
       >
       <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker>
     </el-amap>
@@ -19,8 +21,8 @@
         <span class="el-icon-setting"></span>
       </div>
       <div class="mobile-filter-detail" :class="{display: filterCollapse, hidden: !filterCollapse}">
-        <mobile-filter-category :category-list="categoryList"></mobile-filter-category>
-        <mobile-filter-tag :tag-list="tagList"></mobile-filter-tag>
+        <mobile-filter-category :category-list="categoryList" :select-categories="selectCategories"></mobile-filter-category>
+        <mobile-filter-tag :tag-list="tagList" :select-tag="selectTag"></mobile-filter-tag>
       </div>
     </div>
     <message-footer v-if="messageFooterShow" v-on:get-from-message-footer="toInformation" :current-marker="currentMarker"></message-footer>
@@ -34,6 +36,8 @@ import mobileFilterCategory from '../mobileComponents/mobileFilterCategory'
 import mobileFilterTag from '../mobileComponents/mobileFilterTag'
 import messageFooter from '../mobileComponents/messageFooter'
 
+let amapManager = new AMapManager();
+
 export default {
   name: 'adminMobile',
   components: {
@@ -44,7 +48,8 @@ export default {
   data() {
     let self = this;
     return {
-      zoom:20,
+      amapManager,
+      zoom:16,
       center: [104.109191,30.671637],
       filterCollapse: false,
       messageFooterShow: false,
@@ -164,9 +169,17 @@ export default {
     }
   },
   mounted() {
-    this.selectCategories = this.$router.currentRoute.params.checkedCategories;
-    this.selectTag = this.$router.currentRoute.params.checkedTag
-    console.log(this.selectCategories,this.selectTag)
+    if(this.$router.currentRoute.params.checkedCategories && this.$router.currentRoute.params.checkedTag){
+      this.selectCategories = this.$router.currentRoute.params.checkedCategories;
+      this.selectTag = this.$router.currentRoute.params.checkedTag;
+    }
+    if( this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
+      this.center = [
+        this.$router.currentRoute.params.centerLongitude,
+        this.$router.currentRoute.params.centerLatitude
+      ]
+      this.zoom = 18
+    }
     this.creatMap();
   },
   methods: {

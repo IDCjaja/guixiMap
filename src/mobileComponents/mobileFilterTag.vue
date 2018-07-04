@@ -2,9 +2,7 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">颜色</span>
-      <el-select v-model="tag" multiple placeholder="请选择">
-        
-      </el-select>
+      <el-input v-model="selectTagList" multiple placeholder="请选择" suffix-icon="el-icon-arrow-right" @focus="toSelect"></el-input>
     </div>
     <div class="filter-list-wrapper">
       <ul>
@@ -28,11 +26,22 @@ export default {
   name: 'mobileFilterTag',
   data() {
     return {
-      tag: ''
+      tag: '',
+      selectTagList: ''
     }
   },
   props: {
     tagList: Array
+  },
+  mounted() {
+    this.selectTagList = this.$router.currentRoute.params.checkedTag;
+  },
+  methods: {
+    toSelect() {
+      this.$router.push({
+        name: 'select'
+      })
+    }
   }
 }
 </script>
