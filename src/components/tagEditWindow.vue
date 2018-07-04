@@ -16,7 +16,7 @@
               <span class="color-bar-item radio-button_inner" :class="{active:toggleShow[index]}" :style="{ backgroundColor: tag.color }">{{tag.name}}<i class="el-icon-check"></i></span>
             </label>
             <span class="edit-operate" :class="{show:toggleShow[index]}">
-              <i class="el-icon-edit" v-on:click="editColorOpen(tag.id)"></i>
+              <i class="el-icon-edit" v-on:click="editColorOpen('edit',tag.id)"></i>
               <i class="el-icon-delete" v-on:click="tagMessageBoxOpen(tag.id)"></i>
             </span>
           </div>
@@ -33,10 +33,10 @@
         </span>
       </div>
       <div class="color-list">
-        <el-input placeholder=""></el-input>
+        <el-input placeholder="" @change="getNewTagName"></el-input>
         <div class="radio-group">
           <label class="radio-button" v-for="(item,index) in chooseTags" :key="index">
-            <input type="radio" class="radio-button_orig-readio" v-on:click="test(item.id)" :value="item.id" v-model="tagChoosed" name="tag_select_edit" />
+            <input type="radio" class="radio-button_orig-readio" v-on:click="test(item.id)" :value="item.id" v-model="tagChoosedId" name="tag_select_edit" />
             <span class="radio-button_inner" :style="{backgroundColor: item.color}">
               <i class="el-icon-check"></i>
             </span>
@@ -44,7 +44,7 @@
         </div>
         <div class="submit-btn-group">
           <el-button v-on:click="addColorHidden">取消</el-button>
-          <el-button class="orange-btn" v-on:click="addColorHidden">确认</el-button>
+          <el-button class="orange-btn" v-on:click="addTag">确认</el-button>
         </div>
       </div>
     </div>
@@ -58,18 +58,21 @@ export default {
       editTagShow: [false,false,false,false],
       toggleShow: [false,false,false,false],
       addColor: false,
-      tagChoosed: 1
+      tagChoosedId: Number,
+      editTagId: Number,
+      newTagName: '',
+      flag: 'add'
     }
   },
   props: {
     existedTag: Array,
     chooseTags: Array
   },
+  mounted() {
+  },
   methods: {
     toggleOpenEdit(index) {
-      if(index != 0){
-        this.$set(this.toggleShow, index, true)
-      }
+      this.$set(this.toggleShow, index, true)
     },
     toggleCloseEdit(index) {
       this.$set(this.toggleShow, index, false)
@@ -77,13 +80,47 @@ export default {
     addColorOpen() {
       this.addColor = true
     },
-    editColorOpen(tagId) {
+    editColorOpen(flag,tagId) {
+      this.flag = 'edit';
       this.addColor = true;
-      this.tagChoosed = tagId
+      this.editTagId = tagId;
+      this.tagChoosedId = tagId
     },
     addColorHidden() {
+      this.flag = 'add';
+      this.tagChoosedId = -1;
       this.addColor = false
-      alert(this.tagChoosed)
+    },
+    getNewTagName(event) {
+      this.newTagName = event
+    },
+    addTag() {
+      if(this.flag == 'add'){
+        this.chooseTags.forEach( tag => {
+          if(tag.id == this.tagChoosedId){
+            this.existedTag.push({
+              id: this.tagChoosedId,
+              name: this.newTagName,
+              color: tag.color,
+              number: '2'
+            })
+          }
+        });
+      } else {
+        this.existedTag.forEach(editTag => {
+          if(editTag.id == this.editTagId){
+            editTag.id = this.tagChoosedId;
+            editTag.name = this.newTagName;
+            this.chooseTags.forEach( tag => {
+              if(tag.id == this.tagChoosedId){
+                editTag.color = tag.color
+              }
+            });
+          }
+        })
+      }
+      this.addColor = false;
+      this.tagChoosedId = -1
     },
     editTag(index) {
       this.$set(this.editTagShow, index, true)
@@ -97,7 +134,11 @@ export default {
         showCancelButton: false,
         confirmButtonText: '确认删除'
       }).then(() => {
-        alert(id)
+        this.existedTag.forEach((deleteTag,index) => {
+          if(deleteTag.id == id){
+            this.existedTag.splice(index,1)
+          }
+        })
         this.$message({
           type: 'success',
           message: '删除成功'
