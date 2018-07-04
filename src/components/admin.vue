@@ -8,7 +8,7 @@
       class="amap-demo"
       :center="center"
       :events="events">
-      <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker>
+      <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :zIndex="marker.zIndex" :content="marker.content" :vid="index"></el-amap-marker>
       <el-amap-info-window 
         :position="window.position" 
         :autoMove="true"
@@ -43,7 +43,6 @@
         <div class="filter-footer">
           <span class="filter-footer-title">共计</span>
           <span>个</span>
-          <button @click="add">tianjia</button>
         </div>
       </div>
     </div>
@@ -91,7 +90,7 @@ export default {
           self.searchDropdownShow =false
         }
       },
-      zoom: 15,
+      zoom: 20,
       center: [104.109191,30.671637],
       window: {
         position: [104.109191,30.671637],
@@ -109,6 +108,13 @@ export default {
           tagId: 1
         },
         {
+          id: 11,
+          longitude: 104.106946,
+          latitude: 30.674253,
+          title: '华贸广场',
+          tagId: 4
+        },
+        {
           id: 2,
           longitude: 104.109191,
           latitude: 30.671637,
@@ -119,7 +125,7 @@ export default {
         {
           id: 3,
           longitude: 114.396345,
-          latitude: 30.9454,
+          latitude: 30.9455,
           title: '成都',
           tagId: 3
         },
@@ -233,7 +239,7 @@ export default {
         {id:8,name: '个人', address:'dhfkjsdfsdfklsdvbxcvkjjdlhlvsdkljf.',longitude: 104.077467,latitude: 30.618422,},
         {id:9,name: '法人', address:'dhfkjsdfsdfklsdjf.'},
         {id:10,name: '企业', address:'dhfkjsdfsdfklsdjf.'},
-        {id:11,name: '个人', address:'dhfkjsdfsdfklsdvbxcvkjjdlhlvsdkljf.'},
+        {id:11,name: '个人', address:'dhfkjsdfsdfklsdvbxcvkjjdlhlvsdkljf.',longitude: 104.106946, latitude: 30.674253,},
         {id:12,name: '法人', address:'dhfkjsdfsdfklsdjf.'},
         {id:1,name: '企业', address:'dhfkjsdfsdfklsdjf.'},
         {id:2,name: '个人', address:'dhfkjsdfsdfklsdvbxcvkjjdlhlvsdkljf.'},
@@ -270,6 +276,7 @@ export default {
         this.marker = {
           position: [item.longitude, item.latitude],
           offset: (-10,-24),
+          zIndex: item.zIndex,
           events: {
             click: () => {
               this.windows.forEach(window => {
@@ -292,7 +299,7 @@ export default {
             }
           },
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
                   '</div>'
         }
         this.markers.push(this.marker)
@@ -326,7 +333,6 @@ export default {
     },
     keyCode() {
       if(this.searchInputValue !== ""){
-        debugger
         this.searchDropdownShow = true;
         if(this.searchResultList.length) {
           this.searchResult = true
@@ -352,7 +358,12 @@ export default {
       this.markerList.forEach( item => {
         if ( centerMarkerId === item.id ) {
           this.center = [item.longitude,item.latitude];
-          this.zoom = 18
+          this.zoom = 18;
+          item.zIndex = 200
+          this.creatMap();
+        } else {
+          item.zIndex = 100;
+          this.creatMap();
         }
       })
     }
