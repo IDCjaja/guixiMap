@@ -83,7 +83,7 @@
     </symbol>
   </svg>
   <svg style="display:none;">
-    <symbol id="chooseIcon4-hover" viewBox="0 0 60 60">
+    <symbol id="chooseIcon5-hover" viewBox="0 0 60 60">
       <path class="st0-hover" d="M32.4,1.1C45,1.1,55.2,11.4,55.2,24S35.3,52.9,32.4,62.1C29.3,52.9,9.5,36.6,9.5,24S19.8,1.1,32.4,1.1z"/>
       <path class="st1-hover" d="M23.2,30.7L20,33.9h24.7l-3.2-3.2h-0.2V22h2.2l-11.1-7.9L21.2,22h2.2v8.6H23.2z M31,30.7V22h2.6v8.6H31z
         M38.8,30.7h-2.6V22h2.6V30.7z M32.3,17.3c0.7,0,1.2,0.6,1.2,1.2s-0.6,1.2-1.2,1.2s-1.2-0.6-1.2-1.2S31.7,17.3,32.3,17.3z M25.9,22

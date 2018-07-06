@@ -16,8 +16,17 @@
         :visible="window.visible"
         :offset=[0,-15]>
         <div class="window-edit info">
-          <tag-edit-window :existed-tag="existedTag" :choose-tags="chooseTags"></tag-edit-window>
-          <category-edit-window :existed-categories="existedCategories"></category-edit-window>
+          <tag-edit-window
+            @toggleInitMap="initMap"
+            :existed-tag="existedTag"
+            :choose-tags="chooseTags"
+            :current-marker-tag-id="currentMarkerTagId"
+            v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+          <category-edit-window
+            @toggleInitMap="initMap"
+            :existed-categories="existedCategories"
+            :choose-categories="chooseCategories"
+            :current-marker-id="currentMarkerId"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
             <span>桂溪和平社区</span>
             <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
@@ -84,13 +93,15 @@ export default {
       informationShow: false,
       searchDropdownShow: false,
       searchResult: false,
+      currentMarkerId: -1,
+      currentMarkerTagId: 1,
       events: {
         click() {
           self.filterShow = false;
           self.searchDropdownShow =false
         }
       },
-      zoom: 20,
+      zoom: 15,
       center: [104.109191,30.671637],
       window: {
         position: [104.109191,30.671637],
@@ -105,21 +116,24 @@ export default {
           longitude: 104.106946,
           latitude: 30.674249,
           title: '',
-          tagId: 1
+          tagId: 1,
+          categoryId:1
         },
         {
           id: 11,
           longitude: 104.106946,
           latitude: 30.674253,
           title: '华贸广场',
-          tagId: 4
+          tagId: 1,
+          categoryId:1
         },
         {
           id: 2,
           longitude: 104.109191,
           latitude: 30.671637,
           title: '伊藤洋华堂(建设路店)',
-          tagId: 2,
+          tagId: 1,
+          categoryId: 1,
           address: '二环路东二段426号阳光新生活广场'
         },
         {
@@ -127,14 +141,16 @@ export default {
           longitude: 114.396345,
           latitude: 30.9455,
           title: '成都',
-          tagId: 3
+          tagId: 1,
+          categoryId: 1
         },
         {
           id: 4,
           longitude: 104.101876,
           latitude: 30.668877,
           title: '第五大道',
-          tagId: 4,
+          tagId: 1,
+          categoryId: 1,
           address: '建设路26号'
         },
         {
@@ -142,14 +158,16 @@ export default {
           longitude: 121.5273285,
           latitude: 31.21515044,
           title: '上海',
-          tagId: 4
+          tagId: 1,
+          categoryId: 1
         },
         {
           id: 6,
           longitude: 104.108444,
           latitude: 30.670595,
           title: '建设路东站(公交站)',
-          tagId: 2,
+          tagId: 1,
+          categoryId: 1,
           address: '6路;14路;42路;71路;72路;社区巴士1010路'
         },
         {
@@ -157,7 +175,8 @@ export default {
           longitude: 104.104973,
           latitude: 30.670078,
           title: '万科·钻石广场',
-          tagId: 3,
+          tagId: 1,
+          categoryId: 1,
           address: '建设路10号'
         },
         {
@@ -165,7 +184,8 @@ export default {
           longitude: 104.104147,
           latitude: 30.669054,
           title: '高地中心',
-          tagId: 2,
+          tagId: 1,
+          categoryId: 1,
           address: '建设路9号'
         },
         {
@@ -173,7 +193,8 @@ export default {
           longitude: 104.075275,
           latitude: 30.601965,
           title: '成都高新技术产业开发区桂溪街道办事处',
-          tagId: 4,
+          tagId: 1,
+          categoryId: 1,
           address: '天仁路176号'
         },
         {
@@ -182,6 +203,7 @@ export default {
           latitude: 30.618422,
           title: '桂溪加油站(科华中路)',
           tagId: 1,
+          categoryId: 1,
           address: '科华中路63号'
         }
       ],
@@ -200,7 +222,14 @@ export default {
         {id:4,name: '法人', number: '0',tagId:3,categoryId:4}
       ],
       existedCategories: [
-        {id:1, name: '默认', categoryId:1, number: '2', iconUrl: 'http://p1ctmsz1g.bkt.clouddn.com/10.png',iconText:'默认图标'}
+        {id:1, name: '默认', iconId:1, number: '2'}
+      ],
+      chooseCategories:[
+        {id:1},
+        {id:2},
+        {id:3},
+        {id:4},
+        {id:5}
       ],
       tags:[
         {id:1,color:'#a0a0a0',name:'',value: '全部', label: '全部'},
@@ -254,20 +283,25 @@ export default {
   },
   mounted () {
     this.creatMap();
+    this.setMapLimit();
+    //this.add();
   },
   methods: {
+    setMapLimit(){
+      
+    },
     creatMap() {
       this.markerList.forEach((item,index) => {
         var category;
         var tag;
-        this.categories.forEach(categoryItem => {
-          if(categoryItem.id == item.tagId){
+        this.existedCategories.forEach(categoryItem => {
+          if(categoryItem.id == item.categoryId){
             category = categoryItem;
             return category;
           }
         })
-        this.tags.forEach(tagItem => {
-          if(category.tagId == tagItem.id){
+        this.existedTag.forEach(tagItem => {
+          if(tagItem.id == item.tagId){
             tag = tagItem;
             return tag;
           }
@@ -278,6 +312,8 @@ export default {
           zIndex: item.zIndex,
           events: {
             click: () => {
+              // this.currentMarkerId = item.id;
+              // this.currentMarkerTagId = item.tagId;
               this.windows.forEach(window => {
                 window.visible = false;
               });
@@ -288,17 +324,17 @@ export default {
             },
             mouseover: ()=> {
               this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
                                             '</div>'
             },
             mouseout: ()=> {
               this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
                                             '</div>'
             }
           },
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
                   '</div>'
         }
         this.markers.push(this.marker)
@@ -350,8 +386,12 @@ export default {
                   '<svg height="30px" width="30px"><use xlink:href="#chooseIcon4" fill="blue" stroke="blue" class="use-style"></use></svg>'+
                 '</div>'
       });
-
       marker.setMap(o);
+      var southWest = new AMap.LngLat(104.098487,30.522093);
+      var northEast = new AMap.LngLat(103.973976,30.631772);
+      var bounds;
+      bounds = new AMap.Bounds(southWest, northEast);
+      o.setLimitBounds(bounds);
     },
     setCenterLngLat(centerMarkerId) {
       this.markerList.forEach( item => {
@@ -365,6 +405,14 @@ export default {
           this.creatMap();
         }
       })
+    },
+    changeTag() {
+      //重新请求marker数据，渲染地图
+      this.creatMap();
+    },
+    initMap() {
+      console.log(this.existedTag)
+      this.creatMap()
     }
   }
 }

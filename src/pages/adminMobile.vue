@@ -169,6 +169,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$router.currentRoute.params)
     if(this.$router.currentRoute.params.checkedCategories && this.$router.currentRoute.params.checkedTag){
       this.selectCategories = this.$router.currentRoute.params.checkedCategories;
       this.selectTag = this.$router.currentRoute.params.checkedTag;

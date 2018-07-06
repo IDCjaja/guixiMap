@@ -28,11 +28,16 @@ $dashed: 1px dashed #ccc;
       background: rgb(209, 14, 14);
       border-color: rgb(209, 14, 14);
       font-weight: bold;
+      span {
+        color: #fff;
+      }
     }
   }
 }
 .amap-info-content {
   padding: 0 !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  border-radius: 4px;
 }
 .search-wrapper {
   position: absolute;
@@ -40,20 +45,21 @@ $dashed: 1px dashed #ccc;
   left: 20px;
   width: 360px;
   .el-input {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.6);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     border-radius: 5px;
     .el-input__inner
     {
       height: 45px;
       padding: 0 12px;
       &:focus {
-        border-color: orange;
+        border-color: #fe7227;
       }
     }
   }
   .el-input__suffix {
     .el-input__icon {
       width: 45px;
+      font-size: 18px;
     }
   }
   .search-dropdown {
@@ -71,10 +77,8 @@ $dashed: 1px dashed #ccc;
         cursor: pointer;
         overflow: hidden;
         &:hover {
-          background: #df7d4c;
-          color: #fff;
+          background: rgba(254,114,39,.3);
           small {
-            color: #fff;
             font-weight: bold;
           }
         }
@@ -162,18 +166,18 @@ $dashed: 1px dashed #ccc;
           .el-input {
             width: 176px;
             &.is-focus {
-              border-color: orange;
+              border-color: #fe7227;
               input.el-input__inner {
-                border-color: orange;
+                border-color: #fe7227;
                 &:focus {
-                  border-color: orange;
+                  border-color: #fe7227;
                 }
               }
             }
           }
         }
         .el-input__inner:focus {
-          border-color: orange;
+          border-color: #fe7227;
         }
       }
     }
@@ -244,15 +248,15 @@ $dashed: 1px dashed #ccc;
       opacity: 0.5;
     }
     &.selected {
-      color: orange;
+      color: #fe7227;
       &.hover {
         background-color: rgba(255, 166, 0, 0.24);
-        color: orange;
+        color: #fe7227;
       }
     }
     &.hover {
       background: rgba(255, 166, 0, 0.24);
-      color: orange;
+      color: #fe7227;
       .multiple-color-option {
         opacity: 1;
       }
@@ -478,9 +482,7 @@ $dashed: 1px dashed #ccc;
             opacity: 1;
           }
         }
-        img {
-          width: 20px;
-          height: 20px;
+        svg {
           margin: 5px 5px 5px 0;
         }
         span {
@@ -520,9 +522,6 @@ $dashed: 1px dashed #ccc;
             input.radio-button_orig-readio {
               position: absolute;
               opacity: 0;
-              &:checked+svg.radio-button_inner {
-                box-shadow: 0 0 10px rgba(0,0,0,.3)
-              }
             }
             svg.radio-button_inner {
               transition: background-color .3s;
@@ -550,10 +549,12 @@ $dashed: 1px dashed #ccc;
       margin: 5px 0 15px 0;
       &.orange-btn {
         background: #f07235;
-        color: #fff;
         margin-left: 10px;
         &.el-button:focus, &.el-button:hover {
           background: #f3631a;
+        }
+        span {
+          color: #fff;
         }
       }
     }

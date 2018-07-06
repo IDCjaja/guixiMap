@@ -35,11 +35,16 @@ export default {
   },
   mounted() {
     this.selectCategoryList = this.$router.currentRoute.params.checkedCategories;
+    this.selectTagList = this.$router.currentRoute.params.checkedTag;
   },
   methods: {
     toSelect() {
       this.$router.push({
-        name: 'select'
+        name: 'select',
+        params: {
+          checkedCategories: this.selectCategoryList,
+          checkedTag:this.selectTagList
+        }
       })
     }
   }

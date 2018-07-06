@@ -3,7 +3,7 @@
     <div class="select-content">
       <div class="select-title">分类</div>
       <div class="select-body">
-        <el-checkbox-group v-model="checkedCategories">
+        <el-checkbox-group v-model="newCheckedCategories">
           <el-checkbox label="默认分类">
             <div class="prefix-span">
               <svg height="16px" width="16px">
@@ -46,7 +46,7 @@
     <div class="select-content">
       <div class="select-title">颜色</div>
       <div class="select-body">
-        <el-checkbox-group v-model="checkedTag">
+        <el-checkbox-group v-model="newCheckedTag">
           <el-checkbox label="待检查">
             <div class="prefix-span">
               <span class="color-block"></span>
@@ -89,13 +89,36 @@
 export default {
   data() {
     return {
+      newCheckedCategories: [],
+      newCheckedTag: [],
       checkedCategories: [],
-      checkedTag: []
+      checkedTag: [],
+
     };
+  },
+  mounted() {
+    console.log(this.$router.currentRoute.params)
+    if(this.$router.currentRoute.params.checkedCategories){
+      this.newCheckedCategories = this.$router.currentRoute.params.checkedCategories
+      this.checkedCategories = this.$router.currentRoute.params.checkedCategories
+    }
+    if(this.$router.currentRoute.params.checkedTag){
+      this.newCheckedTag = this.$router.currentRoute.params.checkedTag;
+      this.checkedTag = this.$router.currentRoute.params.checkedTag;
+    }
   },
   methods: {
     confirmSelect() {
-      alert(this.checkedCategories,this.checkedTag);
+      alert(this.newCheckedCategories,this.newCheckedTag);
+      this.$router.push({
+        name: 'adminMobile',
+        params: {
+          checkedCategories: this.newCheckedCategories,
+          checkedTag:this.newCheckedTag
+        }
+      })
+    },
+    cancelSelect() {
       this.$router.push({
         name: 'adminMobile',
         params: {
@@ -103,9 +126,6 @@ export default {
           checkedTag:this.checkedTag
         }
       })
-    },
-    cancelSelect() {
-      this.$router.go(-1)
     }
   }
 }
