@@ -9,7 +9,7 @@
         placeholder="搜索"
         prefix-icon="el-icon-search">
       </el-input>
-      <el-button>搜索</el-button>
+      <el-button v-if="btnShow">搜索</el-button>
     </div>
     <div class="result-content">
       <div class="result-list" v-if="resultShow">
@@ -17,7 +17,7 @@
           <span class="el-icon-search"></span>
           <div class="item-content">
             <label>{{ item.name }}<small>{{ item.address }}</small></label>
-            <span class="el-icon-plus"></span>
+            <img src="http://p1ctmsz1g.bkt.clouddn.com/sign.jpg" />
           </div>
         </div>
       </div>
@@ -30,6 +30,7 @@ export default {
   name: 'mobileSearch',
   data() {
     return {
+      btnShow: false,
       resultShow: false,
       searchResultList: [
         {id:1,name: '桂溪加油站', address:'dhfkjsdfsdfklsdjf.',longitude: 104.106946,latitude: 30.674249,},
@@ -73,12 +74,14 @@ export default {
       this.searchInputValue = event;
       if(event !== ""){
         this.resultShow = true;
+        this.btnShow = true
         if(this.searchResultList.length) {
           this.searchResult = true
         } else {
           this.searchResult = false
         }
       } else {
+        this.btnShow = false
         this.resultShow = false
       }
     },

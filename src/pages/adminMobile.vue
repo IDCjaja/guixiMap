@@ -18,11 +18,14 @@
     </div>
     <div class="mobile-filter-content" :class="{filterCollapse: filterCollapse}">
       <div class="filter-icon-collapse" :class="{display: !filterCollapse, hidden: filterCollapse}" v-on:click="filterOpen">
-        <span class="el-icon-setting"></span>
+        <img src="http://p1ctmsz1g.bkt.clouddn.com/mobileFilter.jpg" />
       </div>
       <div class="mobile-filter-detail" :class="{display: filterCollapse, hidden: !filterCollapse}">
         <mobile-filter-category :category-list="categoryList" :select-categories="selectCategories"></mobile-filter-category>
         <mobile-filter-tag :tag-list="tagList" :select-tag="selectTag"></mobile-filter-tag>
+        <div class="mobile-footer">
+          <span>共计8个</span>
+        </div>
       </div>
     </div>
     <message-footer v-if="messageFooterShow" v-on:get-from-message-footer="toInformation" :current-marker="currentMarker"></message-footer>
@@ -169,7 +172,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$router.currentRoute.params)
     if(this.$router.currentRoute.params.checkedCategories && this.$router.currentRoute.params.checkedTag){
       this.selectCategories = this.$router.currentRoute.params.checkedCategories;
       this.selectTag = this.$router.currentRoute.params.checkedTag;

@@ -1,3 +1,5 @@
+$color-orange: #f07235;
+
 .select-container {
   background: #f4f4f4;
   position: absolute;
@@ -11,7 +13,7 @@
     box-shadow: 0 0 10px rgba(0,0,0,.2);
     .select-title {
       text-align: left;
-      border-left: 5px solid orange;
+      border-left: 5px solid $color-orange;
       padding-left: 9px;
       font-size: 14px;
       line-height: 1;
@@ -27,11 +29,11 @@
           line-height: 30px;
           .el-checkbox__input {
             &.is-checked .el-checkbox__inner {
-              background-color: orange;
-              border-color: orange;
+              background-color: $color-orange;
+              border-color: $color-orange;
             }
             &.is-focus .el-checkbox__inner {
-              border-color: orange;
+              border-color: $color-orange;
             }
           }
           .el-checkbox__label {
@@ -77,8 +79,8 @@
     .el-button {
       padding: 14px 18%;
       &.orange-btn {
-        background: orange;
-        border-color: orange;
+        background: $color-orange;
+        border-color: $color-orange;
         span {
           color: #fff;
         }

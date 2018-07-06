@@ -13,7 +13,7 @@
   text-overflow: ellipsis;
 }
 $font-color-main: #1b1b1b;
-
+$color-orange: #f07235;
 .amap-logo {
   display: none !important;
 }
@@ -61,14 +61,15 @@ $font-color-main: #1b1b1b;
     width: 41px;
     height: 41px;
     position: absolute;
-    bottom: 73px;
+    bottom: 81px;
     right: 20px;
     transition: all .5s;
     &.filterCollapse {
-      width: 300px;
-      height: 450px;
+      width: 260px;
+      height: 60%;
       box-shadow: 0 0 10px rgba(0,0,0,.3);
       overflow: auto;
+      border-radius: 5px;
     }
     .filter-icon-collapse {
       width: 41px;
@@ -80,14 +81,16 @@ $font-color-main: #1b1b1b;
       &.hidden {
         display: none;
       }
-      .el-icon-setting {
-        font-size: 34px;
+      img {
+        width: 17px;
+        height: 17px;
       }
     }
     .mobile-filter-detail {
       background: #fff;
+      padding-top: 15px;
       .filter-body {
-        padding: 15px 25px;
+        padding: 0 25px;
         &:first-child {
           ul {
             padding-bottom: 10px;
@@ -101,13 +104,13 @@ $font-color-main: #1b1b1b;
           }
           .el-input {
             margin-left: 10px;
-            width: 176px;
+            width: 166px;
             &.is-focus {
-              border-color: orange;
+              border-color: $color-orange;
               input.el-input__inner {
-                border-color: orange;
+                border-color: $color-orange;
                 &:focus {
-                  border-color: orange;
+                  border-color: $color-orange;
                 }
               }
             }
@@ -118,7 +121,7 @@ $font-color-main: #1b1b1b;
             }
           }
           .el-input__inner:focus {
-            border-color: orange;
+            border-color: $color-orange;
           }
         }
       }
@@ -165,6 +168,15 @@ $font-color-main: #1b1b1b;
           }
         }
       }
+      .mobile-footer {
+        text-align: left;
+        border-top: 1px solid #e0e0e0;
+        span {
+          display: block;
+          font-size: 14px;
+          padding: 10px 25px;
+        }
+      }
     }
   }
   .message-footer {
@@ -179,16 +191,20 @@ $font-color-main: #1b1b1b;
     @include flex-center;
     .message-content {
       flex: auto;
+      padding: 5px 0;
       .title {
         font-size: 15px;
         text-align: left;
         padding-left: 15px;
+        line-height: 1;
+        margin-bottom: 10px;
       }
       .address {
         font-size: 12px;
         color: #ababab;
         text-align: left;
         padding-left: 15px;
+        line-height: 1;
       }
     }
     .message-more {
