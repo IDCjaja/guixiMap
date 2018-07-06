@@ -3,7 +3,7 @@
     <div v-if="!editCategoryShow">
       <div class="icon-title">
         <span>分类</span>
-        <i class="el-icon-circle-plus-outline" v-on:click="addCategoryOpen"></i>
+        <i class="icon-circle-plus" v-on:click="addCategoryOpen">+</i>
       </div>
       <div class="existed-icon-wrapper">
         <label class="radio-button" v-for="existedCategory in existedCategories" :key="existedCategory.id">
@@ -26,17 +26,12 @@
     <div v-if="editCategoryShow">
       <div class="icon-title">
         <span>分类</span>
-        <span>
-          <i class="el-icon-circle-plus-outline active"></i>
-          <i class="el-icon-arrow-down" v-on:click="editCategoryHidden"></i>
-        </span>
       </div>
       <div class="edit-icon-content">
         <el-input placeholder="请输入内容" v-model="newCategoryName" @change="getNewCategoryName"></el-input>
         <div class="edit-icon-list">
           <div class="svg-box">
             <label class="radio-button" v-for="(item,index) in chooseCategories" :key="index">
-              {{item.id}}
               <input type="radio"
                 class="radio-button_orig-readio"
                 @click="chooseCategory(item.id,index)"
@@ -50,7 +45,7 @@
         </div>
         <div class="submit-btn-group">
           <el-button v-on:click="editCategoryHidden">取消</el-button>
-          <el-button class="orange-btn" @click="addCategory">确认</el-button>
+          <el-button class="orangeBtn" @click="addCategory">确认</el-button>
         </div>
       </div>
     </div>

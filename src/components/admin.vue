@@ -241,7 +241,7 @@ export default {
         {id:1,name: '默认', color: '#a0a0a0', number: '2',defaultColor: true},
       ],
       chooseTags:[
-        {id:1,color:'#a2a2a2'},
+        {id:1,color:'#a0a0a0'},
         {id:2,color:'#f52b1f'},
         {id:3,color:'#73b724'},
         {id:4,color:'#feb902'},

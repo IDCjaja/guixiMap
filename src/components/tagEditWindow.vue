@@ -3,9 +3,7 @@
     <div v-if="!addColor">
       <div class="color-title">
         <span>颜色</span>
-        <span>
-          <i class="el-icon-circle-plus-outline" v-on:click="addColorOpen()"></i>
-        </span>
+        <i class="icon-circle-plus" v-on:click="addColorOpen()">+</i>
       </div>
       <div class="color-list">
         <ul>
@@ -31,10 +29,6 @@
     <div v-if="addColor">
       <div class="color-title">
         <span>颜色</span>
-        <span>
-          <i class="el-icon-circle-plus-outline active"></i>
-          <i class="el-icon-arrow-down" v-on:click="addColorHidden"></i>
-        </span>
       </div>
       <div class="color-list">
         <el-input placeholder="" v-model="newTagName" @change="getNewTagName"></el-input>
@@ -52,7 +46,7 @@
         </div>
         <div class="submit-btn-group">
           <el-button v-on:click="addColorHidden">取消</el-button>
-          <el-button class="orange-btn" v-on:click="addTag">确认</el-button>
+          <el-button class="orangeBtn" v-on:click="addTag">确认</el-button>
         </div>
       </div>
     </div>
