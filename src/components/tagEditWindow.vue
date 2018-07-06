@@ -81,6 +81,7 @@ export default {
       this.$set(this.toggleShow, index, false)
     },
     addColorOpen() {
+      this.newTagName = '';
       this.flag = 'add';
       this.addColor = true
     },

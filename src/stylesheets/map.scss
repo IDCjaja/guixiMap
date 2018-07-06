@@ -58,16 +58,6 @@ $orange-color: #f07235;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   border-radius: 4px;
 }
-.amap-info-sharp {
-  width: 0;
-  height: 0 !important;
-  border-top: 20px solid #fff;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid transparent;
-  background-image: none;
-
-}
 .search-wrapper {
   position: absolute;
   top: 82px;
@@ -196,7 +186,7 @@ $orange-color: #f07235;
             }
           }
           .el-input {
-            width: 176px;
+            width: 192px;
             &.is-focus {
               border-color: $orange-color;;
               input.el-input__inner {
@@ -256,7 +246,7 @@ $orange-color: #f07235;
       }
     }
     .filter-footer {
-      padding: 10px;
+      padding: 10px 20px;
       text-align: left;
       border-top: 1px solid #dcdfe6;
       .filter-footer-title {
@@ -267,7 +257,6 @@ $orange-color: #f07235;
 }
 .el-select-dropdown.is-multiple.el-popper {
   .el-select-dropdown__item {
-    width: 170px;
     padding: 0;
     @include text-overflow-show;
     span {
@@ -280,10 +269,13 @@ $orange-color: #f07235;
       opacity: 0.5;
     }
     &.selected {
-      color: $orange-color;;
+      color: $orange-color;
       &.hover {
         background-color: rgba(255, 166, 0, 0.24);
         color: $orange-color;;
+      }
+      span {
+        color: $orange-color;
       }
     }
     &.hover {
@@ -615,7 +607,6 @@ $orange-color: #f07235;
     text-align: right;
     button{
       padding: 7px 6px;
-      margin: 5px 0 15px 0;
       &.orangeBtn {
         background: #f07235;
         margin-left: 10px;
@@ -643,27 +634,30 @@ $orange-color: #f07235;
   width: 360px;
   position: absolute;
   left: 20px;
-  top: 85px;
+  top: 136px;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   height: auto;
-  height: 80%;
+  height: 75%;
   .information-title {
     font-size: 24px;
     background: #f07235;
-    color: #fff;
     text-align: left;
     padding: 3% 20px;
     border-radius: 5px 5px 0 0;
     @include flex-space-between;
+    span {
+      color: #fff;
+    }
     .information-close {
       font-size: 18px;
       cursor: pointer;
+      color: #fff;
     }
   }
   .information-list {
-    max-height: 88%;
+    max-height: 85%;
     overflow: auto;
     ul {
       list-style: none;
@@ -690,17 +684,20 @@ $orange-color: #f07235;
           }
         }
         .item-image {
+          width: 100%;
           .item-image-title {
             color: #a0a0a0;
             width: 98px;
             font-size: 14px;
             line-height: 20px;
-            padding: 14px 0;
+            padding: 0 0 10px 0;
           }
           img {
-            width: 70px;
-            height: 60px;
+            width: 33.33%;
+            height: 74px;
             margin-right: 5px;
+            border-radius: 5px;
+            margin-right: 10px;
           }
         }
       }

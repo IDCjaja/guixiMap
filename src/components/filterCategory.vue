@@ -17,7 +17,7 @@
           v-for="item in existedCategories"
           :key="item.id">
           <span class="filter-category-icon">
-            <svg height="20px" width="20px"><use :xlink:href="'#chooseIcon'+item.categoryId" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
+            <svg height="20px" width="20px"><use :xlink:href="'#chooseIcon'+item.iconId" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
           </span>
           <span class="filter-tag-title">{{ item.name }}</span>
           <span>{{ item.number }}个</span>
