@@ -2,7 +2,7 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">颜色</span>
-      <el-input v-model="selectTagList" multiple placeholder="请选择" suffix-icon="el-icon-arrow-right" @focus="toSelect"></el-input>
+      <el-input v-model="selectTagList" placeholder="请选择" suffix-icon="el-icon-arrow-right" @focus="toSelect"></el-input>
     </div>
     <div class="filter-list-wrapper">
       <ul>
@@ -27,23 +27,25 @@ export default {
   data() {
     return {
       tag: '',
-      selectTagList: ''
+      selectTagListArr: Array,
+      selectCategoryListArr: Array
     }
   },
   props: {
-    tagList: Array
+    tagList: Array,
+    selectTagList: String
   },
   mounted() {
-    this.selectCategoryList = this.$router.currentRoute.params.checkedCategories;
-    this.selectTagList = this.$router.currentRoute.params.checkedTag;
+    this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
+    this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },
   methods: {
     toSelect() {
       this.$router.push({
         name: 'select',
         params: {
-          checkedCategories: this.selectCategoryList,
-          checkedTag:this.selectTagList
+          checkedCategories: this.selectCategoryListArr,
+          checkedTag:this.selectTagListArr
         }
       })
     }

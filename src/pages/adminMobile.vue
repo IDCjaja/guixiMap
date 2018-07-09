@@ -1,5 +1,6 @@
 <template>
   <div class="mobile-map">
+    <router-view></router-view>
     <el-amap
       vid="amapDemo"
       :amap-manager="amapManager"
@@ -21,8 +22,8 @@
         <img src="http://p1ctmsz1g.bkt.clouddn.com/mobileFilter.jpg" />
       </div>
       <div class="mobile-filter-detail" :class="{display: filterCollapse, hidden: !filterCollapse}">
-        <mobile-filter-category :category-list="categoryList" :select-categories="selectCategories"></mobile-filter-category>
-        <mobile-filter-tag :tag-list="tagList" :select-tag="selectTag"></mobile-filter-tag>
+        <mobile-filter-category :category-list="categoryList"></mobile-filter-category>
+        <mobile-filter-tag :tag-list="tagList" :select-tag-list="selectTagList"></mobile-filter-tag>
         <div class="mobile-footer">
           <span>共计8个</span>
         </div>
@@ -56,8 +57,8 @@ export default {
       center: [104.109191,30.671637],
       filterCollapse: false,
       messageFooterShow: false,
-      selectCategories:[],
-      selectTag: [],
+      selectCategoryList: '',
+      selectTagList: '',
       markers: [],
       marker: {},
       currentMarker: 0,
@@ -173,8 +174,10 @@ export default {
   },
   mounted() {
     if(this.$router.currentRoute.params.checkedCategories && this.$router.currentRoute.params.checkedTag){
-      this.selectCategories = this.$router.currentRoute.params.checkedCategories;
-      this.selectTag = this.$router.currentRoute.params.checkedTag;
+      // this.selectCategories = this.$router.currentRoute.params.checkedCategories;
+      // this.selectTag = this.$router.currentRoute.params.checkedTag;
+      this.selectCategoryList = JSON.stringify(this.$router.currentRoute.params.checkedCategories);
+      this.selectTagList = JSON.stringify(this.$router.currentRoute.params.checkedTag);
     }
     if( this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
       this.center = [
@@ -237,12 +240,14 @@ export default {
     },
     toSearch() {
       this.$router.push({
+        name: 'search',
         path: '/mobile/search'
       })
     },
     toInformation() {
       this.$router.push({
         name: 'mobileInformation',
+        //path: '/mobile/mobileInformation/:'+this.currentMarker.id,
         params: {
           currentId: this.currentMarker.id
         }

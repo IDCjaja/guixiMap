@@ -32,6 +32,7 @@ export default {
     return {
       btnShow: false,
       resultShow: false,
+      searchInputValue: '',
       searchResultList: [
         {id:1,name: '桂溪加油站', address:'dhfkjsdfsdfklsdjf.',longitude: 104.106946,latitude: 30.674249,},
         {id:2,name: '桂溪加油站', address:'dhfkjsdfsdfklsdvbxcvkjjdlhlvsdkljf.',longitude: 104.109191,latitude: 30.671637,},
@@ -57,10 +58,12 @@ export default {
       ]
     }
   },
+  created() {
+  },
   methods: {
     changeCenter(longitude,latitude) {
       this.$router.push({
-        name: 'adminMobile',
+        name:'adminMobile',
         params: {
           centerLongitude: longitude,
           centerLatitude: latitude

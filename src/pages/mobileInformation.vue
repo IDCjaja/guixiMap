@@ -93,7 +93,7 @@
 export default {
   name: 'mobileInformation',
   mounted() {
-    alert(this.$router.currentRoute.params.currentId)
+    console.log(this.$router.currentRoute.params.currentId)
   },
   methods: {
     back() {
