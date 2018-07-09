@@ -38,7 +38,6 @@ export default {
   mounted() {
     this.selectCategoryList = JSON.stringify(this.$router.currentRoute.params.checkedCategories)
     console.log(this.selectCategoryList)
-    debugger
     this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
     this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },

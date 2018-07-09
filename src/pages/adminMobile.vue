@@ -64,6 +64,7 @@ export default {
       currentMarker: 0,
       events: {
         click() {
+          console.log("!")
           self.filterCollapse = false
         }
       },
