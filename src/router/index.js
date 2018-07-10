@@ -16,46 +16,24 @@ export default new Router({
       component: admin,
     },
     {
-      path: '/mobile',
-      name: 'mobile',
+      path: '/mobile/admin',
+      name: 'adminMobile',
       component: adminMobile,
-      children: [
-        {
-          path: 'admin',
-          name: 'adminMobile',
-          component: adminMobile,
-        },
-        {
-          path: 'select',
-          name: 'select',
-          component: select
-        },
-        {
-          path: 'mobileInformation',
-          name: 'mobileInformation',
-          component: mobileInformation
-        },
-        {
-          path: 'search',
-          name: 'search',
-          component: search
-        }
-      ]
     },
-    // {
-    //   path: '/mobile/select',
-    //   name: 'select',
-    //   component: select
-    // },
-    // {
-    //   path: '/mobile/mobileInformation',
-    //   name: 'mobileInformation',
-    //   component: mobileInformation
-    // },
-    // {
-    //   path: '/mobile/search',
-    //   name: 'search',
-    //   component: search
-    // }
+    {
+      path: '/mobile/select',
+      name: 'select',
+      component: select
+    },
+    {
+      path: '/mobile/mobileInformation',
+      name: 'mobileInformation',
+      component: mobileInformation
+    },
+    {
+      path: '/mobile/search',
+      name: 'search',
+      component: search
+    }
   ]
 })

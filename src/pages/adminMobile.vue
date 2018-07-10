@@ -64,7 +64,6 @@ export default {
       currentMarker: 0,
       events: {
         click() {
-          console.log("!")
           self.filterCollapse = false
         }
       },
@@ -174,13 +173,10 @@ export default {
     }
   },
   mounted() {
-    if(this.$router.currentRoute.params.checkedCategories && this.$router.currentRoute.params.checkedTag){
-      // this.selectCategories = this.$router.currentRoute.params.checkedCategories;
-      // this.selectTag = this.$router.currentRoute.params.checkedTag;
-      this.selectCategoryList = JSON.stringify(this.$router.currentRoute.params.checkedCategories);
-      this.selectTagList = JSON.stringify(this.$router.currentRoute.params.checkedTag);
+    if(this.$router.currentRoute.params.filterCollapse == true){
+      this.filterCollapse = true
     }
-    if( this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
+    if(this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
       this.center = [
         this.$router.currentRoute.params.centerLongitude,
         this.$router.currentRoute.params.centerLatitude

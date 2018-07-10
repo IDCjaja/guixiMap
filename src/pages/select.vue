@@ -113,7 +113,8 @@ export default {
         name: 'adminMobile',
         params: {
           checkedCategories: this.newCheckedCategories,
-          checkedTag:this.newCheckedTag
+          checkedTag:this.newCheckedTag,
+          filterCollapse: true
         }
       })
     },
@@ -122,7 +123,8 @@ export default {
         name: 'adminMobile',
         params: {
           checkedCategories: this.checkedCategories,
-          checkedTag:this.checkedTag
+          checkedTag:this.checkedTag,
+          filterCollapse: true
         }
       })
     }

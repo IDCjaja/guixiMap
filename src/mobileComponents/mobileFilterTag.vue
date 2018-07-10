@@ -28,14 +28,20 @@ export default {
     return {
       tag: '',
       selectTagListArr: Array,
-      selectCategoryListArr: Array
+      selectCategoryListArr: Array,
+      selectTagList: ''
     }
   },
   props: {
     tagList: Array,
-    selectTagList: String
   },
   mounted() {
+    if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
+      this.$router.currentRoute.params.checkedCategories = [];
+      this.$router.currentRoute.params.checkedTag = []
+    } else {
+      this.selectTagList = this.$router.currentRoute.params.checkedTag.join(',')
+    }
     this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
     this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },

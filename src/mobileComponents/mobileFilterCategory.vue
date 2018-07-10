@@ -3,7 +3,6 @@
     <div class="filter-select">
       <span class="filter-select-title">分类</span>
       <el-input v-model="selectCategoryList" placeholder="请选择" suffix-icon="el-icon-arrow-right" @focus="toSelect"></el-input>
-      {{selectCategoryList}}
     </div>
     <div class="filter-list-wrapper">
       <ul>
@@ -29,15 +28,19 @@ export default {
       category: '',
       selectCategoryListArr: Array,
       selectTagListArr: Array,
-      selectCategoryList: String
+      selectCategoryList: ''
     }
   },
   props: {
-    categoryList: Array
+    categoryList: Array,
   },
   mounted() {
-    this.selectCategoryList = JSON.stringify(this.$router.currentRoute.params.checkedCategories)
-    console.log(this.selectCategoryList)
+    if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
+      this.$router.currentRoute.params.checkedCategories = [];
+      this.$router.currentRoute.params.checkedTag = []
+    }else {
+      this.selectCategoryList = this.$router.currentRoute.params.checkedCategories.join(',');
+    }
     this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
     this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },
