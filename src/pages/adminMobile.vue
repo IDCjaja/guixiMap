@@ -61,7 +61,7 @@ export default {
       selectTagList: '',
       markers: [],
       marker: {},
-      currentMarker: 0,
+      currentMarker: [],
       events: {
         click() {
           self.filterCollapse = false
@@ -173,8 +173,16 @@ export default {
     }
   },
   mounted() {
+    if(!this.$router.currentRoute.params.currentMarker){
+      this.$router.currentRoute.params.currentMarker = []
+    } else {
+      this.currentMarker = this.$router.currentRoute.params.currentMarker
+    }
     if(this.$router.currentRoute.params.filterCollapse == true){
       this.filterCollapse = true
+    }
+    if(this.$router.currentRoute.params.messageFooterShow == true){
+      this.messageFooterShow = true
     }
     if(this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
       this.center = [
@@ -244,9 +252,8 @@ export default {
     toInformation() {
       this.$router.push({
         name: 'mobileInformation',
-        //path: '/mobile/mobileInformation/:'+this.currentMarker.id,
         params: {
-          currentId: this.currentMarker.id
+          currentMarker: this.currentMarker
         }
       })
     }

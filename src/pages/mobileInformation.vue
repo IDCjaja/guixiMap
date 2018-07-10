@@ -93,11 +93,19 @@
 export default {
   name: 'mobileInformation',
   mounted() {
-    console.log(this.$router.currentRoute.params.currentId)
+    console.log(this.$router.currentRoute.params.currentMarker.id)
   },
   methods: {
     back() {
-      this.$router.go(-1)
+      this.$router.push({
+        name: 'adminMobile',
+        params:{
+          messageFooterShow: true,
+          currentMarker: this.$router.currentRoute.params.currentMarker,
+          centerLongitude: this.$router.currentRoute.params.currentMarker.longitude,
+          centerLatitude: this.$router.currentRoute.params.currentMarker.latitude
+        }
+      })
     }
   }
 }
