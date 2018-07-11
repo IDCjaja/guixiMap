@@ -8,30 +8,55 @@
       class="amap-demo"
       :center="center"
       :events="events">
-      <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :zIndex="marker.zIndex" :content="marker.content" :vid="index"></el-amap-marker>
+      <el-amap-marker v-for="(marker, index) in markers" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :zIndex="marker.zIndex" :content="marker.content" :vid="index"></el-amap-marker>
       <el-amap-info-window 
         :position="window.position" 
         :autoMove="true"
         :closeWhenClickMap="true"
         :visible="window.visible"
         :offset=[0,-15]>
-        <div class="window-edit info">
-          <tag-edit-window
-            @toggleInitMap="initMap"
-            :existed-tag="existedTag"
-            :choose-tags="chooseTags"
-            :current-marker-tag-id="currentMarkerTagId"
-            v-on:changeCurrentMarker="changeTag"></tag-edit-window>
-          <category-edit-window
-            @toggleInitMap="initMap"
-            :existed-categories="existedCategories"
-            :choose-categories="chooseCategories"
-            :current-marker-id="currentMarkerId"></category-edit-window>
-          <div class="window-edit-footer" v-on:click="openInformation">
-            <span>桂溪和平社区</span>
-            <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
-          </div>
-        </div>
+        <el-tabs type="card" tabPosition="left">
+          <el-tab-pane>
+            <span slot="label"><svg height="16px" width="16px"><use xlink:href="#chooseIcon1" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use></svg>桂溪加油站</span>
+            <div class="window-edit info">
+              <tag-edit-window
+                @toggleInitMap="initMap"
+                :existed-tag="existedTag"
+                :choose-tags="chooseTags"
+                :current-marker-tag-id="currentMarkerTagId"
+                v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+              <category-edit-window
+                @toggleInitMap="initMap"
+                :existed-categories="existedCategories"
+                :choose-categories="chooseCategories"
+                :current-marker-id="currentMarkerId"></category-edit-window>
+              <div class="window-edit-footer" v-on:click="openInformation">
+                <span>桂溪和平社区</span>
+                <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
+              </div>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><svg height="16px" width="16px"><use xlink:href="#chooseIcon2" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use></svg>星巴克</span>
+            <div class="window-edit info">
+              <tag-edit-window
+                @toggleInitMap="initMap"
+                :existed-tag="existedTag"
+                :choose-tags="chooseTags"
+                :current-marker-tag-id="currentMarkerTagId"
+                v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+              <category-edit-window
+                @toggleInitMap="initMap"
+                :existed-categories="existedCategories"
+                :choose-categories="chooseCategories"
+                :current-marker-id="currentMarkerId"></category-edit-window>
+              <div class="window-edit-footer" v-on:click="openInformation">
+                <span>桂溪和平社区</span>
+                <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
+              </div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
       </el-amap-info-window>
     </el-amap>
     <div class="search-wrapper">
@@ -282,7 +307,7 @@ export default {
     }
   },
   mounted () {
-    this.creatMap();
+    window.setTimeout(this.creatMap, 2000);
     this.setMapLimit();
     //this.add();
   },
@@ -291,6 +316,7 @@ export default {
       
     },
     creatMap() {
+      let mapObj = amapManager._map;
       this.markerList.forEach((item,index) => {
         var category;
         var tag;
@@ -324,25 +350,30 @@ export default {
             },
             mouseover: ()=> {
               this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
                                             '</div>'
             },
             mouseout: ()=> {
               this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
+                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
                                             '</div>'
             }
           },
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"><span>'+item.id+'</span></use></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
                   '</div>'
         }
-        this.markers.push(this.marker)
+        this.markers.push(this.marker);
         this.windows.push({
           position: [item.longitude, item.latitude],
           visible: false
         })
       })
+        // var cluster;
+        // cluster = new AMap.MarkerClusterer(mapObj,this.markers,{
+        //   gridSize:15,
+        // });
+        // cluster.setMap(mapObj);
     },
     filterOpen() {
       this.filterShow = true
@@ -379,19 +410,33 @@ export default {
       }
     },
     add() {
-      let o = amapManager._map;
-      let marker = new AMap.Marker({
+      let mapObj = amapManager._map;
+      var markers = [];
+      console.log(mapObj)
+      let marker1 = new AMap.Marker({
         position: [103.951572,30.559105],
         content:'<div>'+
                   '<svg height="30px" width="30px"><use xlink:href="#chooseIcon4" fill="blue" stroke="blue" class="use-style"></use></svg>'+
                 '</div>'
       });
-      marker.setMap(o);
-      var southWest = new AMap.LngLat(104.098487,30.522093);
-      var northEast = new AMap.LngLat(103.973976,30.631772);
-      var bounds;
-      bounds = new AMap.Bounds(southWest, northEast);
-      o.setLimitBounds(bounds);
+      let marker2 = new AMap.Marker({
+        position: [103.951572,30.559109],
+        content:'<div>'+
+                  '<svg height="30px" width="30px"><use xlink:href="#chooseIcon4" fill="blue" stroke="blue" class="use-style"></use></svg>'+
+                '</div>'
+      });
+      markers.push(marker1,marker2)
+      //marker.setMap(mapObj);
+      var cluster;
+      cluster = new AMap.MarkerClusterer(mapObj,markers,{
+        gridSize:15,
+      });
+      cluster.setMap(mapObj);
+      // var southWest = new AMap.LngLat(104.098487,30.522093);
+      // var northEast = new AMap.LngLat(103.973976,30.631772);
+      // var bounds;
+      // bounds = new AMap.Bounds(southWest, northEast);
+      // mapObj.setLimitBounds(bounds);
     },
     setCenterLngLat(centerMarkerId) {
       this.markerList.forEach( item => {

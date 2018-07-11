@@ -1,0 +1,27 @@
+.el-tabs {
+  width: 380px;
+  &.el-tabs--left.el-tabs--card {
+    .el-tabs__header.is-left {
+      margin-right: 0;
+      border-right: none;
+      border-bottom: none;
+      .el-tabs__nav {
+        border-top-color: transparent;
+        .el-tabs__item {
+          text-align: left;
+          &.is-active {
+            span {
+              color: #f07235;
+            }
+          }
+        } 
+      }
+    }
+  }
+  .el-tabs__content {
+    padding: 0;
+    .window-edit {
+      border-left: 1px solid #e2e2e2;
+    }
+  }
+}

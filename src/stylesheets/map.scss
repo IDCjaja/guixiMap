@@ -58,6 +58,12 @@ $orange-color: #f07235;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   border-radius: 4px;
 }
+.marker-title {
+  background: #fff;
+  padding: 2px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,.3);
+}
 .search-wrapper {
   position: absolute;
   top: 82px;

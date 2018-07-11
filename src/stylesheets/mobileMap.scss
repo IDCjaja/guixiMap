@@ -213,6 +213,37 @@ $color-orange: #f07235;
         font-size: 16px;
         font-weight: bold;
       }
+      a {
+        display: block;
+        font-size: 12px;
+        color: #08519e;
+        cursor: pointer;
+      }
     }
+  }
+  .marker-list {
+    width: 96%;
+    max-height: 320px;
+    overflow: auto;
+    margin: 0 2%;
+    position: absolute;
+    bottom: 8px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    li {
+      line-height: 48px;
+      border-bottom: 1px solid #e2e2e2;
+      @include flex-center;
+      &:last-child {
+        border-bottom-color: transparent;
+      }
+    }
+    span {
+      text-align: left;
+      padding: 0 15px;
+      flex: auto;
+    }
+    i.el-icon-arrow-right {}
   }
 }

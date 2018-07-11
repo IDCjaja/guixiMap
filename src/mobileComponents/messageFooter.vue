@@ -6,6 +6,7 @@
     </div>
     <div class="message-more">
       <span class="el-icon-arrow-right"></span>
+      <a>更多</a>
     </div>
   </div>
 </template>

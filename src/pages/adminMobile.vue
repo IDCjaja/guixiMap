@@ -30,6 +30,7 @@
       </div>
     </div>
     <message-footer v-if="messageFooterShow" v-on:get-from-message-footer="toInformation" :current-marker="currentMarker"></message-footer>
+    <marker-cluster-list></marker-cluster-list>
   </div>
 </template>
 
@@ -39,6 +40,7 @@ import Vue from 'vue'
 import mobileFilterCategory from '../mobileComponents/mobileFilterCategory'
 import mobileFilterTag from '../mobileComponents/mobileFilterTag'
 import messageFooter from '../mobileComponents/messageFooter'
+import markerClusterList from '../mobileComponents/markerClusterList'
 
 let amapManager = new AMapManager();
 
@@ -47,7 +49,8 @@ export default {
   components: {
     mobileFilterCategory,
     mobileFilterTag,
-    messageFooter
+    messageFooter,
+    markerClusterList
   },
   data() {
     let self = this;
@@ -191,7 +194,8 @@ export default {
       ]
       this.zoom = 18
     }
-    this.creatMap();
+    window.setTimeout(this.creatMap, 2000);
+    //this.creatMap();
   },
   methods: {
     creatMap() {
@@ -239,6 +243,12 @@ export default {
         }
         this.markers.push(this.marker)
       })
+      let mapObj = amapManager._map;
+      var cluster;
+      cluster = new AMap.MarkerClusterer(mapObj,this.markers,{
+        gridSize:15,
+      });
+      cluster.setMap(mapObj);
     },
     filterOpen() {
       this.filterCollapse = true;
