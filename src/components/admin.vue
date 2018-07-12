@@ -312,9 +312,7 @@ export default {
     //this.add();
   },
   methods: {
-    setMapLimit(){
-      
-    },
+    setMapLimit(){},
     creatMap() {
       let mapObj = amapManager._map;
       this.markerList.forEach((item,index) => {
@@ -456,7 +454,6 @@ export default {
       this.creatMap();
     },
     initMap() {
-      console.log(this.existedTag)
       this.creatMap()
     }
   }

@@ -35,7 +35,7 @@
         <div class="radio-group">
           <label class="radio-button" v-for="(item,index) in chooseTags" :key="index">
             <input type="radio" class="radio-button_orig-readio"
-            v-on:click="test(item.id)"
+            v-on:click="colorRepeatConfirm(item.id)"
             :value="item.id"
             v-model="tagChoosedId"
             name="tag_select_edit" />
@@ -44,6 +44,7 @@
             </span>
           </label>
         </div>
+        <span v-if="tagRepeatTip" class="tag-repeat-tip">该颜色已存在，确定后会替换之前的颜色</span>
         <div class="submit-btn-group">
           <el-button v-on:click="addColorHidden">取消</el-button>
           <el-button class="orangeBtn" v-on:click="addTag">确认</el-button>
@@ -61,8 +62,10 @@ export default {
       editTagShow: [false,false,false,false],
       toggleShow: [false,false,false,false],
       addColor: false,
+      tagRepeatTip: false,
       tagChoosedId: Number,
       editTagId: Number,
+      colorValue: [],
       selectTagId: self.currentMarkerTagId,
       newTagName: '',
       flag: 'add'
@@ -72,6 +75,11 @@ export default {
     existedTag: Array,
     chooseTags: Array,
     currentMarkerTagId: Number,
+  },
+  mounted() {
+    this.existedTag.forEach(item => {
+      this.colorValue.push(item.color)
+    })
   },
   methods: {
     toggleOpenEdit(index) {
@@ -83,14 +91,16 @@ export default {
     addColorOpen() {
       this.newTagName = '';
       this.flag = 'add';
-      this.addColor = true
+      this.addColor = true;
+      this.tagRepeatTip = false;
     },
     editColorOpen(flag,tagId,name) {
       this.flag = 'edit';
       this.newTagName = name;
       this.addColor = true;
       this.editTagId = tagId;
-      this.tagChoosedId = tagId
+      this.tagChoosedId = tagId;
+      this.tagRepeatTip = false;
     },
     addColorHidden() {
       this.tagChoosedId = -1;
@@ -102,31 +112,59 @@ export default {
     addTag() {
       if(this.newTagName !== ""){
         if(this.flag == 'add'){
-        this.chooseTags.forEach( tag => {
-          if(tag.id == this.tagChoosedId){
-            this.existedTag.push({
-              name: this.newTagName,
-              color: tag.color,
-              number: '2'
-            })
-          }
-        });
-      } else {
-        this.existedTag.forEach(editTag => {
-          if(editTag.id == this.editTagId){
-            editTag.name = this.newTagName;
-            this.chooseTags.forEach( tag => {
-              if(tag.id == this.tagChoosedId){
-                editTag.color = tag.color
+          this.chooseTags.forEach( tag => {
+            if(tag.id == this.tagChoosedId){
+              if(this.colorValue.indexOf(tag.color) === -1){
+                this.existedTag.push({
+                  id: this.tagChoosedId,
+                  name: this.newTagName,
+                  color: tag.color,
+                  number: '2'
+                })
+              } else {
+                this.existedTag.forEach(editTag => {
+                  if(editTag.color == tag.color){
+                    editTag.id = this.tagChoosedId;
+                    editTag.name = this.newTagName;
+                    editTag.color = tag.color
+                  }
+                })
               }
-            });
-          }
+            }
+          });
+        } else {
+          var existed;
+          var editTagColor;
+          this.chooseTags.forEach(tag => {
+            if(tag.id == this.tagChoosedId){
+              var choosedColor = tag.color;
+              if(this.colorValue.indexOf(choosedColor) === -1){
+                this.existedTag.forEach(editTag => {
+                  if(editTag.id == this.editTagId){
+                    editTag.id = this.tagChoosedId;
+                    editTag.name = this.newTagName;
+                    editTag.color = choosedColor
+                  }
+                })
+              } else {
+                this.existedTag.forEach(editTag => {
+                  if(editTag.color == choosedColor) {
+                    editTag.id = this.tagChoosedId;
+                    editTag.name = this.newTagName;
+                    editTag.color = choosedColor
+                  }
+                })
+              }
+            }
+          })
+        }
+        this.addColor = false;
+        this.tagRepeatTip = false;
+        this.tagChoosedId = -1;
+        this.$emit('toggleInitMap');
+        this.existedTag.forEach(item => {
+          this.colorValue.push(item.color)
         })
-      }
-      this.addColor = false;
-      this.tagChoosedId = -1;
-      console.log(this.existedTag)
-      this.$emit('toggleInitMap');
       } else {
         this.$message({
           type: 'info',
@@ -150,6 +188,7 @@ export default {
           if(deleteTag.id == id){
             this.existedTag.splice(index,1)
           }
+          this.colorValue.push(deleteTag.color)
         })
         this.$message({
           type: 'success',
@@ -166,8 +205,16 @@ export default {
       // 提交选择的tag的id，更改marker的tag
       this.$emit('changeCurrentMarker',this.selectTagId)// 触发父组件方法
     },
-    test(id){
-      
+    colorRepeatConfirm(id) {
+      this.chooseTags.forEach( tag => {
+        if(tag.id == id){
+          if(this.colorValue.indexOf(tag.color) === -1){
+            this.tagRepeatTip = false;
+          } else {
+            this.tagRepeatTip = true;
+          }
+        }
+      })
     }
   }
 }

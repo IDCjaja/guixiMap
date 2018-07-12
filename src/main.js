@@ -13,9 +13,11 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueAMap)
 
+
 VueAMap.initAMapApiLoader({
   key:['d2deaa9c3fab926880606fed18cd53c9'],
   plugin: [
+    'AMap.Map',
     'AMap.MapType',
     'AMap.Geolocation',
     'AMap.MarkerClusterer'

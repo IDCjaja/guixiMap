@@ -8,7 +8,6 @@
           :key="index"
           :label="item.name"
           :value="item.name">
-          <span class="multiple-color-option" :style="{backgroundColor: item.color}"></span>
         </el-option>
       </el-select>
     </div>
