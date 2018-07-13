@@ -23,7 +23,7 @@ VueAMap.initAMapApiLoader({
     'AMap.MarkerClusterer'
   ],
   uiVersion: '1.0',
-  v: '1.4.4'
+  v: '1.4.8'
 });
 
 

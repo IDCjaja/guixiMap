@@ -66,7 +66,15 @@ export default {
   },
   props: {
     existedCategories: Array,
-    chooseCategories: Array
+    chooseCategories: Array,
+    currentMarkerId: Number
+  },
+  mounted() {
+    this.existedCategories.forEach(item => {
+      if(item.id == this.currentMarkerId){
+        this.selectedCategoryId = item.categoryId
+      }
+    })
   },
   methods: {
     editCategoryOpen(name,id) {

@@ -8,42 +8,50 @@
       class="amap-demo"
       :center="center"
       :events="events">
-      <el-amap-marker v-for="(marker, index) in markers" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :zIndex="marker.zIndex" :content="marker.content" :vid="index"></el-amap-marker>
       <el-amap-info-window 
         :position="window.position" 
         :autoMove="true"
         :closeWhenClickMap="true"
         :visible="window.visible"
         :offset=[0,-15]>
-        <el-tabs type="card" tabPosition="left">
-          <el-tab-pane>
-            <span slot="label"><svg height="16px" width="16px"><use xlink:href="#chooseIcon1" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use></svg>桂溪加油站</span>
+        <div v-if="!markerClustererShow" class="window-edit info">
+          <tag-edit-window
+            @toggleInitMap="initMap"
+            :existed-tag="existedTag"
+            :choose-tags="chooseTags"
+            :current-marker-id="currentMarkerId"
+            v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+          <category-edit-window
+            @toggleInitMap="initMap"
+            :existed-categories="existedCategories"
+            :choose-categories="chooseCategories"
+            :current-marker-id="currentMarkerId"></category-edit-window>
+          <div class="window-edit-footer" v-on:click="openInformation">
+            <span>桂溪和平社区</span>
+            <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
+          </div>
+        </div>
+        <el-tabs
+          v-if="markerClustererShow"
+          type="card"
+          tabPosition="left"
+          v-model="activeName"
+          @tab-click="handleClick">
+          <el-tab-pane
+            v-for="(item,index) in markerClusterList"
+            :key="index"
+            @click="getCurrentMarkerId(item.id)">
+            <span slot="label" :name="index">
+              <svg height="16px" width="16px">
+                <use :xlink:href="'#chooseIcon'+item.categoryId" :fill="item.color" :stroke="item.color"></use>
+              </svg>
+            {{item.title}}</span>
             <div class="window-edit info">
               <tag-edit-window
                 @toggleInitMap="initMap"
                 :existed-tag="existedTag"
                 :choose-tags="chooseTags"
-                :current-marker-tag-id="currentMarkerTagId"
-                v-on:changeCurrentMarker="changeTag"></tag-edit-window>
-              <category-edit-window
-                @toggleInitMap="initMap"
-                :existed-categories="existedCategories"
-                :choose-categories="chooseCategories"
-                :current-marker-id="currentMarkerId"></category-edit-window>
-              <div class="window-edit-footer" v-on:click="openInformation">
-                <span>桂溪和平社区</span>
-                <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
-              </div>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane>
-            <span slot="label"><svg height="16px" width="16px"><use xlink:href="#chooseIcon2" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use></svg>星巴克</span>
-            <div class="window-edit info">
-              <tag-edit-window
-                @toggleInitMap="initMap"
-                :existed-tag="existedTag"
-                :choose-tags="chooseTags"
-                :current-marker-tag-id="currentMarkerTagId"
+                :current-marker-id="currentMarkerId"
                 v-on:changeCurrentMarker="changeTag"></tag-edit-window>
               <category-edit-window
                 @toggleInitMap="initMap"
@@ -118,8 +126,10 @@ export default {
       informationShow: false,
       searchDropdownShow: false,
       searchResult: false,
+      markerClustererShow: false,
       currentMarkerId: -1,
-      currentMarkerTagId: 1,
+      markerClusterList: [],
+      activeName: 0,
       events: {
         click() {
           self.filterShow = false;
@@ -129,12 +139,9 @@ export default {
       zoom: 15,
       center: [104.109191,30.671637],
       window: {
-        position: [104.109191,30.671637],
+        position: [0,0],
         visible: false
       },
-      markers: [],
-      marker: {},
-      windows:[],
       markerList: [
         {
           id: 1,
@@ -314,7 +321,9 @@ export default {
   methods: {
     setMapLimit(){},
     creatMap() {
+      var self = this;
       let mapObj = amapManager._map;
+      var markers = [];
       this.markerList.forEach((item,index) => {
         var category;
         var tag;
@@ -330,48 +339,54 @@ export default {
             return tag;
           }
         })
-        this.marker = {
+        var marker = new AMap.Marker({
+          extData: item.id,
+          map: mapObj,
           position: [item.longitude, item.latitude],
-          offset: (-10,-24),
+          offset:  new AMap.Pixel(-10,-24),
           zIndex: item.zIndex,
-          events: {
-            click: () => {
-              // this.currentMarkerId = item.id;
-              // this.currentMarkerTagId = item.tagId;
-              this.windows.forEach(window => {
-                window.visible = false;
-              });
-              this.window = this.windows[index];
-              this.$nextTick(() => {
-                this.window.visible = true;
-              });
-            },
-            mouseover: ()=> {
-              this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
-                                            '</div>'
-            },
-            mouseout: ()=> {
-              this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
-                                            '</div>'
-            }
-          },
           content:'<div>'+
                     '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
                   '</div>'
-        }
-        this.markers.push(this.marker);
-        this.windows.push({
-          position: [item.longitude, item.latitude],
-          visible: false
         })
+        marker.on('click', function(ev) {
+          self.window.visible = false;
+          var markerId = this.getExtData();
+          self.markerClustererShow = false;
+          self.window.position = [item.longitude, item.latitude];
+          self.currentMarkerId = markerId
+          self.$nextTick(() => {
+            self.window.visible = true;
+          });
+        });
+        markers.push(marker);
       })
-        // var cluster;
-        // cluster = new AMap.MarkerClusterer(mapObj,this.markers,{
-        //   gridSize:15,
-        // });
-        // cluster.setMap(mapObj);
+      var cluster = new AMap.MarkerClusterer(mapObj, markers,{
+        gridSize:30,
+        zoomOnClick: false
+      });
+      cluster.on('click',(target)=>{
+        this.window.visible = false;
+        this.window.position = [target.lnglat.lng,target.lnglat.lat];
+        this.markerClusterList = [];
+        target.markers.map((markerItem,index) => {
+          this.markerList.forEach(item => {
+            if(markerItem.getExtData() == item.id){
+              this.existedTag.forEach(tag => {
+                if(tag.id == item.tagId) {
+                  item.color = tag.color
+                }
+              })
+              this.markerClusterList.push(item)
+            }
+          })
+        })
+        console.log(this.markerClusterList)
+        self.markerClustererShow = true;
+        this.$nextTick(() => {
+          this.window.visible = true;
+        });
+      })
     },
     filterOpen() {
       this.filterShow = true
@@ -410,7 +425,6 @@ export default {
     add() {
       let mapObj = amapManager._map;
       var markers = [];
-      console.log(mapObj)
       let marker1 = new AMap.Marker({
         position: [103.951572,30.559105],
         content:'<div>'+
@@ -448,6 +462,12 @@ export default {
           this.creatMap();
         }
       })
+    },
+    handleClick(tab,event) {
+      this.activeName = tab.index;
+    },
+    getCurrentMarkerId(id) {
+      this.currentMarkerId = id;
     },
     changeTag() {
       //重新请求marker数据，渲染地图

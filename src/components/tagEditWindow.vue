@@ -66,7 +66,7 @@ export default {
       tagChoosedId: Number,
       editTagId: Number,
       colorValue: [],
-      selectTagId: self.currentMarkerTagId,
+      selectTagId: Number,
       newTagName: '',
       flag: 'add'
     }
@@ -74,11 +74,14 @@ export default {
   props: {
     existedTag: Array,
     chooseTags: Array,
-    currentMarkerTagId: Number,
+    currentMarkerId: Number,
   },
   mounted() {
     this.existedTag.forEach(item => {
       this.colorValue.push(item.color)
+      if(item.id == this.currentMarkerId){
+        this.selectTagId = item.tagId
+      }
     })
   },
   methods: {
