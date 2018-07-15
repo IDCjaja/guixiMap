@@ -26,7 +26,6 @@ VueAMap.initAMapApiLoader({
   v: '1.4.8'
 });
 
-
 new Vue({
   el: '#app',
   router,

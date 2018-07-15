@@ -77,6 +77,9 @@ export default {
     })
   },
   methods: {
+    currentMarkerIdChange(id) {
+      this.currentMarkerId = id;
+    },
     editCategoryOpen(name,id) {
       this.strokeSvgShow = [true,true,true,true,true];
       this.$set(this.strokeSvgShow, id-1, false)

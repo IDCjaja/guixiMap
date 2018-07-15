@@ -2,6 +2,7 @@
   width: 380px;
   &.el-tabs--left.el-tabs--card {
     .el-tabs__header.is-left {
+      width: 140px;
       margin-right: 0;
       border-right: none;
       border-bottom: none;
@@ -9,6 +10,10 @@
         border-top-color: transparent;
         .el-tabs__item {
           text-align: left;
+          padding: 0 10px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
           &.is-active {
             span {
               color: #f07235;

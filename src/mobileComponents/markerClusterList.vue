@@ -1,5 +1,5 @@
 <template>
-  <ul class="marker-list">
+  <ul class="marker-list" style="display: none">
     <li class="item">
       <span>等待检查</span>
       <i class="el-icon-arrow-right"></i>

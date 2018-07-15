@@ -20,12 +20,14 @@
             :existed-tag="existedTag"
             :choose-tags="chooseTags"
             :current-marker-id="currentMarkerId"
+            ref="tagWindow"
             v-on:changeCurrentMarker="changeTag"></tag-edit-window>
           <category-edit-window
             @toggleInitMap="initMap"
             :existed-categories="existedCategories"
             :choose-categories="chooseCategories"
-            :current-marker-id="currentMarkerId"></category-edit-window>
+            :current-marker-id="currentMarkerId"
+            ref="categoryWindow"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
             <span>桂溪和平社区</span>
             <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
@@ -52,12 +54,14 @@
                 :existed-tag="existedTag"
                 :choose-tags="chooseTags"
                 :current-marker-id="currentMarkerId"
+                ref="tagWindow"
                 v-on:changeCurrentMarker="changeTag"></tag-edit-window>
               <category-edit-window
                 @toggleInitMap="initMap"
                 :existed-categories="existedCategories"
                 :choose-categories="chooseCategories"
-                :current-marker-id="currentMarkerId"></category-edit-window>
+                :current-marker-id="currentMarkerId"
+                ref="categoryWindow"></category-edit-window>
               <div class="window-edit-footer" v-on:click="openInformation">
                 <span>桂溪和平社区</span>
                 <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
@@ -85,13 +89,13 @@
         <div class="filter-footer">
           <span class="filter-footer-title">共计</span>
           <span>个</span>
+          <button @click="add">tianjia</button>
         </div>
       </div>
     </div>
     <information :information-show="informationShow" v-on:information-show="listenToInformation"></information>
   </div>
 </template>
-
 <script>
 import { AMapManager } from 'vue-amap'
 import Vue from 'vue'
@@ -316,7 +320,6 @@ export default {
   mounted () {
     window.setTimeout(this.creatMap, 2000);
     this.setMapLimit();
-    //this.add();
   },
   methods: {
     setMapLimit(){},
@@ -349,12 +352,14 @@ export default {
                     '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
                   '</div>'
         })
-        marker.on('click', function(ev) {
+        marker.on('click', function() {
           self.window.visible = false;
           var markerId = this.getExtData();
           self.markerClustererShow = false;
           self.window.position = [item.longitude, item.latitude];
-          self.currentMarkerId = markerId
+          self.currentMarkerId = markerId;
+          // self.$ref.tagWindow.currentMarkerIdChange(self.currentMarkerId);
+          // self.$ref.categoryWindow.currentMarkerIdChange(self.currentMarkerId)
           self.$nextTick(() => {
             self.window.visible = true;
           });
@@ -381,7 +386,6 @@ export default {
             }
           })
         })
-        console.log(this.markerClusterList)
         self.markerClustererShow = true;
         this.$nextTick(() => {
           this.window.visible = true;
@@ -438,7 +442,6 @@ export default {
                 '</div>'
       });
       markers.push(marker1,marker2)
-      //marker.setMap(mapObj);
       var cluster;
       cluster = new AMap.MarkerClusterer(mapObj,markers,{
         gridSize:15,
@@ -468,6 +471,9 @@ export default {
     },
     getCurrentMarkerId(id) {
       this.currentMarkerId = id;
+      console.log(this.currentMarkerId)
+      this.$ref.tagWindow.currentMarkerIdChange(this.currentMarkerId);
+      this.$ref.categoryWindow.currentMarkerIdChange(this.currentMarkerId)
     },
     changeTag() {
       //重新请求marker数据，渲染地图

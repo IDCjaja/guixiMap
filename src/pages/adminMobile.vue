@@ -9,7 +9,7 @@
       :events="events"
       class="map amap-demo"
       >
-      <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker>
+      <!-- <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker> -->
     </el-amap>
     <div class="mobile-search-content">
       <el-input class="mobile-search-input"
@@ -29,7 +29,12 @@
         </div>
       </div>
     </div>
-    <message-footer v-if="messageFooterShow" v-on:get-from-message-footer="toInformation" :current-marker="currentMarker"></message-footer>
+    <message-footer
+      v-if="messageFooterShow"
+      v-on:get-from-message-footer="toInformation"
+      :current-marker="currentMarker"
+      :marker-clusterer-show="markerClustererShow">
+    </message-footer>
     <marker-cluster-list></marker-cluster-list>
   </div>
 </template>
@@ -56,15 +61,15 @@ export default {
     let self = this;
     return {
       amapManager,
-      zoom:16,
+      zoom:14,
       center: [104.109191,30.671637],
       filterCollapse: false,
       messageFooterShow: false,
+      markerClustererShow: false,
       selectCategoryList: '',
       selectTagList: '',
-      markers: [],
-      marker: {},
       currentMarker: [],
+      markerClusterList: [],
       events: {
         click() {
           self.filterCollapse = false
@@ -150,10 +155,10 @@ export default {
         }
       ],
       categories: [
-        {id:1,name:'全部',value: '全部',tagId:2,defaultCategory: true},
-        {id:2,name:'企业',value: '企业',tagId:3,defaultCategory: false},
-        {id:3,name:'个人',value: '个人',tagId:2,defaultCategory: false},
-        {id:4,name:'法人',value: '法人',tagId:4,defaultCategory: false}
+        {id:1,name:'全部',value: '全部',tagId:2,iconId: 1,defaultCategory: true},
+        {id:2,name:'企业',value: '企业',tagId:3,iconId: 2,defaultCategory: false},
+        {id:3,name:'个人',value: '个人',tagId:2,iconId: 3,defaultCategory: false},
+        {id:4,name:'法人',value: '法人',tagId:4,iconId: 4,defaultCategory: false}
       ],
       tags:[
         {id:1,color:'#a0a0a0',name:'',value: '全部', label: '全部'},
@@ -199,6 +204,9 @@ export default {
   },
   methods: {
     creatMap() {
+      var self = this;
+      let mapObj = amapManager._map;
+      var markers = [];
       this.markerList.forEach((item,index) => {
         var category;
         var tag;
@@ -214,41 +222,44 @@ export default {
             return tag;
           }
         })
-        this.marker = {
+        var marker = new AMap.Marker({
+          extData: item.id,
+          map: mapObj,
           position: [item.longitude, item.latitude],
-          offset: (-10,-24),
-          events: {
-            click: () => {
-              this.markerList.forEach(currentItem => {
-                if(currentItem.id == item.id){
-                  this.currentMarker = currentItem;
-                  this.messageFooterShow = true
-                }
-              })
-            },
-            mouseover: ()=> {
-              this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'-hover" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
-                                            '</div>'
-            },
-            mouseout: ()=> {
-              this.markers[index].content = '<div>'+
-                                              '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
-                                            '</div>'
-            }
-          },
+          offset:  new AMap.Pixel(-10,-24),
+          zIndex: item.zIndex,
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
                   '</div>'
-        }
-        this.markers.push(this.marker)
+        })
+        marker.on('click', function() {
+          self.markerClustererShow = false;
+          self.markerList.forEach(currentItem => {
+            if(currentItem.id == item.id){
+              self.currentMarker = currentItem;
+              self.messageFooterShow = true
+            }
+          })
+        })
+        markers.push(marker);
       })
-      let mapObj = amapManager._map;
-      var cluster;
-      cluster = new AMap.MarkerClusterer(mapObj,this.markers,{
+      var cluster = new AMap.MarkerClusterer(mapObj,markers,{
         gridSize:15,
+        zoomOnClick: false
       });
-      cluster.setMap(mapObj);
+      cluster.on('click',(target)=>{
+        this.markerClustererShow = true;
+        this.markerClusterList = [];
+        target.markers.map((markerItem,index) => {
+          this.markerList.forEach(item => {
+            if(markerItem.getExtData() == item.id){
+              this.markerClusterList.push(item)
+            }
+          })
+        })
+        self.currentMarker = this.markerClusterList[0];
+        self.messageFooterShow = true
+      })
     },
     filterOpen() {
       this.filterCollapse = true;

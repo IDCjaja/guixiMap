@@ -85,6 +85,10 @@ export default {
     })
   },
   methods: {
+    currentMarkerIdChange(id) {
+      this.currentMarkerId = id;
+      console.log(this.currentMarkerId)
+    },
     toggleOpenEdit(index) {
       this.$set(this.toggleShow, index, true)
     },

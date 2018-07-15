@@ -6,7 +6,7 @@
     </div>
     <div class="message-more">
       <span class="el-icon-arrow-right"></span>
-      <a>更多</a>
+      <a v-if="markerClustererShow">更多</a>
     </div>
   </div>
 </template>
@@ -15,7 +15,8 @@
 export default {
   name: 'nameFooter',
   props: {
-    currentMarker: Object
+    currentMarker: Object,
+    markerClustererShow: Boolean
   },
   methods: {
     tellMessageFooter() {
