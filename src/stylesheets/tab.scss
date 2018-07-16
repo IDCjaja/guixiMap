@@ -20,6 +20,7 @@
           &.is-active {
             span {
               color: #f07235;
+              border-right-color: #fff;
             }
           }
         } 
@@ -30,6 +31,7 @@
     padding: 0;
     .window-edit {
       border-left: 1px solid #e2e2e2;
+      margin-left: -1px;
     }
   }
 }

@@ -3,8 +3,10 @@
     <router-view></router-view>
     <el-amap
       vid="amapDemo"
+      resizeEnable="true"
       :amap-manager="amapManager"
       :zoom="zoom"
+      :zooms="zooms"
       :center="center"
       :events="events"
       class="map amap-demo"
@@ -65,7 +67,8 @@ export default {
     return {
       amapManager,
       zoom:14,
-      center: [104.109191,30.671637],
+      zooms: [14,19],
+      center: [104.0723,30.602836],
       filterCollapse: false,
       messageFooterShow: false,
       markerClustererShow: false,
@@ -157,6 +160,86 @@ export default {
           title: '桂溪加油站(科华中路)',
           tagId: 1,
           address: '科华中路63号'
+        },
+        {
+          id: 12,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'
+        },
+        {
+          id: 13,
+          longitude: 104.06183,
+          latitude: 30.601754,
+          title: '欧尚(成都高新店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道欧尚(成都高新店)'
+        },
+        {
+          id: 14,
+          longitude: 104.063986,
+          latitude: 30.599547,
+          title: '迪卡侬',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道都会路199号迪卡侬运动场'
+        },
+        {
+          id: 15,
+          longitude: 104.060961,
+          latitude: 30.601255,
+          title: '必胜客',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道必胜客(成都高新店)'
+        },
+        {
+          id: 16,
+          longitude: 104.060102,
+          latitude: 30.601394,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道益州大道北段360号英祥·财富领域'
+        },
+        {
+          id: 17,
+          longitude: 104.062903,
+          latitude: 30.601855,
+          title: '凯德广场',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'
+        },
+        {
+          id: 18,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'
+        },{
+          id: 19,
+          longitude: 104.05815,
+          latitude: 30.599565,
+          title: '城市春天',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'
+        },
+        {
+          id: 20,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '四川省城市车辆置业有限责任公司',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'
         }
       ],
       categories: [
@@ -205,9 +288,17 @@ export default {
       this.zoom = 18
     }
     window.setTimeout(this.creatMap, 2000);
+    window.setTimeout(this.setMapLimit, 2000);
     //this.creatMap();
   },
   methods: {
+    setMapLimit(){
+      let mapObj = amapManager._map;
+      var southWest = new AMap.LngLat(103.978188,30.533126);
+      var northEast = new AMap.LngLat(104.106075,30.625936);
+      var bounds = new AMap.Bounds(southWest, northEast);
+      mapObj.setLimitBounds(bounds);
+    },
     creatMap() {
       var self = this;
       let mapObj = amapManager._map;

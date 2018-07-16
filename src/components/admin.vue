@@ -3,8 +3,10 @@
     <header-nav></header-nav>
     <el-amap
       vid="amapDemo"
+      resizeEnable="true"
       :amap-manager="amapManager"
       :zoom="zoom"
+      :zooms="zooms"
       class="amap-demo"
       :center="center"
       :events="events">
@@ -89,7 +91,6 @@
         <div class="filter-footer">
           <span class="filter-footer-title">共计</span>
           <span>个</span>
-          <button @click="add">tianjia</button>
         </div>
       </div>
     </div>
@@ -133,15 +134,16 @@ export default {
       markerClustererShow: false,
       currentMarkerId: -1,
       markerClusterList: [],
-      activeName: 0,
+      activeName: "0",
       events: {
         click() {
           self.filterShow = false;
           self.searchDropdownShow =false
         }
       },
-      zoom: 15,
-      center: [104.109191,30.671637],
+      zoom: 17,
+      zooms: [14,19],
+      center: [104.0723,30.602836],
       window: {
         position: [0,0],
         visible: false
@@ -241,6 +243,86 @@ export default {
           tagId: 1,
           categoryId: 1,
           address: '科华中路63号'
+        },
+        {
+          id: 12,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'
+        },
+        {
+          id: 13,
+          longitude: 104.06183,
+          latitude: 30.601754,
+          title: '欧尚(成都高新店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道欧尚(成都高新店)'
+        },
+        {
+          id: 14,
+          longitude: 104.063986,
+          latitude: 30.599547,
+          title: '迪卡侬',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道都会路199号迪卡侬运动场'
+        },
+        {
+          id: 15,
+          longitude: 104.060961,
+          latitude: 30.601255,
+          title: '必胜客',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道必胜客(成都高新店)'
+        },
+        {
+          id: 16,
+          longitude: 104.060102,
+          latitude: 30.601394,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道益州大道北段360号英祥·财富领域'
+        },
+        {
+          id: 17,
+          longitude: 104.062903,
+          latitude: 30.601855,
+          title: '凯德广场',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'
+        },
+        {
+          id: 18,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '宜家家居(成都商场店)',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'
+        },{
+          id: 19,
+          longitude: 104.05815,
+          latitude: 30.599565,
+          title: '城市春天',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'
+        },
+        {
+          id: 20,
+          longitude: 104.062087,
+          latitude: 30.599805,
+          title: '四川省城市车辆置业有限责任公司',
+          tagId: 1,
+          categoryId: 1,
+          address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'
         }
       ],
       tagIcon: '',
@@ -320,10 +402,18 @@ export default {
   },
   mounted () {
     window.setTimeout(this.creatMap, 2000);
-    this.setMapLimit();
+    window.setTimeout(this.setMapLimit, 2000);
   },
   methods: {
-    setMapLimit(){},
+    setMapLimit(){
+      let mapObj = amapManager._map;
+      // var southWest = new AMap.LngLat(104.098487,30.522093);
+      // var northEast = new AMap.LngLat(103.973976,30.631772);
+      var southWest = new AMap.LngLat(103.978188,30.533126);
+      var northEast = new AMap.LngLat(104.106075,30.625936);
+      var bounds = new AMap.Bounds(southWest, northEast);
+      mapObj.setLimitBounds(bounds);
+    },
     creatMap() {
       var self = this;
       let mapObj = amapManager._map;
@@ -355,6 +445,7 @@ export default {
                   '</div>'
         })
         marker.on('click', function() {
+          this.activeName = "0";
           self.window.visible = false;
           var markerId = this.getExtData();
           self.markerClustererShow = false;
@@ -379,6 +470,7 @@ export default {
         zoomOnClick: false
       });
       cluster.on('click',(target)=>{
+        this.activeName = "0";
         this.window.visible = false;
         this.window.position = [target.lnglat.lng,target.lnglat.lat];
         this.markerClusterList = [];
@@ -394,7 +486,7 @@ export default {
             }
           })
         })
-        self.markerClustererShow = true;
+        this.markerClustererShow = true;
         this.$nextTick(() => {
           this.window.visible = true;
         });
@@ -434,33 +526,6 @@ export default {
         this.searchDropdownShow = false
       }
     },
-    add() {
-      let mapObj = amapManager._map;
-      var markers = [];
-      let marker1 = new AMap.Marker({
-        position: [103.951572,30.559105],
-        content:'<div>'+
-                  '<svg height="30px" width="30px"><use xlink:href="#chooseIcon4" fill="blue" stroke="blue" class="use-style"></use></svg>'+
-                '</div>'
-      });
-      let marker2 = new AMap.Marker({
-        position: [103.951572,30.559109],
-        content:'<div>'+
-                  '<svg height="30px" width="30px"><use xlink:href="#chooseIcon4" fill="blue" stroke="blue" class="use-style"></use></svg>'+
-                '</div>'
-      });
-      markers.push(marker1,marker2)
-      var cluster;
-      cluster = new AMap.MarkerClusterer(mapObj,markers,{
-        gridSize:15,
-      });
-      cluster.setMap(mapObj);
-      // var southWest = new AMap.LngLat(104.098487,30.522093);
-      // var northEast = new AMap.LngLat(103.973976,30.631772);
-      // var bounds;
-      // bounds = new AMap.Bounds(southWest, northEast);
-      // mapObj.setLimitBounds(bounds);
-    },
     setCenterLngLat(centerMarkerId) {
       this.markerList.forEach( item => {
         if ( centerMarkerId === item.id ) {
@@ -475,11 +540,10 @@ export default {
       })
     },
     handleClick(tab,event) {
-      this.activeName = tab.index;
+      this.activeName = tab.index.toString();
     },
     getCurrentMarkerId(id) {
       this.currentMarkerId = id;
-      console.log(this.currentMarkerId)
       this.$ref.tagWindow.currentMarkerIdChange(this.currentMarkerId);
       this.$ref.categoryWindow.currentMarkerIdChange(this.currentMarkerId)
     },
