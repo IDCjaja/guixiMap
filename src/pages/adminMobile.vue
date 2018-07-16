@@ -80,6 +80,10 @@ export default {
       events: {
         click() {
           self.filterCollapse = false
+        },
+        complete() {
+          self.creatMap();
+          self.setMapLimit()
         }
       },
       markerList: [
@@ -287,9 +291,6 @@ export default {
       ]
       this.zoom = 18
     }
-    window.setTimeout(this.creatMap, 2000);
-    window.setTimeout(this.setMapLimit, 2000);
-    //this.creatMap();
   },
   methods: {
     setMapLimit(){

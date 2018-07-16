@@ -139,6 +139,10 @@ export default {
         click() {
           self.filterShow = false;
           self.searchDropdownShow =false
+        },
+        complete() {
+          self.creatMap();
+          self.setMapLimit()
         }
       },
       zoom: 17,
@@ -400,15 +404,9 @@ export default {
       ]
     }
   },
-  mounted () {
-    window.setTimeout(this.creatMap, 2000);
-    window.setTimeout(this.setMapLimit, 2000);
-  },
   methods: {
     setMapLimit(){
       let mapObj = amapManager._map;
-      // var southWest = new AMap.LngLat(104.098487,30.522093);
-      // var northEast = new AMap.LngLat(103.973976,30.631772);
       var southWest = new AMap.LngLat(103.978188,30.533126);
       var northEast = new AMap.LngLat(104.106075,30.625936);
       var bounds = new AMap.Bounds(southWest, northEast);
@@ -458,7 +456,7 @@ export default {
           });
         });
         marker.on('mouseover', function() {
-          this.setAnimation("AMAP_ANIMATION_BOUNCE")
+          this.setAnimation("AMAP_ANIMATION_DROP")
         })
         marker.on('mouseout', function() {
           this.setAnimation("AMAP_ANIMATION_NONE")
