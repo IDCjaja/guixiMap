@@ -151,7 +151,7 @@ export default {
           id: 1,
           longitude: 104.106946,
           latitude: 30.674249,
-          title: '',
+          title: '妈妈驿站',
           tagId: 1,
           categoryId:1
         },
@@ -265,7 +265,8 @@ export default {
         {id:2},
         {id:3},
         {id:4},
-        {id:5}
+        {id:5},
+        {id:6}
       ],
       tags:[
         {id:1,color:'#a0a0a0',name:'',value: '全部', label: '全部'},
@@ -348,8 +349,9 @@ export default {
           position: [item.longitude, item.latitude],
           offset:  new AMap.Pixel(-10,-24),
           zIndex: item.zIndex,
+          riseOnHover: true,
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.id+'</span></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.title.substr(0,1)+'</span></svg>'+
                   '</div>'
         })
         marker.on('click', function() {
@@ -364,6 +366,12 @@ export default {
             self.window.visible = true;
           });
         });
+        marker.on('mouseover', function() {
+          this.setAnimation("AMAP_ANIMATION_BOUNCE")
+        })
+        marker.on('mouseout', function() {
+          this.setAnimation("AMAP_ANIMATION_NONE")
+        })
         markers.push(marker);
       })
       var cluster = new AMap.MarkerClusterer(mapObj, markers,{

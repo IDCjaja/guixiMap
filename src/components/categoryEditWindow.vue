@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       editCategoryShow: false,
-      strokeSvgShow: [true,true,true,true,true],
+      strokeSvgShow: [true,true,true,true,true,true],
       newCategoryName: '',
       selectedCategoryId: Number,
       categoryChoosedId: Number,

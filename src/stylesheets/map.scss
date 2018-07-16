@@ -60,8 +60,11 @@ $orange-color: #f07235;
 }
 .marker-title {
   background: #fff;
-  padding: 2px 12px;
+  padding: 4px 12px;
   border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: $orange-color;
   box-shadow: 0 0 5px rgba(0,0,0,.1);
 }
 .search-wrapper {

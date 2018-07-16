@@ -3,6 +3,9 @@
   &.el-tabs--left.el-tabs--card {
     .el-tabs__header.is-left {
       width: 140px;
+      max-height: 300px;
+      overflow-y: auto;
+      overflow-x: hidden;
       margin-right: 0;
       border-right: none;
       border-bottom: none;
