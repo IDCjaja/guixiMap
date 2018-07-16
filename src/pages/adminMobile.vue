@@ -32,10 +32,13 @@
     <message-footer
       v-if="messageFooterShow"
       v-on:get-from-message-footer="toInformation"
+      v-on:listen-clusterer-open="clustererOpen"
       :current-marker="currentMarker"
       :marker-clusterer-show="markerClustererShow">
     </message-footer>
-    <marker-cluster-list></marker-cluster-list>
+    <marker-cluster-list
+      v-if="clustererOpenShow"
+      :marker-cluster-list="markerClusterList"></marker-cluster-list>
   </div>
 </template>
 
@@ -66,6 +69,7 @@ export default {
       filterCollapse: false,
       messageFooterShow: false,
       markerClustererShow: false,
+      clustererOpenShow: false,
       selectCategoryList: '',
       selectTagList: '',
       currentMarker: [],
@@ -80,8 +84,9 @@ export default {
           id: 1,
           longitude: 104.106946,
           latitude: 30.674249,
-          title: '',
-          tagId: 1
+          title: '华茂广场',
+          tagId: 1,
+          address: '二环路东二段华茂广场'
         },
         {
           id: 2,
@@ -234,6 +239,7 @@ export default {
         })
         marker.on('click', function() {
           self.markerClustererShow = false;
+          self.clustererOpenShow = false
           self.markerList.forEach(currentItem => {
             if(currentItem.id == item.id){
               self.currentMarker = currentItem;
@@ -248,6 +254,7 @@ export default {
         zoomOnClick: false
       });
       cluster.on('click',(target)=>{
+        this.clustererOpenShow = false;
         this.markerClustererShow = true;
         this.markerClusterList = [];
         target.markers.map((markerItem,index) => {
@@ -277,6 +284,9 @@ export default {
           currentMarker: this.currentMarker
         }
       })
+    },
+    clustererOpen() {
+      this.clustererOpenShow = true;
     }
   }
 }

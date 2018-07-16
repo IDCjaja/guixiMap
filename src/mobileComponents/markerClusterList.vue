@@ -1,11 +1,10 @@
 <template>
-  <ul class="marker-list" style="display: none">
-    <li class="item">
-      <span>等待检查</span>
-      <i class="el-icon-arrow-right"></i>
-    </li>
-    <li class="item">
-      <span>等待检查</span>
+  <ul class="marker-list">
+    <li class="item"
+      v-for="(item,index) in markerClusterList"
+      :key="index"
+      @click="toInformation(item.id)">
+      <span>{{item.title}}</span>
       <i class="el-icon-arrow-right"></i>
     </li>
   </ul>
@@ -13,7 +12,26 @@
 
 <script>
 export default {
-  name: 'markerClusterList'
+  name: 'markerClusterList',
+  props: {
+    markerClusterList: Array
+  },
+  methods: {
+    toInformation(id) {
+      var currentMarker;
+      this.markerClusterList.forEach(marker => {
+        if(marker.id === id){
+          currentMarker = marker
+        }
+      });
+      this.$router.push({
+        name: 'mobileInformation',
+        params: {
+          currentMarker: currentMarker
+        }
+      })
+    },
+  }
 }
 </script>
 
