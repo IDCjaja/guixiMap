@@ -9,9 +9,10 @@
         <label class="radio-button" v-for="existedCategory in existedCategories" :key="existedCategory.id">
           <input type="radio"
             class="radio-button_orig-readio"
-            v-model="selectedCategoryId"
+            v-model="currentMarkerCategoryId"
             :value="existedCategory.id"
-            name="category_select_edit">
+            :name="'category_select_edit'+radioName"
+            @click="changeCategory(existedCategory.categoryId)">
           <div class="existed-icon-list radio-button_inner">
             <svg class="radio-button_inner" height="20px" width="20px">
               <use :xlink:href="'#chooseIcon'+existedCategory.iconId" fill="#a2a2a2" stroke="#a2a2a2"></use>
@@ -37,6 +38,7 @@
                 @click="chooseCategory(item.id,index)"
                 name="category_select" />
               <svg class="radio-button_inner" height="28px" width="28px">
+                {{strokeSvgShow[index]}}
                 <use v-if="strokeSvgShow[index]" :xlink:href="'#chooseIcon'+item.id" fill="#a2a2a2" stroke="#a2a2a2"></use>
                 <use v-if="!strokeSvgShow[index]" :xlink:href="'#chooseIcon'+item.id+'-hover'" fill="#a2a2a2" stroke="#a2a2a2"></use>
               </svg>
@@ -67,19 +69,10 @@ export default {
   props: {
     existedCategories: Array,
     chooseCategories: Array,
-    currentMarkerId: Number
-  },
-  mounted() {
-    this.existedCategories.forEach(item => {
-      if(item.id == this.currentMarkerId){
-        this.selectedCategoryId = item.categoryId
-      }
-    })
+    currentMarkerCategoryId: Number,
+    radioName: Number
   },
   methods: {
-    currentMarkerIdChange(id) {
-      this.currentMarkerId = id;
-    },
     editCategoryOpen(name,id) {
       this.strokeSvgShow = [true,true,true,true,true];
       this.$set(this.strokeSvgShow, id-1, false)
@@ -155,6 +148,12 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    changeCategory(id) {
+      console.log("POST success")
+      // 提交选择的category的id，更改marker的category
+      this.currentMarkerCategoryId = id;
+      this.$emit('toggleInitMap')// 触发父组件方法
     }
   }
 }

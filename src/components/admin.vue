@@ -21,15 +21,12 @@
             @toggleInitMap="initMap"
             :existed-tag="existedTag"
             :choose-tags="chooseTags"
-            :current-marker-id="currentMarkerId"
-            ref="tagWindow"
-            v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+            :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
           <category-edit-window
             @toggleInitMap="initMap"
             :existed-categories="existedCategories"
             :choose-categories="chooseCategories"
-            :current-marker-id="currentMarkerId"
-            ref="categoryWindow"></category-edit-window>
+            :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
             <span>桂溪和平社区</span>
             <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
@@ -43,8 +40,7 @@
           @tab-click="handleClick">
           <el-tab-pane
             v-for="(item,index) in markerClusterList"
-            :key="index"
-            @click="getCurrentMarkerId(item.id)">
+            :key="index">
             <span slot="label" :name="index">
               <svg height="16px" width="16px">
                 <use :xlink:href="'#chooseIcon'+item.categoryId" :fill="item.color" :stroke="item.color"></use>
@@ -55,16 +51,15 @@
                 @toggleInitMap="initMap"
                 :existed-tag="existedTag"
                 :choose-tags="chooseTags"
-                :current-marker-id="currentMarkerId"
-                ref="tagWindow"
-                v-on:changeCurrentMarker="changeTag"></tag-edit-window>
+                :radioName="item.id"
+                :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
               <category-edit-window
                 @toggleInitMap="initMap"
                 :existed-categories="existedCategories"
                 :choose-categories="chooseCategories"
-                :current-marker-id="currentMarkerId"
-                ref="categoryWindow"></category-edit-window>
-              <div class="window-edit-footer" v-on:click="openInformation">
+                :radioName="item.id"
+                :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
+              <div class="window-edit-footer" @click="openInformation">
                 <span>桂溪和平社区</span>
                 <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
               </div>
@@ -133,6 +128,8 @@ export default {
       searchResult: false,
       markerClustererShow: false,
       currentMarkerId: -1,
+      currentMarkerTagId: 1,
+      currentMarkerCategoryId: 1,
       markerClusterList: [],
       activeName: "0",
       events: {
@@ -449,8 +446,15 @@ export default {
           self.markerClustererShow = false;
           self.window.position = [item.longitude, item.latitude];
           self.currentMarkerId = markerId;
-          // self.$ref.tagWindow.currentMarkerIdChange(self.currentMarkerId);
-          // self.$ref.categoryWindow.currentMarkerIdChange(self.currentMarkerId)
+          console.log(self.currentMarkerId)
+          this.markerList.forEach(item => {
+            if(item.id == self.currentMarkerId){
+              self.currentMarkerTagId = item.tagId;
+              self.currentMarkerCategoryId = item.categoryId
+            }
+          })
+          // self.$refs.tagWindow.currentMarkerIdChange(self.currentMarkerId);
+          // self.$refs.categoryWindow.currentMarkerIdChange(self.currentMarkerId)
           self.$nextTick(() => {
             self.window.visible = true;
           });
@@ -539,18 +543,14 @@ export default {
     },
     handleClick(tab,event) {
       this.activeName = tab.index.toString();
-    },
-    getCurrentMarkerId(id) {
-      this.currentMarkerId = id;
-      this.$ref.tagWindow.currentMarkerIdChange(this.currentMarkerId);
-      this.$ref.categoryWindow.currentMarkerIdChange(this.currentMarkerId)
-    },
-    changeTag() {
-      //重新请求marker数据，渲染地图
-      this.creatMap();
+      this.currentMarkerId = this.markerClusterList[tab.index].id;
+      this.currentMarkerTagId = this.markerClusterList[tab.index].tagId
+      this.currentMarkerCategoryId = this.markerClusterList[tab.index].categoryId
     },
     initMap() {
+      //重新请求marker数据，渲染地图
       this.creatMap()
+      console.log("render again success")
     }
   }
 }

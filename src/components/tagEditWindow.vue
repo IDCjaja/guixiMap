@@ -12,9 +12,9 @@
             <label class="radio-button">
               <input type="radio" class="radio-button_orig-readio"
                 :value="tag.id"
-                v-on:click="changeTag(tag.id)"
-                v-model="selectTagId"
-                name="tag_select" />
+                v-on:click="changeTag(tag.tagId)"
+                v-model="currentMarkerTagId"
+                :name="'tag_select'+radioName" />
               <span class="color-bar-item radio-button_inner" :class="{active:toggleShow[index]}" :style="{ backgroundColor: tag.color }">{{tag.name}}<i class="el-icon-check"></i></span>
             </label>
             <span class="edit-operate" :class="{show:toggleShow[index]}">
@@ -66,7 +66,6 @@ export default {
       tagChoosedId: Number,
       editTagId: Number,
       colorValue: [],
-      selectTagId: Number,
       newTagName: '',
       flag: 'add'
     }
@@ -74,21 +73,10 @@ export default {
   props: {
     existedTag: Array,
     chooseTags: Array,
-    currentMarkerId: Number,
-  },
-  mounted() {
-    this.existedTag.forEach(item => {
-      this.colorValue.push(item.color)
-      if(item.id == this.currentMarkerId){
-        this.selectTagId = item.tagId
-      }
-    })
+    currentMarkerTagId: Number,
+    radioName: Number
   },
   methods: {
-    currentMarkerIdChange(id) {
-      this.currentMarkerId = id;
-      console.log(this.currentMarkerId)
-    },
     toggleOpenEdit(index) {
       this.$set(this.toggleShow, index, true)
     },
@@ -210,7 +198,9 @@ export default {
     },
     changeTag(id) {
       // 提交选择的tag的id，更改marker的tag
-      this.$emit('changeCurrentMarker',this.selectTagId)// 触发父组件方法
+      console.log("POST success")
+      this.currentMarkerTagId = id;
+      this.$emit('toggleInitMap')// 触发父组件方法
     },
     colorRepeatConfirm(id) {
       this.chooseTags.forEach( tag => {
