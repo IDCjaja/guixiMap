@@ -107,6 +107,7 @@ $orange-color: #f07235;
         white-space: nowrap;
         cursor: pointer;
         overflow: hidden;
+        @include text-overflow-show;
         &:hover {
           background: rgba(254,114,39,.3);
           small {
