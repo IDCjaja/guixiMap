@@ -626,7 +626,7 @@ $orange-color: #f07235;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
   border-radius: 5px;
   height: auto;
-  height: 75%;
+  max-height: 75%;
   .information-title {
     font-size: 24px;
     background: #f07235;

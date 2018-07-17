@@ -218,8 +218,8 @@ export default {
         {id: 16,longitude: 104.060102,latitude: 30.601394,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道益州大道北段360号英祥·财富领域'},
         {id: 17,longitude: 104.062903,latitude: 30.601855,name: '凯德广场',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'},
         {id: 18,longitude: 104.062087,latitude: 30.599805,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
-        {id: 19,longitude: 104.05815,latitude: 30.599565,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
-        {id: 20,longitude: 104.062087,latitude: 30.599805,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
+        {id: 19,longitude: 104.05815,latitude: 30.600565,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
+        {id: 20,longitude: 104.062087,latitude: 30.609805,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
       ],
       markerList: [
         {id: 1,longitude: 104.106946,latitude: 30.674249,name: '妈妈驿站',tagId: 1,categoryId:1},
@@ -233,15 +233,15 @@ export default {
         {id: 8,longitude: 104.104147,latitude: 30.669054,name: '高地中心',tagId: 1,categoryId: 1,address: '建设路9号'},
         {id: 9,longitude: 104.075275,latitude: 30.601965,name: '成都高新技术产业开发区桂溪街道办事处',tagId: 1,categoryId: 1,address: '天仁路176号'},
         {id: 10,longitude: 104.077467,latitude: 30.618422,name: '桂溪加油站(科华中路)',tagId: 1,categoryId: 1,address: '科华中路63号'},
-        {id: 12,longitude: 104.062087,latitude: 30.599805,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
+        {id: 12,longitude: 104.062087,latitude: 30.599905,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
         {id: 13,longitude: 104.06183,latitude: 30.601754,name: '欧尚(成都高新店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道欧尚(成都高新店)'},
         {id: 14,longitude: 104.063986,latitude: 30.599547,name: '迪卡侬',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道都会路199号迪卡侬运动场'},
         {id: 15,longitude: 104.060961,latitude: 30.601255,name: '必胜客',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道必胜客(成都高新店)'},
         {id: 16,longitude: 104.060102,latitude: 30.601394,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道益州大道北段360号英祥·财富领域'},
         {id: 17,longitude: 104.062903,latitude: 30.601855,name: '凯德广场',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'},
         {id: 18,longitude: 104.062087,latitude: 30.599805,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
-        {id: 19,longitude: 104.05815,latitude: 30.599565,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
-        {id: 20,longitude: 104.062087,latitude: 30.599805,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
+        {id: 19,longitude: 104.05815,latitude: 30.600865,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
+        {id: 20,longitude: 104.062087,latitude: 30.609805,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
       ]
     }
   },
@@ -254,8 +254,13 @@ export default {
       mapObj.setLimitBounds(bounds);
     },
     creatMap() {
-      let mapObj = amapManager._map;
       var markers = [];
+      let mapObj = amapManager._map;
+      var cluster = new AMap.MarkerClusterer(mapObj, markers,{
+        gridSize:30,
+        zoomOnClick: false
+      });
+      cluster.clearMarkers()
       this.markerList.forEach((item,index) => {
         var category;
         var tag;
@@ -279,7 +284,7 @@ export default {
           zIndex: item.zIndex,
           riseOnHover: true,
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
+                    '<svg height="40px" width="40px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
                   '</div>'
         })
         var self = this;
@@ -308,10 +313,8 @@ export default {
         })
         markers.push(marker);
       })
-      var cluster = new AMap.MarkerClusterer(mapObj, markers,{
-        gridSize:30,
-        zoomOnClick: false
-      });
+      cluster.addMarkers(markers)
+      console.log(cluster.getMarkers())
       cluster.on('click',(target)=>{
         this.activeName = "0";
         this.window.visible = false;

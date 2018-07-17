@@ -1,7 +1,7 @@
 <template>
   <div class="message-footer">
     <div class="message-content" @click="tellMessageFooter">
-      <div class="title">{{ currentMarker.title }}</div>
+      <div class="title">{{ currentMarker.name }}</div>
       <div class="address">{{ currentMarker.address }}</div>
     </div>
     <div class="message-more">
