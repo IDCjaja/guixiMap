@@ -284,7 +284,7 @@ export default {
           zIndex: item.zIndex,
           riseOnHover: true,
           content:'<div>'+
-                    '<svg height="40px" width="40px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
                   '</div>'
         })
         var self = this;
