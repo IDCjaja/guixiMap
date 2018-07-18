@@ -14,8 +14,8 @@
             :name="'category_select_edit'+radioName"
             @click="changeCategory(existedCategory.categoryId)">
           <div class="existed-icon-list radio-button_inner">
-            <svg class="radio-button_inner" height="20px" width="20px">
-              <use :xlink:href="'#chooseIcon'+existedCategory.iconId" fill="#a2a2a2" stroke="#a2a2a2"></use>
+            <svg class="radio-button_inner" height="16px" width="16px">
+              <use :xlink:href="'#icon'+existedCategory.iconId" fill="#a2a2a2" stroke="#a2a2a2"></use>
             </svg>
             <span>{{ existedCategory.name }}</span>
             <i class="el-icon-edit" v-on:click="editCategoryOpen(existedCategory.name,existedCategory.id)"></i>
@@ -37,10 +37,9 @@
                 class="radio-button_orig-readio"
                 @click="chooseCategory(item.id,index)"
                 name="category_select" />
-              <svg class="radio-button_inner" height="28px" width="28px">
-                {{strokeSvgShow[index]}}
-                <use v-if="strokeSvgShow[index]" :xlink:href="'#chooseIcon'+item.id" fill="#a2a2a2" stroke="#a2a2a2"></use>
-                <use v-if="!strokeSvgShow[index]" :xlink:href="'#chooseIcon'+item.id+'-hover'" fill="#a2a2a2" stroke="#a2a2a2"></use>
+              <svg class="radio-button_inner" height="16px" width="16px">
+                <use v-if="strokeSvgShow[index]" :xlink:href="'#icon'+item.id" fill="#a2a2a2" stroke="#a2a2a2"></use>
+                <use v-if="!strokeSvgShow[index]" :xlink:href="'#icon'+item.id" fill="#f07235" stroke="#f07235"></use>
               </svg>
             </label>
           </div>
@@ -74,7 +73,7 @@ export default {
   },
   methods: {
     editCategoryOpen(name,id) {
-      this.strokeSvgShow = [true,true,true,true,true];
+      this.strokeSvgShow = [true,true,true,true,true,true];
       this.$set(this.strokeSvgShow, id-1, false)
       this.flag = 'edit';
       this.newCategoryName = name;
@@ -89,7 +88,7 @@ export default {
     },
     chooseCategory(id,index) {
       this.categoryChoosedId = id;
-      this.strokeSvgShow = [true,true,true,true,true];
+      this.strokeSvgShow = [true,true,true,true,true,true];
       this.$set(this.strokeSvgShow, index, false)
     },
     getNewCategoryName(event) {

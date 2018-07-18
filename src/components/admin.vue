@@ -28,7 +28,7 @@
             :choose-categories="chooseCategories"
             :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
-            <span>桂溪和平社区</span>
+            <span>{{ currentMarkerName }}</span>
             <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
           </div>
         </div>
@@ -43,7 +43,7 @@
             :key="index">
             <span slot="label" :name="index">
               <svg height="16px" width="16px">
-                <use :xlink:href="'#chooseIcon'+item.categoryId" :fill="item.color" :stroke="item.color"></use>
+                <use :xlink:href="'#icon'+item.categoryId" :fill="item.color" :stroke="item.color"></use>
               </svg>
             {{item.name}}</span>
             <div class="window-edit info">
@@ -60,7 +60,7 @@
                 :radioName="item.id"
                 :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
               <div class="window-edit-footer" @click="openInformation">
-                <span>桂溪和平社区</span>
+                <span>{{ currentMarkerName }}</span>
                 <img src="http://p1ctmsz1g.bkt.clouddn.com/more.png" />
               </div>
             </div>
@@ -130,6 +130,7 @@ export default {
       currentMarkerId: -1,
       currentMarkerTagId: -1,
       currentMarkerCategoryId: -1,
+      currentMarkerName: '',
       markerClusterList: [],
       activeName: "0",
       events: {
@@ -303,6 +304,7 @@ export default {
             if(item.id == self.currentMarkerId){
               self.currentMarkerTagId = item.tagId;
               self.currentMarkerCategoryId = item.categoryId
+              self.currentMarkerName = item.name
             }
           })
           self.$nextTick(() => {
@@ -336,6 +338,10 @@ export default {
           })
         })
         this.markerClustererShow = true;
+        this.currentMarkerId = this.markerClusterList[0].id;
+        this.currentMarkerTagId = this.markerClusterList[0].tagId
+        this.currentMarkerCategoryId = this.markerClusterList[0].categoryId;
+        this.currentMarkerName = this.markerClusterList[0].name
         this.$nextTick(() => {
           this.window.visible = true;
         });
@@ -392,7 +398,8 @@ export default {
       this.activeName = tab.index.toString();
       this.currentMarkerId = this.markerClusterList[tab.index].id;
       this.currentMarkerTagId = this.markerClusterList[tab.index].tagId
-      this.currentMarkerCategoryId = this.markerClusterList[tab.index].categoryId
+      this.currentMarkerCategoryId = this.markerClusterList[tab.index].categoryId;
+      this.currentMarkerName = this.markerClusterList[tab.index].name
     },
     initMap() {
       //重新请求marker数据，渲染地图
