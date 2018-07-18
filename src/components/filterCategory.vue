@@ -2,7 +2,7 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">分类</span>
-      <el-select v-model="category" multiple placeholder="请选择">
+      <el-select v-model="category" multiple placeholder="请选择" @change="categorySelect">
         <el-option
           v-for="(item,index) in existedCategories"
           :key="index"
@@ -31,11 +31,20 @@
 export default {
   data() {
     return {
-      category: ''
+      category: '',
+      categorySelectList: []
     }
   },
   props: {
     existedCategories: Array
+  },
+  methods: {
+    categorySelect() {
+      console.log(this.category[0])
+      this.existedCategories.forEach(item => {
+        this.category
+      });
+    }
   }
 }
 </script>

@@ -12,7 +12,7 @@
             v-model="currentMarkerCategoryId"
             :value="existedCategory.id"
             :name="'category_select_edit'+radioName"
-            @click="changeCategory(existedCategory.categoryId)">
+            @click="changeCategory(existedCategory.iconId)">
           <div class="existed-icon-list radio-button_inner">
             <svg class="radio-button_inner" height="16px" width="16px">
               <use :xlink:href="'#icon'+existedCategory.iconId" fill="#a2a2a2" stroke="#a2a2a2"></use>
@@ -35,6 +35,8 @@
             <label class="radio-button" v-for="(item,index) in chooseCategories" :key="index">
               <input type="radio"
                 class="radio-button_orig-readio"
+                :value="item.id"
+                v-model="categoryChoosedId"
                 @click="chooseCategory(item.id,index)"
                 name="category_select" />
               <svg class="radio-button_inner" height="16px" width="16px">
@@ -68,6 +70,8 @@ export default {
   props: {
     existedCategories: Array,
     chooseCategories: Array,
+    markerList: Array,
+    currentMarkerId: Number,
     currentMarkerCategoryId: Number,
     radioName: Number
   },
@@ -97,26 +101,27 @@ export default {
     addCategory() {
       if(this.newCategoryName !== ""){
         if(this.flag == 'add'){
-        this.chooseCategories.forEach( category => {
-          if(category.id == this.categoryChoosedId){
-            this.existedCategories.push({
-              name: this.newCategoryName,
-              iconId: this.categoryChoosedId,
-              number: '2'
-            })
-          }
-        });
-      } else {
-        this.existedCategories.forEach(editCategory => {
-          if(this.editCategoryId == editCategory.id){
-            editCategory.iconId = this.categoryChoosedId,
-            editCategory.name = this.newTagName
-          }
-        })
-      }
-      this.editCategoryShow = false
-      this.categoryChoosedId = -1
-      this.$emit('toggleInitMap')
+          this.chooseCategories.forEach( category => {
+            if(category.id == this.categoryChoosedId){
+              this.existedCategories.push({
+                id: category.id,
+                name: this.newCategoryName,
+                iconId: category.id,
+                number: '2'
+              })
+            }
+          });
+        } else {
+          this.existedCategories.forEach(editCategory => {
+            if(this.editCategoryId == editCategory.id){
+              editCategory.id = this.categoryChoosedId,
+              editCategory.name = this.newCategoryName,
+              editCategory.iconId = this.categoryChoosedId,
+              editCategory.number =  2
+            }
+          })
+        }
+        this.editCategoryShow = false
       } else {
         this.$message({
           type: 'info',
@@ -125,6 +130,8 @@ export default {
       }
     },
     editCategoryHidden() {
+      this.newCategoryName = '';
+      this.categoryChoosedId = -1;
       this.editCategoryShow = false
     },
     categoryMessageBoxOpen(id) {
@@ -149,7 +156,11 @@ export default {
       })
     },
     changeCategory(id) {
-      console.log("POST success")
+      this.markerList.forEach(marker => {
+        if(marker.id == this.currentMarkerId){
+          marker.categoryId = id
+        }
+      })
       // 提交选择的category的id，更改marker的category
       this.currentMarkerCategoryId = id;
       this.$emit('toggleInitMap')// 触发父组件方法

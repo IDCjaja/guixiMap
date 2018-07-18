@@ -21,11 +21,15 @@
             @toggleInitMap="initMap"
             :existed-tag="existedTag"
             :choose-tags="chooseTags"
+            :marker-list="markerList"
+            :current-marker-id="currentMarkerId"
             :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
           <category-edit-window
             @toggleInitMap="initMap"
             :existed-categories="existedCategories"
             :choose-categories="chooseCategories"
+            :marker-list="markerList"
+            :current-marker-id="currentMarkerId"
             :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
           <div class="window-edit-footer" v-on:click="openInformation">
             <span>{{ currentMarkerName }}</span>
@@ -52,12 +56,16 @@
                 :existed-tag="existedTag"
                 :choose-tags="chooseTags"
                 :radioName="item.id"
+                :marker-list="markerList"
+                :current-marker-id="currentMarkerId"
                 :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
               <category-edit-window
                 @toggleInitMap="initMap"
                 :existed-categories="existedCategories"
                 :choose-categories="chooseCategories"
                 :radioName="item.id"
+                :marker-list="markerList"
+                :current-marker-id="currentMarkerId"
                 :current-marker-category-id="currentMarkerCategoryId"></category-edit-window>
               <div class="window-edit-footer" @click="openInformation">
                 <span>{{ currentMarkerName }}</span>
@@ -274,8 +282,8 @@ export default {
       });
       cluster.clearMarkers()
       this.markerList.forEach((item,index) => {
-        var category;
-        var tag;
+        var category = {};
+        var tag = {};
         this.existedCategories.forEach(categoryItem => {
           if(categoryItem.id == item.categoryId){
             category = categoryItem;
@@ -296,7 +304,7 @@ export default {
           zIndex: item.zIndex,
           riseOnHover: true,
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.iconId+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
                   '</div>'
         })
         var self = this;
@@ -415,7 +423,6 @@ export default {
     initMap() {
       //重新请求marker数据，渲染地图
       this.creatMap()
-      console.log("render again success")
     }
   }
 }
