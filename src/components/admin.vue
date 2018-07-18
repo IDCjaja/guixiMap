@@ -69,7 +69,14 @@
       </el-amap-info-window>
     </el-amap>
     <div class="search-wrapper">
-      <el-input class="search-input" placeholder="" :value="searchInputValue" suffix-icon="el-icon-search" @change="handleInput" @keyup.enter.native="keyCode"></el-input>
+      <el-input
+        class="search-input"
+        placeholder=""
+        :value="searchInputValue"
+        suffix-icon="el-icon-search"
+        @change="handleInput"
+        @focus="searchFocus"
+        @keyup.enter.native="keyCode"></el-input>
       <search-dropdown
         :search-dropdown-show="searchDropdownShow" 
         :search-result="searchResult"
@@ -350,7 +357,11 @@ export default {
     filterOpen() {
       this.filterShow = true
     },
+    searchFocus() {
+      this.window.visible = false
+    },
     openInformation() {
+      alert(this.currentMarkerId)
       this.informationShow = true
     },
     listenToInformation() {
