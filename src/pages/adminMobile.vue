@@ -271,16 +271,16 @@ export default {
         {id:4,color:'#73b724',name:'',value: '绿色', label: '绿色'},
       ],
       categoryList: [
-        {id:1,name: '全部', number: '2',categoryId:1},
-        {id:2,name: '企业', number:'1',categoryId:2},
-        {id:3,name: '个人', number: '1',tagId:2,categoryId:3},
-        {id:4,name: '法人', number: '0',tagId:3,categoryId:4}
+        {id:1,name: '全部', number: 2,categoryId:1},
+        {id:2,name: '企业', number: 1,categoryId:2},
+        {id:3,name: '个人', number: 1,tagId:2,categoryId:3},
+        {id:4,name: '法人', number: 0,tagId:3,categoryId:4}
       ],
       tagList: [
-        {id:1,name: '等待检查', color: '#a0a0a0', number: '2',defaultColor: true},
-        {id:2,name: '不合格', color: '#f52b1f', number: '5',defaultColor: false},
-        {id:3,name: '合格', color: '#73b724', number: '1',defaultColor: false},
-        {id:4,name: '待整改', color: '#feb902', number: '0',defaultColor: false}
+        {id:1,name: '等待检查', color: '#a0a0a0', number: 2,defaultColor: true},
+        {id:2,name: '不合格', color: '#f52b1f', number: 5,defaultColor: false},
+        {id:3,name: '合格', color: '#73b724', number: 1,defaultColor: false},
+        {id:4,name: '待整改', color: '#feb902', number: 0,defaultColor: false}
       ]
     }
   },

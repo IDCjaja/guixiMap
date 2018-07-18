@@ -239,13 +239,13 @@ export default {
         {id: 15,longitude: 104.060961,latitude: 30.601255,name: '必胜客',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道必胜客(成都高新店)'},
         {id: 16,longitude: 104.060102,latitude: 30.601394,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道益州大道北段360号英祥·财富领域'},
         {id: 17,longitude: 104.062903,latitude: 30.601855,name: '凯德广场',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'},
-        {id: 18,longitude: 104.062087,latitude: 30.599805,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
+        {id: 18,longitude: 104.062087,latitude: 30.599805,name: '成都商场店',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
         {id: 19,longitude: 104.05815,latitude: 30.600865,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
         {id: 20,longitude: 104.062087,latitude: 30.610805,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'},
-        {id: 17,longitude: 104.062903,latitude: 30.601985,name: '凯德广场',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'},
-        {id: 18,longitude: 104.062087,latitude: 30.599815,name: '宜家家居(成都商场店)',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
-        {id: 19,longitude: 104.05815,latitude: 30.599815,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
-        {id: 20,longitude: 104.062087,latitude: 30.609955,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
+        {id: 21,longitude: 104.062903,latitude: 30.601985,name: '凯德广场',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道南洋小馆(凯德广场)凯德广场(新南店)'},
+        {id: 22,longitude: 104.062087,latitude: 30.599815,name: '宜家',tagId: 1,categoryId: 1,address: '四川省成都市武侯区桂溪街道宜家家居(成都商场店)'},
+        {id: 23,longitude: 104.05815,latitude: 30.599815,name: '城市春天',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道成都云起茶宿客栈城市春天'},
+        {id: 24,longitude: 104.062087,latitude: 30.609955,name: '四川省城市车辆置业有限责任公司',tagId: 1,categoryId: 1,address: '四川省成都市武侯区石羊场街道火车南站西路865号四川省城市车辆置业有限责任公司'}
       ]
     }
   },
@@ -318,7 +318,6 @@ export default {
         markers.push(marker);
       })
       cluster.addMarkers(markers)
-      console.log(cluster.getMarkers())
       cluster.on('click',(target)=>{
         this.activeName = "0";
         this.window.visible = false;

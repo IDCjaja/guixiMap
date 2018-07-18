@@ -4,41 +4,14 @@
       <div class="select-title">分类</div>
       <div class="select-body">
         <el-checkbox-group v-model="newCheckedCategories">
-          <el-checkbox label="默认分类">
+          <el-checkbox v-for="(category,index) in categoryList" :label="category.name" :key="index">
             <div class="prefix-span">
-              <svg height="16px" width="16px">
-                <use xlink:href="#chooseIcon1" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
+              <svg height="14px" width="14px">
+                <use :xlink:href="'#icon'+category.id" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
               </svg>
             </div>
-            <div class="select-name">默认分类</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="企业">
-            <div class="prefix-span">
-              <svg height="16px" width="16px">
-                <use xlink:href="#chooseIcon2" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
-              </svg>
-            </div>
-            <div class="select-name">企业</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="个人">
-            <div class="prefix-span">
-              <svg height="16px" width="16px">
-                <use xlink:href="#chooseIcon3" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
-              </svg>
-            </div>
-            <div class="select-name">个人</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="法人">
-            <div class="prefix-span">
-              <svg height="16px" width="16px">
-                <use xlink:href="#chooseIcon3" fill="#e2e2e2" stroke="#e2e2e2" class="use-style"></use>
-              </svg>
-            </div>
-            <div class="select-name">法人</div>
-            <span class="select-number">个</span>
+            <div class="select-name">{{ category.name }}</div>
+            <span class="select-number">{{ category.number }}个</span>
           </el-checkbox>
         </el-checkbox-group>
       </div>
@@ -47,33 +20,12 @@
       <div class="select-title">颜色</div>
       <div class="select-body">
         <el-checkbox-group v-model="newCheckedTag">
-          <el-checkbox label="待检查">
+          <el-checkbox v-for="(tag,index) in tagList" :label="tag.name" :key="index">
             <div class="prefix-span">
-              <span class="color-block"></span>
+              <span class="color-block" :style="{ backgroundColor:tag.color }"></span>
             </div>
-            <div class="select-name">待检查</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="不合格">
-            <div class="prefix-span">
-              <span class="color-block"></span>
-            </div>
-            <div class="select-name">不合格</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="合格">
-            <div class="prefix-span">
-              <span class="color-block"></span>
-            </div>
-            <div class="select-name">合格</div>
-            <span class="select-number">个</span>
-          </el-checkbox>
-          <el-checkbox label="待核查">
-            <div class="prefix-span">
-              <span class="color-block"></span>
-            </div>
-            <div class="select-name">待核查</div>
-            <span class="select-number">个</span>
+            <div class="select-name">{{ tag.name }}</div>
+            <span class="select-number">{{ tag.number }}个</span>
           </el-checkbox>
         </el-checkbox-group>
       </div>
@@ -93,6 +45,18 @@ export default {
       newCheckedTag: [],
       checkedCategories: [],
       checkedTag: [],
+      categoryList: [
+        {id:1,name: '全部', number: 2,categoryId:1},
+        {id:2,name: '企业', number: 1,categoryId:2},
+        {id:3,name: '个人', number: 1,tagId:2,categoryId:3},
+        {id:4,name: '法人', number: 0,tagId:3,categoryId:4}
+      ],
+      tagList: [
+        {id:1,name: '等待检查', color: '#a0a0a0', number: 2,defaultColor: true},
+        {id:2,name: '不合格', color: '#f52b1f', number: 5,defaultColor: false},
+        {id:3,name: '合格', color: '#73b724', number: 1,defaultColor: false},
+        {id:4,name: '待整改', color: '#feb902', number: 0,defaultColor: false}
+      ]
 
     };
   },
