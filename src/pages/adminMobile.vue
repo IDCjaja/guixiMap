@@ -368,8 +368,9 @@ export default {
             }
           })
         })
-        self.currentMarker = this.markerClusterList[0];
-        self.messageFooterShow = true
+        console.log(this.markerClusterList)
+        this.currentMarker = this.markerClusterList[0];
+        this.messageFooterShow = true
       })
     },
     filterOpen() {

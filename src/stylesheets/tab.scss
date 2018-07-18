@@ -2,11 +2,9 @@
   width: 380px;
   &.el-tabs--left.el-tabs--card {
     .el-tabs__header.is-left {
-      max-height: 300px;
       position: absolute;
       overflow-y: auto;
       overflow-x: hidden;
-      border-right: 1px solid #e4e7ed;
       border-bottom: none;
       .el-tabs__nav {
         border-top-color: transparent;
@@ -15,6 +13,7 @@
           text-align: left;
           padding: 0 10px;
           overflow: hidden;
+          border-right-color: #fff;
           white-space: nowrap;
           text-overflow: ellipsis;
           &.is-active {
@@ -26,10 +25,16 @@
           }
         } 
       }
+      .el-tabs__nav-wrap.is-scrollable {
+        height: 90%;
+      }
     }
   }
   .el-tabs__content {
     padding: 0;
     margin-left: 141px;
+    .window-edit {
+      border-left: 1px solid #e4e7ed;
+    }
   }
 }

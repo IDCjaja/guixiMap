@@ -4,7 +4,7 @@
       v-for="(item,index) in markerClusterList"
       :key="index"
       @click="toInformation(item.id)">
-      <span>{{item.title}}</span>
+      <span>{{item.name}}</span>
       <i class="el-icon-arrow-right"></i>
     </li>
   </ul>
