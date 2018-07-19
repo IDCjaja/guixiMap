@@ -9,7 +9,7 @@
         <label class="radio-button" v-for="existedCategory in existedCategories" :key="existedCategory.id">
           <input type="radio"
             class="radio-button_orig-readio"
-            v-model="currentMarkerCategoryId"
+            v-model="selectedCategoryId"
             :value="existedCategory.id"
             :name="'category_select_edit'+radioName"
             @click="changeCategory(existedCategory.iconId)">
@@ -155,6 +155,10 @@ export default {
         })
       })
     },
+    setNewCategoryId(id){
+      this.currentMarkerCategoryId = id;
+      this.selectedCategoryId = this.currentMarkerCategoryId
+    },
     changeCategory(id) {
       this.markerList.forEach(marker => {
         if(marker.id == this.currentMarkerId){
@@ -162,8 +166,8 @@ export default {
         }
       })
       // 提交选择的category的id，更改marker的category
-      this.currentMarkerCategoryId = id;
-      this.$emit('toggleInitMap')// 触发父组件方法
+      // this.currentMarkerCategoryId = id;
+      this.$emit('toggleCategoryInitMap',id)// 触发父组件方法
     }
   }
 }

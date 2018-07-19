@@ -14,7 +14,7 @@
     <div class="filter-list-wrapper">
       <ul>
         <li
-          v-for="item in existedCategories"
+          v-for="item in categorySelectList"
           :key="item.id">
           <span class="filter-category-icon">
             <svg height="16px" width="16px"><use :xlink:href="'#icon'+item.iconId" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
@@ -40,9 +40,13 @@ export default {
   },
   methods: {
     categorySelect() {
-      console.log(this.category[0])
-      this.existedCategories.forEach(item => {
-        this.category
+      this.categorySelectList = [];
+      this.category.map(item => {
+        this.existedCategories.forEach(category => {
+          if(category.name == item){
+            this.categorySelectList.push(category)
+          }
+        });
       });
     }
   }

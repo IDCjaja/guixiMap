@@ -2,7 +2,7 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">颜色</span>
-      <el-select v-model="tag" multiple placeholder="请选择">
+      <el-select v-model="tag" multiple placeholder="请选择" @change="tagSelect">
         <el-option
           v-for="(item,index) in existedTag"
           :key="index"
@@ -14,7 +14,7 @@
     <div class="filter-list-wrapper">
       <ul>
         <li
-          v-for="item in existedTag"
+          v-for="item in tagSelectList"
           :key="item.value">
           <span class="filter-color-block" :style="{backgroundColor: item.color}"></span>
           <span class="filter-tag-title">
@@ -32,12 +32,24 @@
 export default {
   data() {
     return {
-      tag:''
+      tag:'',
+      tagSelectList: []
     }
   },
   props: {
-    tags:Array,
     existedTag: Array
+  },
+  methods: {
+    tagSelect() {
+      this.tagSelectList = [];
+      this.tag.map(item => {
+        this.existedTag.forEach(tag => {
+          if(tag.name == item){
+            this.tagSelectList.push(tag)
+          }
+        });
+      });
+    }
   }
 }
 </script>

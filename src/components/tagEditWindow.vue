@@ -13,7 +13,7 @@
               <input type="radio" class="radio-button_orig-readio"
                 :value="tag.id"
                 v-on:click="changeTag(tag.id)"
-                v-model="currentMarkerTagId"
+                v-model="selectTagId"
                 :name="'tag_select'+radioName" />
               <span class="color-bar-item radio-button_inner" :class="{active:toggleShow[index]}" :style="{ backgroundColor: tag.color }">{{tag.name}}<i class="el-icon-check"></i></span>
             </label>
@@ -65,6 +65,7 @@ export default {
       tagRepeatTip: false,
       tagChoosedId: Number,
       editTagId: Number,
+      selectTagId: Number,
       colorValue: [],
       newTagName: '',
       flag: 'add'
@@ -198,17 +199,21 @@ export default {
         })
       })
     },
+    setNewTagId(id){
+      this.currentMarkerTagId = id
+      console.log(this.currentMarkerTagId)
+      this.selectTagId = this.currentMarkerTagId
+      console.log(this.selectTagId)
+    },
     changeTag(id) {
       // 提交选择的tag的id，更改marker的tag
-      console.log(id,this.currentMarkerId)
       this.markerList.forEach(marker => {
         if(marker.id == this.currentMarkerId){
           marker.tagId = id
-          console.log(marker)
         }
       })
-      this.currentMarkerTagId = id;
-      this.$emit('toggleInitMap')// 触发父组件方法
+      // this.currentMarkerTagId = id;
+      this.$emit('toggleTagInitMap',id)// 触发父组件方法
     },
     colorRepeatConfirm(id) {
       this.chooseTags.forEach( tag => {

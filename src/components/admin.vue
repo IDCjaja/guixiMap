@@ -18,14 +18,16 @@
         :offset=[0,-15]>
         <div v-if="!markerClustererShow" class="window-edit info">
           <tag-edit-window
-            @toggleInitMap="initMap"
+            @toggleTagInitMap="initTagMap($event)"
+            ref="tagWindow"
             :existed-tag="existedTag"
             :choose-tags="chooseTags"
             :marker-list="markerList"
             :current-marker-id="currentMarkerId"
             :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
           <category-edit-window
-            @toggleInitMap="initMap"
+            @toggleCategoryInitMap="initCategoryMap($event)"
+            ref="categoryWindow"
             :existed-categories="existedCategories"
             :choose-categories="chooseCategories"
             :marker-list="markerList"
@@ -52,7 +54,8 @@
             {{item.name}}</span>
             <div class="window-edit info">
               <tag-edit-window
-                @toggleInitMap="initMap"
+                @toggleTagInitMap="initTagMap($event)"
+                ref="tagWindowTab"
                 :existed-tag="existedTag"
                 :choose-tags="chooseTags"
                 :radioName="item.id"
@@ -60,7 +63,8 @@
                 :current-marker-id="currentMarkerId"
                 :current-marker-tag-id="currentMarkerTagId"></tag-edit-window>
               <category-edit-window
-                @toggleInitMap="initMap"
+                @toggleCategoryInitMap="initCategoryMap($event)"
+                ref="categoryWindowTab"
                 :existed-categories="existedCategories"
                 :choose-categories="chooseCategories"
                 :radioName="item.id"
@@ -325,6 +329,8 @@ export default {
           self.$nextTick(() => {
             self.window.visible = true;
           });
+          self.$refs.tagWindow.setNewTagId(item.tagId);
+          self.$refs.categoryWindow.setNewCategoryId(item.categoryId);
         });
         marker.on('mouseover', function() {
           this.setAnimation("AMAP_ANIMATION_DROP")
@@ -418,9 +424,17 @@ export default {
       this.currentMarkerId = this.markerClusterList[tab.index].id;
       this.currentMarkerTagId = this.markerClusterList[tab.index].tagId
       this.currentMarkerCategoryId = this.markerClusterList[tab.index].categoryId;
-      this.currentMarkerName = this.markerClusterList[tab.index].name
+      this.currentMarkerName = this.markerClusterList[tab.index].name;
+      this.$refs.tagWindowTab[tab.index].setNewTagId(this.markerClusterList[tab.index].tagId);
+      this.$refs.categoryWindowTab[tab.index].setNewCategoryId(this.markerClusterList[tab.index].categoryId);
     },
-    initMap() {
+    initTagMap(id) {
+      this.currentMarkerTagId = id;
+      //重新请求marker数据，渲染地图
+      this.creatMap()
+    },
+    initTagMap(id) {
+      this.currentMarkerCategoryId = id;
       //重新请求marker数据，渲染地图
       this.creatMap()
     }
