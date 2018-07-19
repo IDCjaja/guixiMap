@@ -201,9 +201,7 @@ export default {
     },
     setNewTagId(id){
       this.currentMarkerTagId = id
-      console.log(this.currentMarkerTagId)
       this.selectTagId = this.currentMarkerTagId
-      console.log(this.selectTagId)
     },
     changeTag(id) {
       // 提交选择的tag的id，更改marker的tag
