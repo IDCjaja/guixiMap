@@ -308,7 +308,8 @@ export default {
           zIndex: item.zIndex,
           riseOnHover: true,
           content:'<div>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use><span class="marker-title">'+item.name.substr(0,1)+'</span></svg>'+
+                    '<span class="marker-title">'+item.name.substr(0,1)+'</span>'+
+                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
                   '</div>'
         })
         var self = this;
@@ -332,12 +333,6 @@ export default {
           self.$refs.tagWindow.setNewTagId(item.tagId);
           self.$refs.categoryWindow.setNewCategoryId(item.categoryId);
         });
-        marker.on('mouseover', function() {
-          this.setAnimation("AMAP_ANIMATION_DROP")
-        })
-        marker.on('mouseout', function() {
-          this.setAnimation("AMAP_ANIMATION_NONE")
-        })
         markers.push(marker);
       })
       cluster.addMarkers(markers)

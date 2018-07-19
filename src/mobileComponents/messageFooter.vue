@@ -5,8 +5,8 @@
       <div class="address">{{ currentMarker.address }}</div>
     </div>
     <div class="message-more">
-      <span class="el-icon-arrow-right" @click="tellMessageFooter"></span>
       <a v-if="markerClustererShow" @click="clustererOpen">更多</a>
+      <span class="el-icon-arrow-right" @click="tellMessageFooter"></span>
     </div>
   </div>
 </template>

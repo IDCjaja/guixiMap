@@ -40,7 +40,8 @@
     </message-footer>
     <marker-cluster-list
       v-if="clustererOpenShow"
-      :marker-cluster-list="markerClusterList"></marker-cluster-list>
+      :marker-cluster-list="markerClusterList"
+      v-on:get-from-markerlist="closeMarkerList"></marker-cluster-list>
   </div>
 </template>
 
@@ -368,7 +369,6 @@ export default {
             }
           })
         })
-        console.log(this.markerClusterList)
         this.currentMarker = this.markerClusterList[0];
         this.messageFooterShow = true
       })
@@ -392,6 +392,9 @@ export default {
     },
     clustererOpen() {
       this.clustererOpenShow = true;
+    },
+    closeMarkerList() {
+      this.clustererOpenShow = false;
     }
   }
 }

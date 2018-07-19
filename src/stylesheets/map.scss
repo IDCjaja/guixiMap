@@ -16,6 +16,13 @@ $orange-color: #f07235;
   height: 100%;
   overflow: hidden;
 }
+.amap-marker:hover {
+  .amap-marker-content {
+    svg {
+      transform: scale(1.3);
+    }
+  }
+}
 .el-input {
   .el-input__inner {
     &:focus {
@@ -59,13 +66,10 @@ $orange-color: #f07235;
   border-radius: 4px;
 }
 .marker-title {
-  background: #fff;
-  padding: 4px 12px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  color: $orange-color;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  position: absolute;
+  left: 9px;
+  top: 2px;
+  font-size: 12px;
 }
 .search-wrapper {
   position: absolute;

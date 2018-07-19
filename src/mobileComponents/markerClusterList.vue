@@ -1,10 +1,16 @@
 <template>
   <ul class="marker-list">
+    <li class="list-title">
+      <span>详细信息</span>
+      <a @click="closeMarkerList">返回</a>
+    </li>
     <li class="item"
       v-for="(item,index) in markerClusterList"
       :key="index"
       @click="toInformation(item.id)">
-      <span>{{item.name}}</span>
+      <span>{{ item.name }}
+        <small>{{ item.address }}</small>
+      </span>
       <i class="el-icon-arrow-right"></i>
     </li>
   </ul>
@@ -31,6 +37,9 @@ export default {
         }
       })
     },
+    closeMarkerList() {
+      this.$emit('get-from-markerlist')
+    }
   }
 }
 </script>

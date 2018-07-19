@@ -61,7 +61,7 @@ $color-orange: #f07235;
     width: 41px;
     height: 41px;
     position: absolute;
-    bottom: 81px;
+    bottom: 102px;
     right: 20px;
     transition: all .5s;
     &.filterCollapse {
@@ -181,7 +181,7 @@ $color-orange: #f07235;
   }
   .message-footer {
     width: 96%;
-    padding: 5px 0;
+    padding: 12px 0;
     margin: 0 2%;
     position: absolute;
     bottom: 8px;
@@ -208,7 +208,8 @@ $color-orange: #f07235;
       }
     }
     .message-more {
-      width: 40px;
+      display: flex;
+      padding-right: 15px;
       span {
         font-size: 16px;
         font-weight: bold;
@@ -216,7 +217,8 @@ $color-orange: #f07235;
       a {
         display: block;
         font-size: 12px;
-        color: #08519e;
+        color: $color-orange;
+        padding-right: 12px;
         cursor: pointer;
       }
     }
@@ -231,9 +233,19 @@ $color-orange: #f07235;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,.3);
+    .list-title {
+      height: 44px;
+      font-size: 16px;
+      color: #222;
+      a {
+        padding-right: 15px;
+        font-size: 14px;
+        color: #acacac;
+      }
+    }
     li {
-      line-height: 48px;
-      border-bottom: 1px solid #e2e2e2;
+      height: 70px;
+      border-bottom: 1px solid #e7e7e9;
       @include flex-center;
       &:last-child {
         border-bottom-color: transparent;
@@ -243,7 +255,15 @@ $color-orange: #f07235;
       text-align: left;
       padding: 0 15px;
       flex: auto;
+      @include text-overflow-show;
+      small {
+        display: block;
+        margin-top: 10px;
+        @include text-overflow-show;
+      }
     }
-    i.el-icon-arrow-right {}
+    i.el-icon-arrow-right {
+      padding-right: 15px;
+    }
   }
 }
