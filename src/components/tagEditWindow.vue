@@ -159,7 +159,7 @@ export default {
         this.addColor = false;
         this.tagRepeatTip = false;
         this.tagChoosedId = -1;
-        //this.$emit('toggleInitMap');
+        this.$emit('toggleTagInitMap');
         this.existedTag.forEach(item => {
           this.colorValue.push(item.color)
         })
@@ -200,7 +200,6 @@ export default {
       })
     },
     setNewTagId(id){
-      this.currentMarkerTagId = id
       this.selectTagId = this.currentMarkerTagId
     },
     changeTag(id) {
@@ -210,7 +209,6 @@ export default {
           marker.tagId = id
         }
       })
-      // this.currentMarkerTagId = id;
       this.$emit('toggleTagInitMap',id)// 触发父组件方法
     },
     colorRepeatConfirm(id) {

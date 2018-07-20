@@ -300,18 +300,32 @@ export default {
             return tag;
           }
         })
-        var marker = new AMap.Marker({
-          extData: item.id,
-          map: mapObj,
-          position: [item.longitude, item.latitude],
-          offset:  new AMap.Pixel(-10,-24),
-          zIndex: item.zIndex,
-          riseOnHover: true,
-          content:'<div>'+
-                    '<span class="marker-title">'+item.name.substr(0,1)+'</span>'+
-                    '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
-                  '</div>'
-        })
+        if(category.id == 1){
+          var marker = new AMap.Marker({
+            extData: item.id,
+            map: mapObj,
+            position: [item.longitude, item.latitude],
+            offset:  new AMap.Pixel(-10,-24),
+            zIndex: item.zIndex,
+            riseOnHover: true,
+            content:'<div>'+
+                      '<span class="marker-title">'+category.name.substr(0,1)+'</span>'+
+                      '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                    '</div>'
+          })
+        } else {
+          var marker = new AMap.Marker({
+            extData: item.id,
+            map: mapObj,
+            position: [item.longitude, item.latitude],
+            offset:  new AMap.Pixel(-10,-24),
+            zIndex: item.zIndex,
+            riseOnHover: true,
+            content:'<div>'+
+                      '<svg height="30px" width="30px"><use xlink:href="#chooseIcon'+category.id+'" fill="'+tag.color+'" stroke="'+tag.color+'" class="use-style"></use></svg>'+
+                    '</div>'
+          })
+        }
         var self = this;
         marker.on('click', function() {
           self.activeName = "0";
@@ -329,9 +343,9 @@ export default {
           })
           self.$nextTick(() => {
             self.window.visible = true;
+            self.$refs.tagWindow.setNewTagId(item.tagId);
+            self.$refs.categoryWindow.setNewCategoryId(item.categoryId);
           });
-          self.$refs.tagWindow.setNewTagId(item.tagId);
-          self.$refs.categoryWindow.setNewCategoryId(item.categoryId);
         });
         markers.push(marker);
       })
@@ -360,6 +374,8 @@ export default {
         this.currentMarkerName = this.markerClusterList[0].name
         this.$nextTick(() => {
           this.window.visible = true;
+          this.$refs.tagWindowTab[0].setNewTagId(this.markerClusterList[0].id);
+          this.$refs.categoryWindowTab[0].setNewCategoryId(this.markerClusterList[0].categoryId);
         });
       })
     },
@@ -428,7 +444,7 @@ export default {
       //重新请求marker数据，渲染地图
       this.creatMap()
     },
-    initTagMap(id) {
+    initCategoryMap(id) {
       this.currentMarkerCategoryId = id;
       //重新请求marker数据，渲染地图
       this.creatMap()
