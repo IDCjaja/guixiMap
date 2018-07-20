@@ -86,9 +86,11 @@ export default {
       this.categoryChoosedId = id
     },
     addCategoryOpen() {
-      this.newTagName = '';
-      this.flag = 'add';
+      this.newCategoryName = '';
       this.editCategoryShow = true
+      this.categoryChoosedId = -1;
+      this.strokeSvgShow = [true,true,true,true,true,true];
+      this.flag = 'add';
     },
     chooseCategory(id,index) {
       this.categoryChoosedId = id;
@@ -132,7 +134,6 @@ export default {
     },
     editCategoryHidden() {
       this.newCategoryName = '';
-      this.categoryChoosedId = -1;
       this.editCategoryShow = false
     },
     categoryMessageBoxOpen(id) {

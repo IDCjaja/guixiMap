@@ -343,8 +343,8 @@ export default {
           })
           self.$nextTick(() => {
             self.window.visible = true;
-            self.$refs.tagWindow.setNewTagId(item.tagId);
-            self.$refs.categoryWindow.setNewCategoryId(item.categoryId);
+            self.$refs.tagWindow.setNewTagId();
+            self.$refs.categoryWindow.setNewCategoryId();
           });
         });
         markers.push(marker);
@@ -367,6 +367,7 @@ export default {
             }
           })
         })
+        console.log(this.markerClusterList)
         this.markerClustererShow = true;
         this.currentMarkerId = this.markerClusterList[0].id;
         this.currentMarkerTagId = this.markerClusterList[0].tagId
@@ -374,8 +375,8 @@ export default {
         this.currentMarkerName = this.markerClusterList[0].name
         this.$nextTick(() => {
           this.window.visible = true;
-          this.$refs.tagWindowTab[0].setNewTagId(this.markerClusterList[0].id);
-          this.$refs.categoryWindowTab[0].setNewCategoryId(this.markerClusterList[0].categoryId);
+          this.$refs.tagWindowTab[0].setNewTagId();
+          this.$refs.categoryWindowTab[0].setNewCategoryId();
         });
       })
     },
@@ -436,11 +437,22 @@ export default {
       this.currentMarkerTagId = this.markerClusterList[tab.index].tagId
       this.currentMarkerCategoryId = this.markerClusterList[tab.index].categoryId;
       this.currentMarkerName = this.markerClusterList[tab.index].name;
-      this.$refs.tagWindowTab[tab.index].setNewTagId(this.markerClusterList[tab.index].tagId);
-      this.$refs.categoryWindowTab[tab.index].setNewCategoryId(this.markerClusterList[tab.index].categoryId);
+      this.$refs.tagWindowTab[tab.index].setNewTagId();
+      this.$refs.categoryWindowTab[tab.index].setNewCategoryId();
     },
     initTagMap(id) {
       this.currentMarkerTagId = id;
+      this.markerClusterList.forEach(item => {
+        this.existedTag.forEach(tag => {
+          if(item.tagId == tag.id){
+            item.color = tag.color
+          }
+        })
+      })
+      var self = this
+      this.$nextTick(() => {
+        self.creatMap()
+      })
       //重新请求marker数据，渲染地图
       this.creatMap()
     },
