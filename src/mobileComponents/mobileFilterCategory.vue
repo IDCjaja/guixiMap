@@ -26,33 +26,35 @@ export default {
   data() {
     return {
       category: '',
-      selectCategoryListArr: Array,
-      selectTagListArr: Array,
-      selectCategoryList: ''
+      // selectCategoryListArr: Array,
+      // selectTagListArr: Array,
+      // selectCategoryList: ''
     }
   },
   props: {
     categoryList: Array,
+    selectCategoryList: String
   },
   mounted() {
-    if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
-      this.$router.currentRoute.params.checkedCategories = [];
-      this.$router.currentRoute.params.checkedTag = []
-    }else {
-      this.selectCategoryList = this.$router.currentRoute.params.checkedCategories.join(',');
-    }
-    this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
-    this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
+    // if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
+    //   this.$router.currentRoute.params.checkedCategories = [];
+    //   this.$router.currentRoute.params.checkedTag = []
+    // }else {
+    //   this.selectCategoryList = this.$router.currentRoute.params.checkedCategories.join(',');
+    // }
+    // this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
+    // this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },
   methods: {
     toSelect() {
-      this.$router.push({
-        name: 'select',
-        params: {
-          checkedCategories: this.selectCategoryListArr,
-          checkedTag:this.selectTagListArr
-        }
-      })
+      this.$emit("listen-select")
+      // this.$router.push({
+      //   name: 'select',
+      //   params: {
+      //     checkedCategories: this.selectCategoryListArr,
+      //     checkedTag:this.selectTagListArr
+      //   }
+      // })
     }
   }
 }

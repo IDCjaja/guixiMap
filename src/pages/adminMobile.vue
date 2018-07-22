@@ -23,8 +23,8 @@
         <img src="http://p1ctmsz1g.bkt.clouddn.com/mobileFilter.jpg" />
       </div>
       <div class="mobile-filter-detail" :class="{display: filterCollapse, hidden: !filterCollapse}">
-        <mobile-filter-category :category-list="categoryList"></mobile-filter-category>
-        <mobile-filter-tag :tag-list="tagList" :select-tag-list="selectTagList"></mobile-filter-tag>
+        <mobile-filter-category :category-list="categoryList" :select-category-list="selectCategoryList" v-on:listen-select="toSelect"></mobile-filter-category>
+        <mobile-filter-tag :tag-list="tagList" :select-tag-list="selectTagList" v-on:listen-select="toSelect"></mobile-filter-tag>
         <div class="mobile-footer">
           <span>共计8个</span>
         </div>
@@ -42,6 +42,7 @@
       :marker-cluster-list="markerClusterList"
       v-on:get-from-markerlist="closeMarkerList"></marker-cluster-list>
       <search v-if="searchShow" v-on:listen-search="searchClose"></search>
+      <mobileSelect v-if="selectShow" v-on:listen-select-close="selectClose"></mobileSelect>
   </div>
 </template>
 
@@ -53,6 +54,7 @@ import mobileFilterTag from '../mobileComponents/mobileFilterTag'
 import messageFooter from '../mobileComponents/messageFooter'
 import markerClusterList from '../mobileComponents/markerClusterList'
 import search from '../mobileComponents/search'
+import mobileSelect from '../mobileComponents/select'
 
 let amapManager = new AMapManager();
 
@@ -63,6 +65,7 @@ export default {
     mobileFilterTag,
     messageFooter,
     markerClusterList,
+    mobileSelect,
     search
   },
   data() {
@@ -77,6 +80,7 @@ export default {
       markerClustererShow: false,
       clustererOpenShow: false,
       searchShow: false,
+      selectShow: false,
       selectCategoryList: '',
       selectTagList: '',
       currentMarker: [],
@@ -387,8 +391,19 @@ export default {
       this.searchShow = true
     },
     searchClose() {
-      console.log("!")
       this.searchShow = false
+    },
+    toSelect() {
+      console.log("!")
+      this.selectShow = true
+    },
+    selectClose(value) {
+      console.log(value)
+      this.selectCategoryListArr = value[0];
+      this.selectTagListArr = value[1];
+      this.selectCategoryList = value[0].join(',');
+      this.selectTagList = value[1].join(',');
+      this.selectShow = false
     },
     toInformation() {
       this.$router.push({
