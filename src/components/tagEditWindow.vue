@@ -3,7 +3,7 @@
     <div v-if="!addColor">
       <div class="color-title">
         <span>颜色</span>
-        <i class="icon-circle-plus" v-on:click="addColorOpen()">+</i>
+        <i class="icon-circle-plus" v-on:click="addColorOpen">+</i>
       </div>
       <div class="color-list">
         <ul>
@@ -199,14 +199,14 @@ export default {
         })
       })
     },
-    setNewTagId(id){
+    setNewTagId(){
       this.selectTagId = this.currentMarkerTagId
     },
     changeTag(id) {
       // 提交选择的tag的id，更改marker的tag
       this.markerList.forEach(marker => {
         if(marker.id == this.currentMarkerId){
-          marker.tagId = id
+          marker.tagId = id;
         }
       })
       this.$emit('toggleTagInitMap',id)// 触发父组件方法

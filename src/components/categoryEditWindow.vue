@@ -45,6 +45,7 @@
               </svg>
             </label>
           </div>
+          <span v-if="categoryRepeatTip" class="tag-repeat-tip">该图标已存在，确定后会替换之前的图标</span>
         </div>
         <div class="submit-btn-group">
           <el-button v-on:click="editCategoryHidden">取消</el-button>
@@ -64,7 +65,8 @@ export default {
       newCategoryName: '',
       selectedCategoryId: Number,
       categoryChoosedId: Number,
-      editCategoryId: Number
+      editCategoryId: Number,
+      categoryRepeatTip: false
     }
   },
   props: {
@@ -93,6 +95,13 @@ export default {
       this.flag = 'add';
     },
     chooseCategory(id,index) {
+      this.existedCategories.forEach(category => {
+        if(category.iconId == id){
+          this.categoryRepeatTip = true
+        } else {
+          this.categoryRepeatTip = false
+        }
+      })
       this.categoryChoosedId = id;
       this.strokeSvgShow = [true,true,true,true,true,true];
       this.$set(this.strokeSvgShow, index, false)

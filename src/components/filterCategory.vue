@@ -2,7 +2,12 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">分类</span>
-      <el-select v-model="category" multiple placeholder="请选择" @change="categorySelect">
+      <el-select
+        v-model="category"
+        multiple
+        placeholder="请选择"
+        @change="categorySelect"
+        ref="filterCategory">
         <el-option
           v-for="(item,index) in existedCategories"
           :key="index"
@@ -48,6 +53,9 @@ export default {
           }
         });
       });
+    },
+    closeSelect(){
+      this.$refs.filterCategory.blur();
     }
   }
 }

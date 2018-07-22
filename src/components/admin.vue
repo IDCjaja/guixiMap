@@ -100,11 +100,11 @@
         <img src="http://p1ctmsz1g.bkt.clouddn.com/filter.jpg" class="filter-icon-info"/><span>筛选</span>
       </div>
       <div class="filter-content" :class="{display: filterShow, hidden: !filterShow}">
-        <filter-category :existedCategories="existedCategories"></filter-category>
-        <filter-tag :tags="tags" :existedTag="existedTag"></filter-tag>
+        <filter-category :existedCategories="existedCategories" ref="filterCategory"></filter-category>
+        <filter-tag :tags="tags" :existedTag="existedTag" ref="filterTag"></filter-tag>
         <div class="filter-footer">
           <span class="filter-footer-title">共计</span>
-          <span>个</span>
+          <span>12个</span>
         </div>
       </div>
     </div>
@@ -155,7 +155,9 @@ export default {
       events: {
         click() {
           self.filterShow = false;
-          self.searchDropdownShow =false
+          self.searchDropdownShow =false;
+          self.$refs.filterCategory.closeSelect();
+          self.$refs.filterTag.closeSelect();
         },
         complete() {
           self.creatMap();

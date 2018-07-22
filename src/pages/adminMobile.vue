@@ -11,7 +11,6 @@
       :events="events"
       class="map amap-demo"
       >
-      <!-- <el-amap-marker v-for="(marker, index) in markers" ref="marker" :key="marker.index" :position="marker.position" :events="marker.events" :visible="marker.visible" :content="marker.content" :vid="index"></el-amap-marker> -->
     </el-amap>
     <div class="mobile-search-content">
       <el-input class="mobile-search-input"
@@ -42,6 +41,7 @@
       v-if="clustererOpenShow"
       :marker-cluster-list="markerClusterList"
       v-on:get-from-markerlist="closeMarkerList"></marker-cluster-list>
+      <search v-if="searchShow" v-on:listen-search="searchClose"></search>
   </div>
 </template>
 
@@ -52,6 +52,7 @@ import mobileFilterCategory from '../mobileComponents/mobileFilterCategory'
 import mobileFilterTag from '../mobileComponents/mobileFilterTag'
 import messageFooter from '../mobileComponents/messageFooter'
 import markerClusterList from '../mobileComponents/markerClusterList'
+import search from '../mobileComponents/search'
 
 let amapManager = new AMapManager();
 
@@ -61,7 +62,8 @@ export default {
     mobileFilterCategory,
     mobileFilterTag,
     messageFooter,
-    markerClusterList
+    markerClusterList,
+    search
   },
   data() {
     let self = this;
@@ -74,6 +76,7 @@ export default {
       messageFooterShow: false,
       markerClustererShow: false,
       clustererOpenShow: false,
+      searchShow: false,
       selectCategoryList: '',
       selectTagList: '',
       currentMarker: [],
@@ -377,10 +380,15 @@ export default {
       this.filterCollapse = true;
     },
     toSearch() {
-      this.$router.push({
-        name: 'search',
-        path: '/mobile/search'
-      })
+      // this.$router.push({
+      //   name: 'search',
+      //   path: '/mobile/search'
+      // })
+      this.searchShow = true
+    },
+    searchClose() {
+      console.log("!")
+      this.searchShow = false
     },
     toInformation() {
       this.$router.push({

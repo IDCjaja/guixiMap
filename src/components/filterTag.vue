@@ -2,7 +2,12 @@
   <div class="filter-body">
     <div class="filter-select">
       <span class="filter-select-title">颜色</span>
-      <el-select v-model="tag" multiple placeholder="请选择" @change="tagSelect">
+      <el-select
+        v-model="tag"
+        multiple
+        placeholder="请选择"
+        @change="tagSelect"
+        ref="filterTag">
         <el-option
           v-for="(item,index) in existedTag"
           :key="index"
@@ -49,6 +54,9 @@ export default {
           }
         });
       });
+    },
+    closeSelect(){
+      this.$refs.filterTag.blur();
     }
   }
 }

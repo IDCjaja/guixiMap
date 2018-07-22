@@ -70,6 +70,7 @@ $color-orange: #f07235;
       box-shadow: 0 0 10px rgba(0,0,0,.3);
       overflow: auto;
       border-radius: 5px;
+      -webkit-overflow-scrolling: touch;
     }
     .filter-icon-collapse {
       width: 41px;
@@ -87,6 +88,7 @@ $color-orange: #f07235;
       }
     }
     .mobile-filter-detail {
+      width: 260px;
       background: #fff;
       padding-top: 15px;
       .filter-body {
