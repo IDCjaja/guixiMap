@@ -33,6 +33,7 @@ $color-orange: #f07235;
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   map {
     height: 100%;
   }
@@ -65,7 +66,7 @@ $color-orange: #f07235;
     right: 20px;
     transition: all .5s;
     &.filterCollapse {
-      width: 260px;
+      width: 200px;
       height: 60%;
       box-shadow: 0 0 10px rgba(0,0,0,.3);
       overflow: auto;
@@ -88,7 +89,7 @@ $color-orange: #f07235;
       }
     }
     .mobile-filter-detail {
-      width: 260px;
+      width: 200px;
       background: #fff;
       padding-top: 15px;
       .filter-body {
@@ -106,7 +107,7 @@ $color-orange: #f07235;
           }
           .el-input {
             margin-left: 10px;
-            width: 166px;
+            width: 106px;
             &.is-focus {
               border-color: $color-orange;
               input.el-input__inner {
@@ -118,7 +119,7 @@ $color-orange: #f07235;
             }
             .el-input__inner {
               color: $font-color-main;
-              padding: 0 10px;
+              padding: 0 20px 0 10px;
               @include text-overflow-show;
             }
           }
@@ -151,7 +152,7 @@ $color-orange: #f07235;
               border-radius: 50%;
             }
             .filter-tag-title {
-              width: 80px;
+              width: 60px;
               margin: 0 10px;
               display: inline-block;
               font-size: 12px;

@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     tellMessageFooter() {
-      this.$emit('get-from-message-footer')
+      this.$emit('get-from-message-footer',this.currentMarker.id)
     },
     clustererOpen() {
       this.$emit('listen-clusterer-open')

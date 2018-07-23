@@ -30,12 +30,7 @@ export default {
           currentMarker = marker
         }
       });
-      this.$router.push({
-        name: 'mobileInformation',
-        params: {
-          currentMarker: currentMarker
-        }
-      })
+      this.$emit('listen-marker-cluster',id)
     },
     closeMarkerList() {
       this.$emit('get-from-markerlist')

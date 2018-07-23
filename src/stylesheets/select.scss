@@ -27,7 +27,7 @@ $color-orange: #f07235;
           display: flex;
           margin-left: 0;
           align-items: center;
-          padding: 5px 15px 12px 15px;
+          padding: 8px 15px;
           line-height: 30px;
           .el-checkbox__input {
             &.is-checked .el-checkbox__inner {
@@ -75,7 +75,7 @@ $color-orange: #f07235;
     height: 60px;
     padding: 0 3%;
     background: #fff;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     line-height: 60px;
     .el-button {

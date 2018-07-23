@@ -40,9 +40,11 @@
     <marker-cluster-list
       v-if="clustererOpenShow"
       :marker-cluster-list="markerClusterList"
+      v-on:listen-marker-cluster="toInformation"
       v-on:get-from-markerlist="closeMarkerList"></marker-cluster-list>
       <search v-if="searchShow" v-on:listen-search="searchClose"></search>
-      <mobileSelect v-if="selectShow" v-on:listen-select-close="selectClose" ref="mobileSelect"></mobileSelect>
+      <mobile-select v-if="selectShow" v-on:listen-select-close="selectClose" ref="mobileSelect"></mobile-select>
+      <mobile-information v-if="informationShow" v-on:listen-information="informationClose"></mobile-information>
   </div>
 </template>
 
@@ -55,6 +57,7 @@ import messageFooter from '../mobileComponents/messageFooter'
 import markerClusterList from '../mobileComponents/markerClusterList'
 import search from '../mobileComponents/search'
 import mobileSelect from '../mobileComponents/select'
+import mobileInformation from '../mobileComponents/mobileInformation'
 
 let amapManager = new AMapManager();
 
@@ -66,7 +69,8 @@ export default {
     messageFooter,
     markerClusterList,
     mobileSelect,
-    search
+    search,
+    mobileInformation
   },
   data() {
     let self = this;
@@ -81,6 +85,7 @@ export default {
       clustererOpenShow: false,
       searchShow: false,
       selectShow: false,
+      informationShow: false,
       selectCategoryList: '',
       selectTagList: '',
       currentMarker: [],
@@ -294,26 +299,6 @@ export default {
       ]
     }
   },
-  mounted() {
-    if(!this.$router.currentRoute.params.currentMarker){
-      this.$router.currentRoute.params.currentMarker = []
-    } else {
-      this.currentMarker = this.$router.currentRoute.params.currentMarker
-    }
-    if(this.$router.currentRoute.params.filterCollapse == true){
-      this.filterCollapse = true
-    }
-    if(this.$router.currentRoute.params.messageFooterShow == true){
-      this.messageFooterShow = true
-    }
-    if(this.$router.currentRoute.params.centerLongitude && this.$router.currentRoute.params.centerLatitude){
-      this.center = [
-        this.$router.currentRoute.params.centerLongitude,
-        this.$router.currentRoute.params.centerLatitude
-      ]
-      this.zoom = 18
-    }
-  },
   methods: {
     setMapLimit(){
       let mapObj = amapManager._map;
@@ -405,13 +390,11 @@ export default {
       this.selectTagList = value[1].join(',');
       this.selectShow = false
     },
-    toInformation() {
-      this.$router.push({
-        name: 'mobileInformation',
-        params: {
-          currentMarker: this.currentMarker
-        }
-      })
+    toInformation(id) {
+      this.informationShow = true
+    },
+    informationClose() {
+      this.informationShow = false
     },
     clustererOpen() {
       this.clustererOpenShow = true;
