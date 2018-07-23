@@ -1,7 +1,7 @@
 <template>
   <div class="navbar">
     <div class="header">
-      <img class="logo" src="">
+      <img class="logo" src="http://p1ctmsz1g.bkt.clouddn.com/guixiLogo-white.jpg">
       <span class="header-title">数据可视化</span>
     </div>
     <div class="user-card">
