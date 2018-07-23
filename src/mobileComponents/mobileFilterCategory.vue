@@ -29,7 +29,6 @@ export default {
     }
   },
   props: {
-    //categoryList: Array,
     categorySelected: Array,
     selectCategoryList: String
   },

@@ -27,11 +27,9 @@ export default {
   data() {
     return {
       tag: '',
-      
     }
   },
   props: {
-    //tagList: Array,
     tagSelected: Array,
     selectTagList: String
   },

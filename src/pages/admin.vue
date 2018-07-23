@@ -114,13 +114,13 @@
 <script>
 import { AMapManager } from 'vue-amap'
 import Vue from 'vue'
-import headerNav from './headerNav'
-import searchDropdown from './searchDropdown'
-import filterCategory from './filterCategory'
-import filterTag from './filterTag'
-import tagEditWindow from './tagEditWindow'
-import categoryEditWindow from './categoryEditWindow'
-import information from './information'
+import headerNav from '../components/headerNav'
+import searchDropdown from '../components/searchDropdown'
+import filterCategory from '../components/filterCategory'
+import filterTag from '../components/filterTag'
+import tagEditWindow from '../components/tagEditWindow'
+import categoryEditWindow from '../components/categoryEditWindow'
+import information from '../components/information'
 
 let amapManager = new AMapManager();
 

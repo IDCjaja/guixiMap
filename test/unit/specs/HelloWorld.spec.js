@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import admin from '@/components/admin'
+import admin from '@/pages/admin'
 
 describe('admin.vue', () => {
   it('should render correct contents', () => {

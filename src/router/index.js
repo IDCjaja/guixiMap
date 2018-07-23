@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import admin from '@/components/admin'
+import admin from '@/pages/admin'
 import adminMobile from '@/pages/adminMobile'
 import select from '@/pages/select'
 import mobileInformation from '@/pages/mobileInformation'
