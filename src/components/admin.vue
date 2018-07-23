@@ -369,7 +369,6 @@ export default {
             }
           })
         })
-        console.log(this.markerClusterList)
         this.markerClustererShow = true;
         this.currentMarkerId = this.markerClusterList[0].id;
         this.currentMarkerTagId = this.markerClusterList[0].tagId

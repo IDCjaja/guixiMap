@@ -4,8 +4,8 @@
       <span class="back el-icon-arrow-left" @click="back"></span>
       <el-input
         clearable
-        @change="getResult"
-        :value="searchInputValue"
+        @input="getResult"
+        v-model="searchInputValue"
         placeholder="搜索"
         prefix-icon="el-icon-search">
       </el-input>
@@ -195,8 +195,6 @@ export default {
       ]
     }
   },
-  created() {
-  },
   methods: {
     changeCenter(id,longitude,latitude) {
       var currentMarker;
@@ -216,12 +214,21 @@ export default {
       })
     },
     back() {
-      // this.$router.go(-1)
       this.$emit('listen-search')
     },
-    getResult(event) {
-      this.searchInputValue = event;
-      if(event !== ""){
+    getResult() {
+      this.clearTimer();
+      if(this.searchInputValue !== ""){
+        this.timer = setTimeout(() => {
+          this.search();
+        },500)
+      } else {
+        this.btnShow = false
+        this.resultShow = false
+      }
+    },
+    search() {
+      if(this.searchInputValue !== ""){
         this.resultShow = true;
         this.btnShow = true
         if(this.searchResultList.length) {
@@ -229,24 +236,13 @@ export default {
         } else {
           this.searchResult = false
         }
-      } else {
-        this.btnShow = false
-        this.resultShow = false
       }
     },
-    keyCode() {
-      if(this.searchInputValue !== ""){
-        debugger
-        this.resultShow = true;
-        if(this.searchResultList.length) {
-          this.searchResult = true
-        } else {
-          this.searchResult = false
-        }
-      } else {
-        this.resultShow = false
+    clearTimer() {
+      if(this.timer){
+        clearTimeout(this.timer)
       }
-    },
+    }
   }
 }
 </script>

@@ -43,8 +43,7 @@ export default {
     return {
       newCheckedCategories: [],
       newCheckedTag: [],
-      checkedCategories: [],
-      checkedTag: [],
+      checkedValue: [],
       categoryList: [
         {id:1,name: '全部', number: 2,categoryId:1},
         {id:2,name: '企业', number: 1,categoryId:2},
@@ -61,39 +60,21 @@ export default {
     };
   },
   mounted() {
-    // if(this.$router.currentRoute.params.checkedCategories){
-    //   this.newCheckedCategories = this.$router.currentRoute.params.checkedCategories
-    //   this.checkedCategories = this.$router.currentRoute.params.checkedCategories
-    // }
-    // if(this.$router.currentRoute.params.checkedTag){
-    //   this.newCheckedTag = this.$router.currentRoute.params.checkedTag;
-    //   this.checkedTag = this.$router.currentRoute.params.checkedTag;
-    // }
+    
   },
   methods: {
     confirmSelect() {
       alert(this.newCheckedCategories,this.newCheckedTag);
       var selectValue = [this.newCheckedCategories,this.newCheckedTag]
       this.$emit("listen-select-close",selectValue)
-      // this.$router.push({
-      //   name: 'adminMobile',
-      //   params: {
-      //     checkedCategories: this.newCheckedCategories,
-      //     checkedTag:this.newCheckedTag,
-      //     filterCollapse: true
-      //   }
-      // })
     },
     cancelSelect() {
-      this.$emit("listen-select-close")
-      // this.$router.push({
-      //   name: 'adminMobile',
-      //   params: {
-      //     checkedCategories: this.checkedCategories,
-      //     checkedTag:this.checkedTag,
-      //     filterCollapse: true
-      //   }
-      // })
+      this.$emit("listen-select-close",this.checkedValue)
+    },
+    setNewSelect(value) {
+      this.checkedValue = [value[0],value[1]]
+      this.newCheckedCategories = value[0];
+      this.newCheckedTag = value[1]
     }
   }
 }

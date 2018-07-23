@@ -14,9 +14,9 @@
     </el-amap>
     <div class="mobile-search-content">
       <el-input class="mobile-search-input"
-      placeholder="搜索"
-      prefix-icon="el-icon-search"
-      @focus="toSearch"></el-input>
+        placeholder="搜索"
+        prefix-icon="el-icon-search"
+        @focus="toSearch"></el-input>
     </div>
     <div class="mobile-filter-content" :class="{filterCollapse: filterCollapse}">
       <div class="filter-icon-collapse" :class="{display: !filterCollapse, hidden: filterCollapse}" v-on:click="filterOpen">
@@ -42,7 +42,7 @@
       :marker-cluster-list="markerClusterList"
       v-on:get-from-markerlist="closeMarkerList"></marker-cluster-list>
       <search v-if="searchShow" v-on:listen-search="searchClose"></search>
-      <mobileSelect v-if="selectShow" v-on:listen-select-close="selectClose"></mobileSelect>
+      <mobileSelect v-if="selectShow" v-on:listen-select-close="selectClose" ref="mobileSelect"></mobileSelect>
   </div>
 </template>
 
@@ -85,6 +85,8 @@ export default {
       selectTagList: '',
       currentMarker: [],
       markerClusterList: [],
+      selectCategoryListArr: [],
+      selectTagListArr: [],
       events: {
         click() {
           self.filterCollapse = false
@@ -384,21 +386,19 @@ export default {
       this.filterCollapse = true;
     },
     toSearch() {
-      // this.$router.push({
-      //   name: 'search',
-      //   path: '/mobile/search'
-      // })
       this.searchShow = true
     },
     searchClose() {
       this.searchShow = false
     },
     toSelect() {
-      console.log("!")
-      this.selectShow = true
+      this.selectShow = true;
+      var newSelect = [this.selectCategoryListArr,this.selectTagListArr]
+      this.$nextTick(() => {
+        this.$refs.mobileSelect.setNewSelect(newSelect)
+      })
     },
     selectClose(value) {
-      console.log(value)
       this.selectCategoryListArr = value[0];
       this.selectTagListArr = value[1];
       this.selectCategoryList = value[0].join(',');
