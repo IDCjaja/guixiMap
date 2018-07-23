@@ -21,9 +21,11 @@ $color-orange: #f07235;
       line-height: 1;
     }
     .select-body {
+      width: 100%;
       padding: 10px 0;
       .el-checkbox-group {
         .el-checkbox {
+          width: 100%;
           display: flex;
           margin-left: 0;
           align-items: center;

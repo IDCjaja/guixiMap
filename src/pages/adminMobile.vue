@@ -23,8 +23,10 @@
         <img src="http://p1ctmsz1g.bkt.clouddn.com/mobileFilter.jpg" />
       </div>
       <div class="mobile-filter-detail" :class="{display: filterCollapse, hidden: !filterCollapse}">
-        <mobile-filter-category :category-list="categoryList" :select-category-list="selectCategoryList" v-on:listen-select="toSelect"></mobile-filter-category>
-        <mobile-filter-tag :tag-list="tagList" :select-tag-list="selectTagList" v-on:listen-select="toSelect"></mobile-filter-tag>
+        <div class="select-wrapper">
+          <mobile-filter-category :category-selected="categorySelected" :select-category-list="selectCategoryList" v-on:listen-select="toSelect"></mobile-filter-category>
+          <mobile-filter-tag :tag-selected="tagSelected" :select-tag-list="selectTagList" v-on:listen-select="toSelect"></mobile-filter-tag>
+        </div>
         <div class="mobile-footer">
           <span>共计8个</span>
         </div>
@@ -92,6 +94,8 @@ export default {
       markerClusterList: [],
       selectCategoryListArr: [],
       selectTagListArr: [],
+      categorySelected: [],
+      tagSelected: [],
       events: {
         click() {
           self.filterCollapse = false
@@ -388,6 +392,22 @@ export default {
       this.selectTagListArr = value[1];
       this.selectCategoryList = value[0].join(',');
       this.selectTagList = value[1].join(',');
+      this.categorySelected = [];
+      this.tagSelected = []
+      value[0].forEach(item => {
+        this.categoryList.forEach(category => {
+          if(category.name == item) {
+            this.categorySelected.push(category)
+          }
+        })
+      })
+      value[1].forEach(item => {
+        this.tagList.forEach(tag => {
+          if(tag.name == item) {
+            this.tagSelected.push(tag)
+          }
+        })
+      })
       this.selectShow = false
     },
     toInformation(id) {

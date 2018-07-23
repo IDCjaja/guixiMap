@@ -90,7 +90,7 @@
         @focus="searchFocus"
         @keyup.enter.native="keyCode"></el-input>
       <search-dropdown
-        :search-dropdown-show="searchDropdownShow" 
+        :search-dropdown-show="searchDropdownShow"
         :search-result="searchResult"
         :search-result-list="searchResultList"
         v-on:triggerSetCenter="setCenterLngLat"></search-dropdown>

@@ -7,7 +7,7 @@
     <div class="filter-list-wrapper">
       <ul>
         <li
-          v-for="item in categoryList"
+          v-for="item in categorySelected"
           :key="item.value">
           <span class="filter-category-icon">
             <svg height="16px" width="16px"><use :xlink:href="'#icon'+item.categoryId" fill="rgb(204, 204, 204)" stroke="rgb(204, 204, 204)" class="use-style"></use></svg>
@@ -26,35 +26,16 @@ export default {
   data() {
     return {
       category: '',
-      // selectCategoryListArr: Array,
-      // selectTagListArr: Array,
-      // selectCategoryList: ''
     }
   },
   props: {
-    categoryList: Array,
+    //categoryList: Array,
+    categorySelected: Array,
     selectCategoryList: String
-  },
-  mounted() {
-    // if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
-    //   this.$router.currentRoute.params.checkedCategories = [];
-    //   this.$router.currentRoute.params.checkedTag = []
-    // }else {
-    //   this.selectCategoryList = this.$router.currentRoute.params.checkedCategories.join(',');
-    // }
-    // this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
-    // this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },
   methods: {
     toSelect() {
       this.$emit("listen-select")
-      // this.$router.push({
-      //   name: 'select',
-      //   params: {
-      //     checkedCategories: this.selectCategoryListArr,
-      //     checkedTag:this.selectTagListArr
-      //   }
-      // })
     }
   }
 }

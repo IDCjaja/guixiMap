@@ -7,7 +7,7 @@
     <div class="filter-list-wrapper">
       <ul>
         <li
-          v-for="item in tagList"
+          v-for="item in tagSelected"
           :key="item.value">
           <span class="filter-color-block" :style="{backgroundColor: item.color}"></span>
           <span class="filter-tag-title">
@@ -31,29 +31,13 @@ export default {
     }
   },
   props: {
-    tagList: Array,
+    //tagList: Array,
+    tagSelected: Array,
     selectTagList: String
-  },
-  mounted() {
-    // if(!this.$router.currentRoute.params.checkedCategories || !this.$router.currentRoute.params.checkedTag){
-    //   this.$router.currentRoute.params.checkedCategories = [];
-    //   this.$router.currentRoute.params.checkedTag = []
-    // } else {
-    //   this.selectTagList = this.$router.currentRoute.params.checkedTag.join(',')
-    // }
-    // this.selectCategoryListArr = this.$router.currentRoute.params.checkedCategories;
-    // this.selectTagListArr = this.$router.currentRoute.params.checkedTag;
   },
   methods: {
     toSelect() {
       this.$emit("listen-select")
-      // this.$router.push({
-      //   name: 'select',
-      //   params: {
-      //     checkedCategories: this.selectCategoryListArr,
-      //     checkedTag:this.selectTagListArr
-      //   }
-      // })
     }
   }
 }
